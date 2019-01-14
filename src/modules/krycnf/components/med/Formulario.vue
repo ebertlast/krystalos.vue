@@ -34,7 +34,7 @@
       </v-flex>
       <v-flex xs3>
         <v-autocomplete
-          label="Especilidad Médica"
+          label="Especialidad Médica"
           :items="mes"
           v-model="model.IDEMEDICA"
           item-value="IDEMEDICA"

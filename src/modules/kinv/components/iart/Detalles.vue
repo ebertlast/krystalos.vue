@@ -1,7 +1,7 @@
 <template>
-    <v-container grid-list-md text-xs-center>
-      <v-layout row wrap>
-        <v-scroll-y-transition mode="out-in">
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-scroll-y-transition mode="out-in">
         <v-flex xs12 v-if="cargando">
           <v-progress-linear :indeterminate="true"></v-progress-linear>
         </v-flex>
@@ -609,67 +609,67 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["fila"],
-  data:()=>({
+  data: () => ({
     cargando: false,
     model: {
-		IDARTICULO: undefined,
-		IDCLASE: undefined,
-		IDSUBCLASE: undefined,
-		IDGRUPO: undefined,
-		DESCRIPCION: undefined,
-		IDPRINACTIVO: undefined,
-		IDFORFARM: undefined,
-		IDCONCENTRA: undefined,
-		IDUNIDAD: undefined,
-		PCOSTO: undefined,
-		EXISTOTAL: undefined,
-		STOCKMINIMO: undefined,
-		STOCKMAXIMO: undefined,
-		PUNTOREORDEN: undefined,
-		IDITAR: undefined,
-		ESTRANSFORMABLE: undefined,
-		ESTADO: undefined,
-		IDGENERICO: undefined,
-		CUENTA: undefined,
-		IDFABRICANTE: undefined,
-		ESACTIVO: undefined,
-		IDTIPOACTIVO: undefined,
-		IDALTERNA: undefined,
-		REGINVIMA: undefined,
-		ALTO_COSTO: undefined,
-		CONT_ESPECIAL: undefined,
-		ENTREGA_TURNO: undefined,
-		UTILIDAD: undefined,
-		DOSIFICADO: undefined,
-		NDOSIS: undefined,
-		CODCUM: undefined,
-		ESCALA_RIESGO: undefined,
-		IDSERVICIO: undefined,
-		PRINCIPAL: undefined,
-		CLASERIESGO: undefined,
-		TESTABILIDAD: undefined,
-		CLASE: undefined,
-		MLOTEO: undefined,
-		IDSERVICIOBASE: undefined,
-		CANTIDADBASE: undefined,
-		IDSERVICIOMEZCLA: undefined,
-		CANTIDADMEZCLA: undefined,
-		CODIBASE: undefined,
-		CENTRAL: undefined,
-		IDSERVICIOCOBRO: undefined,
-		CTV: undefined,
-		F_VIGENCIAINV: undefined,
-		REGULADO: undefined,
-		PRECOMERCIAL: undefined,
-		NOPOS: undefined,
-		CONTADOR: undefined,
-		GRUPO: undefined,
-		LABILIDAD: undefined,
-		INSTITUCIONAL: undefined,
-		HEMOCLASIFICACION: undefined,
-		JUSTIFICACION: undefined,
-		CODBARRA: undefined
-	}
+      IDARTICULO: undefined,
+      IDCLASE: undefined,
+      IDSUBCLASE: undefined,
+      IDGRUPO: undefined,
+      DESCRIPCION: undefined,
+      IDPRINACTIVO: undefined,
+      IDFORFARM: undefined,
+      IDCONCENTRA: undefined,
+      IDUNIDAD: undefined,
+      PCOSTO: undefined,
+      EXISTOTAL: undefined,
+      STOCKMINIMO: undefined,
+      STOCKMAXIMO: undefined,
+      PUNTOREORDEN: undefined,
+      IDITAR: undefined,
+      ESTRANSFORMABLE: undefined,
+      ESTADO: undefined,
+      IDGENERICO: undefined,
+      CUENTA: undefined,
+      IDFABRICANTE: undefined,
+      ESACTIVO: undefined,
+      IDTIPOACTIVO: undefined,
+      IDALTERNA: undefined,
+      REGINVIMA: undefined,
+      ALTO_COSTO: undefined,
+      CONT_ESPECIAL: undefined,
+      ENTREGA_TURNO: undefined,
+      UTILIDAD: undefined,
+      DOSIFICADO: undefined,
+      NDOSIS: undefined,
+      CODCUM: undefined,
+      ESCALA_RIESGO: undefined,
+      IDSERVICIO: undefined,
+      PRINCIPAL: undefined,
+      CLASERIESGO: undefined,
+      TESTABILIDAD: undefined,
+      CLASE: undefined,
+      MLOTEO: undefined,
+      IDSERVICIOBASE: undefined,
+      CANTIDADBASE: undefined,
+      IDSERVICIOMEZCLA: undefined,
+      CANTIDADMEZCLA: undefined,
+      CODIBASE: undefined,
+      CENTRAL: undefined,
+      IDSERVICIOCOBRO: undefined,
+      CTV: undefined,
+      F_VIGENCIAINV: undefined,
+      REGULADO: undefined,
+      PRECOMERCIAL: undefined,
+      NOPOS: undefined,
+      CONTADOR: undefined,
+      GRUPO: undefined,
+      LABILIDAD: undefined,
+      INSTITUCIONAL: undefined,
+      HEMOCLASIFICACION: undefined,
+      JUSTIFICACION: undefined,
+      CODBARRA: undefined
+    }
   }),
   mounted() {
     this.refrescarDatos();
@@ -677,7 +677,7 @@ export default {
   methods: {
     ...mapActions(["notificacion"]),
     refrescarDatos() {
-      if(!this.fila ||!this.fila.IDARTICULO ) return;
+      if (!this.fila || !this.fila.IDARTICULO) return;
       this.cargando = true;
       this.model = {};
       this.$http
@@ -697,7 +697,8 @@ export default {
     },
     eliminar() {
       return this.notificacion({
-        message: "No está permitido eliminar un registro de esta tabla, intente inactivarlo",
+        message:
+          "No está permitido eliminar un registro de esta tabla, intente inactivarlo",
         type: "error"
       });
     },
@@ -705,14 +706,14 @@ export default {
       this.$emit("cancelar");
     },
     editarFila() {
-      this.$emit("editar");
-    },
+      this.$emit("editar", this.model);
+    }
   },
   watch: {
     fila() {
       this.refrescarDatos();
     }
   }
-}
+};
 </script>
     

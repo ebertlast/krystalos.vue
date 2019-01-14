@@ -67,7 +67,8 @@
             <v-tab key="3">Modelo</v-tab>
             <v-tab key="4">JSON</v-tab>
             <v-tab key="5">Detalles</v-tab>
-            <v-tab key="6">Registros</v-tab>
+            <v-tab key="6">Formulario</v-tab>
+            <v-tab key="7">Registros</v-tab>
           </v-tabs>
 
           <!-- v-if="propiedades.length>0" -->
@@ -135,16 +136,25 @@
               <codemirror v-model="viewCode" :options="jsOption"></codemirror>
             </v-tab-item>
             <v-tab-item key="6">
+              <v-btn color="primary" @click="setClipboard('Formulario.vue')">Formulario.vue</v-btn>
+              <v-btn
+                color="success"
+                @click="setClipboard(formularioCode)"
+                v-if="propiedades.length>0"
+              >Copiar Código</v-btn>
+              <v-btn color="secondary" @click="setClipboard(formularioDeclare)">Declaración del Componente</v-btn>
+              <codemirror v-model="formularioCode" :options="jsOption"></codemirror>
+            </v-tab-item>
+            <v-tab-item key="7">
               <v-btn color="primary" @click="setClipboard('Registros.vue')">Registros.vue</v-btn>
               <v-btn
                 color="success"
-                @click="setClipboard(componentCode)"
+                @click="setClipboard(registrosCode)"
                 v-if="propiedades.length>0"
               >Copiar Código</v-btn>
-              <v-btn color="secondary" @click="setClipboard(browseDeclare)">Declaración del Componente</v-btn>
-              <codemirror v-model="componentCode" :options="jsOption"></codemirror>
+              <v-btn color="secondary" @click="setClipboard(registrosDeclare)">Declaración del Componente</v-btn>
+              <codemirror v-model="registrosCode" :options="jsOption"></codemirror>
             </v-tab-item>
-            
           </v-tabs-items>
         </v-flex>
       </v-layout>
@@ -240,7 +250,10 @@ export default {
     modelCode: "",
     routeCode: "",
     jsonCode: "",
-    componentCode: "",
+    registrosCode: "",
+    registrosDeclare: "",
+    formularioCode:"",
+    formularioDeclare: "",
     sqlName: "",
     basesDeDatos: [],
     basedatos: "",
@@ -260,7 +273,10 @@ export default {
       this.modelCode = this.modelCRUD;
       this.routeCode = this.routeCRUD;
       this.jsonCode = this.jsonCRUD;
-      this.componentCode = this.browseCode;
+      this.registrosCode = this.browseCode;
+      this.registrosDeclare = this.browseDeclare;
+      this.formularioCode = this.formCode;
+      this.formularioDeclare = this.formDeclare;
     },
     propiedades() {
       this.sqlName = this.nombreSQL;
@@ -268,7 +284,10 @@ export default {
       this.modelCode = this.modelCRUD;
       this.routeCode = this.routeCRUD;
       this.jsonCode = this.jsonCRUD;
-      this.componentCode = this.browseCode;
+      this.registrosCode = this.browseCode;
+      this.registrosDeclare = this.browseDeclare;
+      this.formularioCode = this.formCode;
+      this.formularioDeclare = this.formDeclare;
     },
 
     basedatos() {

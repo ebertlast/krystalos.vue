@@ -16,6 +16,24 @@ const ICLA = resolve => {
     "kinv"
   );
 };
+const ICLADetalles = resolve => {
+  require.ensure(
+    ["./icla/Detalles.vue"],
+    () => {
+      resolve(require("./icla/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const ICLAFormulario = resolve => {
+  require.ensure(
+    ["./icla/Formulario.vue"],
+    () => {
+      resolve(require("./icla/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
 const ICLAH = resolve => {
   require.ensure(
     ["./iclah/Registros.vue"],
@@ -89,5 +107,5 @@ const IARTDetalles = resolve => {
   );
 };
 export default {
-  Marco, ICLA, ICLAH, IGRU, IPAC, IFFA, IGEN, IART, IARTFormulario, IARTDetalles
+  Marco, ICLA, ICLADetalles, ICLAFormulario, ICLAH, IGRU, IPAC, IFFA, IGEN, IART, IARTFormulario, IARTDetalles
 };

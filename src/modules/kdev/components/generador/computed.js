@@ -350,11 +350,11 @@ export default {
   >
     <template slot="detalles">
       <v-scroll-y-transition mode="out-in">
-        <detalles @cancelar="cancelar" :fila="fila" v-if="!editar" @editar="editarFila" @seleccionar="seleccionar($event)"></detalles>
+        <detalles @cancelar="cancelar" :fila="fila" v-if="!editar" @editar="editarFila($event)" @seleccionar="seleccionar($event)"></detalles>
       </v-scroll-y-transition>
       <v-scroll-y-transition mode="out-in">
         <v-container grid-list-md text-xs-center v-if="editar">
-          <en-construccion @cancelar="editar=false"></en-construccion>
+          <formulario @cancelar="editar=false" @guardar="guardar($event)" :fila="model" ref="formulario_edicion"></formulario>
         </v-container>
       </v-scroll-y-transition>
     </template>
@@ -374,6 +374,7 @@ export default {
     js += `\n\n<script>
 import { default as global_components } from "../../../../common/components/";
 import { default as components } from "../";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
     cargando: false,
@@ -387,12 +388,14 @@ export default {
   components: {
     Tabla: global_components.DataTabla,
     EnConstruccion: global_components.EnConstruccion,
-    Detalles: components.${this.Tabla}Detalles
+    Detalles: components.${this.Tabla}Detalles,
+    Formulario: components.${this.Tabla}Formulario
   },
   mounted() {
     this.recargarFilas();
   },
   methods: {
+    ...mapActions(["notificacion"]),
     recargarFilas() {
       this.cargando_tabla = true;
       this.filas = [];
@@ -419,8 +422,67 @@ export default {
       this.$emit("model", this.model);
       this.$refs.tabla.cerrarDialog();
     },
-    editarFila() {
+    editarFila(_model) {
+      this.model = _model;
       this.editar = true;
+    },
+    guardar(_model) {
+      const json = "json=" + JSON.stringify({ model: _model });
+      this.cargando = true;
+      if (!this.editar) {
+        this.$http
+          .put(\`${this.tabla.toLowerCase()}\`, json)
+          .then(res => {
+            this.cargando = false;
+            if (res.success) {
+              this.recargarFilas();
+              this.notificacion({
+                message:
+                  "Registro Agregado a la Base de Datos Satisfactoriamente",
+                type: "success"
+              });
+              this.$refs.tabla.cerrarDialog();
+            } else {
+              this.notificacion({
+                message:
+                  "Problemas al Intentar Realizar el Registro en la Base de Datos",
+                type: "error"
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .then(() => {
+            this.cargando = false;
+          });
+      } else {
+        this.$http
+          .post(\`${this.tabla.toLowerCase()}\`, json)
+          .then(res => {
+            this.cargando = false;
+            if (res.success) {
+              this.recargarFilas();
+              this.notificacion({
+                message: "Registro Actualizado Satisfactoriamente",
+                type: "success"
+              });
+              this.editar = false;
+            } else {
+              this.notificacion({
+                message:
+                  "Problemas al Intentar Actualizar el Registro en la Base de Datos",
+                type: "error"
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .then(() => {
+            this.cargando = false;
+          });
+      }
     },
     cancelar() {
       this.$refs.tabla.cerrarDialog();
@@ -431,7 +493,7 @@ export default {
     return js;
   },
   browseDeclare() {
-    return `const ${this.Tabla} = resolve => {
+    return `const ${this.Tabla}Registros = resolve => {
   require.ensure(
     ["./${this.tabla.toLowerCase()}/Registros.vue"],
     () => {
@@ -561,7 +623,7 @@ export default {
       this.$emit("cancelar");
     },
     editarFila() {
-      this.$emit("editar");
+      this.$emit("editar", this.model);
     },
   },
   watch: {
@@ -575,11 +637,80 @@ export default {
     return js;
   },
   viewDeclare() {
-    return `const ${this.Tabla} = resolve => {
+    return `const ${this.Tabla}Detalles = resolve => {
   require.ensure(
     ["./${this.tabla.toLowerCase()}/Detalles.vue"],
     () => {
       resolve(require("./${this.tabla.toLowerCase()}/Detalles.vue"));
+    },
+    "__SUSTITUIR__"
+  );
+};`
+  },
+  formCode() {
+    
+    var fields = "";
+
+    var model = `model: {`;
+    if (this.propiedades.length > 0)
+      this.propiedades.forEach(propiedad => {
+        model += `\n\t\t\t${propiedad.COLUMNA}: undefined,`
+
+        fields +=`
+      <v-flex xs3>
+        <v-text-field
+          name="${propiedad.COLUMNA}"
+          label="${propiedad.COLUMNA}"
+          id="${propiedad.COLUMNA}"
+          ref="${propiedad.COLUMNA}"
+          v-model="model.${propiedad.COLUMNA}"
+        ></v-text-field>
+      </v-flex>
+      `
+      });
+    model = model.substr(0, model.length - 1)
+    model += "\n\t\t}";
+
+    var js = `<template>
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      ${fields}
+      <v-flex xs12>
+        <v-btn color="success" @click="guardar">Guardar</v-btn>
+        <v-btn @click="$emit('cancelar')">Cancelar</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+import { mapGetters, mapActions } from "vuex";
+export default {
+  props: ["fila"],
+  data: () => ({
+    ${model}
+  }),
+  mounted(){
+    if (this.fila) {
+      this.model = this.fila;
+    }
+  },
+  methods: {
+    guardar() {
+      this.$emit("guardar", this.model);
+    }
+  }
+}
+</script>
+    `
+    return js;
+  },
+  formDeclare() {
+    return `const ${this.Tabla}Formulario = resolve => {
+  require.ensure(
+    ["./${this.tabla.toLowerCase()}/Formulario.vue"],
+    () => {
+      resolve(require("./${this.tabla.toLowerCase()}/Formulario.vue"));
     },
     "__SUSTITUIR__"
   );
