@@ -37,8 +37,13 @@ modules.kasis.routes.forEach(route => {
 modules.klab.routes.forEach(route => {
   routes.push(route);
 });
+
 modules.kinv.routes.forEach(route => {
   routes.push(route);
 });
 
-// console.log(modules.kseg.routes);
+modules.kconta.routes.forEach(route => {
+  routes.push(route);
+});
+
+// console.log(modules.kconta.routes);

@@ -1,5 +1,6 @@
 import { default as components } from "./components";
 import { default as components_inv } from "../kinv/components";
+import { default as components_conta } from "../kconta/components";
 export const routes = [
   // { path: "/404", component: components.NotFound, name: "404" },
   {
@@ -17,6 +18,7 @@ export const routes = [
       { path: "igen", component: components_inv.IGEN, name: "igen" },
       { path: "iart", component: components_inv.IART, name: "iart" },
       { path: "aec", component: components.AECNavegar, name: "aec" },
+      { path: "hare", component: components_conta.HARENavegar, name: "hare" },
     ]
   },
   // { path: "**", redirect: { name: "cartelera" } }

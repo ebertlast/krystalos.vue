@@ -44,10 +44,10 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue-grey lighten-3" app fixed>
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="indigo" app fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">Konfiguración</span>
+        <span class="hidden-sm-and-down">Contable</span>
       </v-toolbar-title>
       <v-text-field
         v-if="false"
@@ -91,62 +91,16 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      // { icon: "contacts", text: "Contacts" },
-      // { icon: "history", text: "Frequently contacted" },
-      // { icon: "content_copy", text: "Duplicates" },
+      
       // {
       //   icon: "keyboard_arrow_up",
       //   "icon-alt": "keyboard_arrow_down",
-      //   text: "Labels",
-      //   model: true,
-      //   children: [{ icon: "add", text: "Create label" }]
-      // },
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Contable",
-        model: false,
-        divider: true,
-        children: [
-          { text: "Grupos de Areas Funcionales", route: { name: "hare" } }
-        ]
-      },
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Inventario",
-        model: false,
-        divider: true,
-        children: [
-          { text: "Clases de Medicamentos", route: { name: "icla" } },
-          { text: "Subclases de Medicamentos", route: { name: "iclah" } },
-          { text: "Agrupación de Medicamentos", route: { name: "igru" } },
-          { text: "Principios Activos", route: { name: "ipac" } },
-          { text: "Formas Farmacéuticas", route: { name: "iffa" } },
-          { text: "Genéricos", route: { name: "igen" } },
-          { text: "Artículos", route: { name: "iart" } }
-        ]
-      },
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Generales",
-        model: false,
-        divider: true,
-        children: [
-          { text: "Médicos", route: { name: "med" } },
-          { text: "Terceros", route: { name: "ter" } },
-          { text: "Actividades Económicas", route: { name: "aec" } },
-        ]
-      },
-      // { icon: "settings", text: "Settings" },
-      // { icon: "chat_bubble", text: "Send feedback" },
-      // { icon: "help", text: "Help" },
-      // {
-      //   icon: "accessible",
-      //   text: "Pacientes",
+      //   text: "Contable",
+      //   model: false,
       //   divider: true,
-      //   route: { name: "afi" }
+      //   children: [
+      //     { text: "Grupos de Areas Funcionales", route: { name: "hare" } }
+      //   ]
       // },
       { icon: "home", text: "Regresar a Inicio", route: "/" }
     ]
@@ -155,50 +109,8 @@ export default {
     source: String
   },
   mounted() {
-    if (!this.mes || this.mes.length <= 0) {
-      this.actualizarMes();
-    }
-    if (!this.departamentos || this.departamentos.length <= 0) {
-      this.actualizarDepartamentos();
-    }
-    if (!this.ciudades || this.ciudades.length <= 0) {
-      this.actualizarCiudades();
-    }
-    if (!this.tipoDocumentos || this.tipoDocumentos.length <= 0) {
-      this.actualizarTipoDocumentos();
-    }
-    if (!this.barrios || this.barrios.length < 1) {
-      this.actualizarBarrios();
-    }
-    if (this.docXTpo.length <= 0) {
-      this.actualizarDocXTpo();
-    }
-    if (this.mdxs.length <= 0) {
-      this.actualizarMdxs();
-    }
-    if (this.sers.length <= 0) {
-      this.actualizarSers();
-    }
-    if (this.ipss.length <= 0) {
-      this.actualizarIpss();
-    }
-    if (this.epss.length <= 0) {
-      this.actualizarEpss();
-    }
   },
   methods: {
-    ...mapActions("krycnf", [
-      "actualizarMes",
-      "actualizarDepartamentos",
-      "actualizarCiudades",
-      "actualizarBarrios",
-      "actualizarDocXTpo",
-      "actualizarTipoDocumentos",
-      "actualizarMdxs",
-      "actualizarSers",
-      "actualizarIpss",
-      "actualizarEpss"
-    ])
   },
   computed: {
     ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"]),

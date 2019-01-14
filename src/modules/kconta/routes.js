@@ -1,8 +1,7 @@
 import { default as components } from "./components";
 export const routes = [
-  // { path: "/404", component: components.NotFound, name: "404" },
   {
-    path: "/",
+    path: "/kconta",
     component: components.Marco,
     name: "kconta",
     children: [

@@ -101,13 +101,13 @@ export default {
         .get(`evo_exportacion/${this.ususu.USUARIO}/`)
         .then(res => {
           this.setReportes(res.result.recordset);
+        }).then(()=>{
+          this.cargando = false;
         })
         .catch(err => {
+          this.cargando = false;
           console.log(err);
         })
-        .finally(() => {
-          this.cargando = false;
-        });
     },
     customFilter(items, search, filter) {
       search = search.toString().toLowerCase();

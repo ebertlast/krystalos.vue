@@ -83,11 +83,7 @@ export default {
       .post(`evo_exportacion/parametros`, json)
       .then(response => {
         // console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
+      }).then(()=>{
         this.$http
           .get(`/evo_exportacion/ejecutar/${this.reporte.Id}`)
           .then(res => {
@@ -104,13 +100,16 @@ export default {
             this.rows = res.result.recordset;
 
             this.setDataReport(this.rows);
+            this.cargando = false;
           })
           .catch(err => {
-            console.log(err);
-          })
-          .finally(() => {
             this.cargando = false;
+            console.log(err);
           });
+      
+      })
+      .catch(err => {
+        console.log(err);
       });
   },
   methods: {

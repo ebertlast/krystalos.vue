@@ -66,8 +66,8 @@
             <v-tab key="2">Ruta</v-tab>
             <v-tab key="3">Modelo</v-tab>
             <v-tab key="4">JSON</v-tab>
-            <v-tab key="5">Browse</v-tab>
-            <v-tab key="6">View</v-tab>
+            <v-tab key="5">Detalles</v-tab>
+            <v-tab key="6">Registros</v-tab>
           </v-tabs>
 
           <!-- v-if="propiedades.length>0" -->
@@ -126,14 +126,13 @@
               <codemirror v-model="jsonCode" :options="jsOption"></codemirror>
             </v-tab-item>
             <v-tab-item key="5">
-              <v-btn color="primary" @click="setClipboard('Registros.vue')">Registros.vue</v-btn>
+              <v-btn color="primary" @click="setClipboard('Detalles.vue')">Detalles.vue</v-btn>
               <v-btn
                 color="success"
-                @click="setClipboard(componentCode)"
-                v-if="propiedades.length>0"
+                @click="setClipboard(viewCode)"
               >Copiar Código</v-btn>
-              <v-btn color="secondary" @click="setClipboard(browseDeclare)">Declaración del Componente</v-btn>
-              <codemirror v-model="componentCode" :options="jsOption"></codemirror>
+              <v-btn color="secondary" @click="setClipboard(viewDeclare)">Declaración del Componente</v-btn>
+              <codemirror v-model="viewCode" :options="jsOption"></codemirror>
             </v-tab-item>
             <v-tab-item key="6">
               <v-btn color="primary" @click="setClipboard('Registros.vue')">Registros.vue</v-btn>
@@ -145,6 +144,7 @@
               <v-btn color="secondary" @click="setClipboard(browseDeclare)">Declaración del Componente</v-btn>
               <codemirror v-model="componentCode" :options="jsOption"></codemirror>
             </v-tab-item>
+            
           </v-tabs-items>
         </v-flex>
       </v-layout>

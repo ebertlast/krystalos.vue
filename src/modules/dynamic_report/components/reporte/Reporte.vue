@@ -137,7 +137,6 @@ export default {
         .catch(err => {
           console.log(err);
         })
-        .finally(() => {});
     },
     exportarExcel() {
       String.prototype.replaceLatinChar = function() {

@@ -135,6 +135,17 @@
     <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs4>
+        <v-card color="indigo">
+          <v-card-title primary-title>
+            <div class="headline">Contable</div>
+            <div>Provisiones, Libros Auxiliares, Balances de Comprobación, Estado de Resultados.</div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn flat :to="'/kconta'">Ir al módulo</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+      <v-flex xs4>
         <v-card color="red accent-1">
           <v-card-title primary-title>
             <div class="headline">Apoyo Diagnóstico</div>
@@ -303,6 +314,12 @@ export default {
     drawer: null,
     title: APPNAME,
     items: [
+      {
+        icon: "trending_up",
+        text: "Contabilidad",
+        // divider: true,
+        route: "kconta"
+      },
       {
         icon: "warning",
         text: "Apoyo Diagnóstico",

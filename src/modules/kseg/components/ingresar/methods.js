@@ -20,11 +20,11 @@ export default {
       .get(`${URL_API}cli/`)
       .then(res => {
         this.clis = res.recordset;
+        this.cargando = false;
       })
       .catch(err => {
-        console.log(err);
-      }).finally(() => {
         this.cargando = false;
+        console.log(err);
       });
   },
   consultarCompanias() {
@@ -38,7 +38,11 @@ export default {
     this.setApiUrl(this.cli.URL_API);
     this.$http(`/cia/`).then(res => {
       this.cias = res.result.recordset;
-    }).catch(err => { console.log(err) }).finally(() => { this.cargando = false; })
+      this.cargando = false;
+    }).catch(err => {
+      this.cargando = false;
+      console.log(err)
+    })
     // console.log("NUEVA URL_API: ", this.api_url);
   },
   limpiarClientes: () => {
@@ -66,6 +70,10 @@ export default {
           // return (document.location = "/");
         });
       }
-    }).catch(err => { console.log(err) }).finally(() => { this.cargando = false; })
+      this.cargando = false;
+    }).catch(err => {
+      this.cargando = false;
+      console.log(err)
+    })
   }
 }

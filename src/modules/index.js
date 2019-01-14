@@ -9,6 +9,7 @@ import klog from "./klog";
 import kasis from "./kasis";
 import klab from "./klab";
 import kinv from "./kinv";
+import kconta from "./kconta";
 export default {
   kcentral,
   kseg,
@@ -20,4 +21,5 @@ export default {
   kasis,
   klab,
   kinv,
+  kconta,
 };

@@ -349,13 +349,20 @@ export default {
     ref="tabla"
   >
     <template slot="detalles">
-      <en-construccion @cancelar="cancelar"></en-construccion>
+      <v-scroll-y-transition mode="out-in">
+        <detalles @cancelar="cancelar" :fila="fila" v-if="!editar" @editar="editarFila" @seleccionar="seleccionar($event)"></detalles>
+      </v-scroll-y-transition>
+      <v-scroll-y-transition mode="out-in">
+        <v-container grid-list-md text-xs-center v-if="editar">
+          <en-construccion @cancelar="editar=false"></en-construccion>
+        </v-container>
+      </v-scroll-y-transition>
     </template>
     <template slot="formulario">
       <en-construccion @cancelar="cancelar"></en-construccion>
     </template>
   </tabla>\n</template>`;
-    
+
     var model = `model: {`;
     if (this.propiedades.length > 0)
       this.propiedades.forEach(propiedad => {
@@ -363,10 +370,10 @@ export default {
       });
     model = model.substr(0, model.length - 1)
     model += "\n\t\t}";
-    
+
     js += `\n\n<script>
 import { default as global_components } from "../../../../common/components/";
-
+import { default as components } from "../";
 export default {
   data: () => ({
     cargando: false,
@@ -379,7 +386,8 @@ export default {
   }),
   components: {
     Tabla: global_components.DataTabla,
-    EnConstruccion: global_components.EnConstruccion
+    EnConstruccion: global_components.EnConstruccion,
+    Detalles: components.${this.Tabla}Detalles
   },
   mounted() {
     this.recargarFilas();
@@ -405,9 +413,18 @@ export default {
           this.cargando_tabla = false;
         });
     },
+    seleccionar(model) {
+      this.model = model;
+      console.log(this.model);
+      this.$emit("model", this.model);
+      this.$refs.tabla.cerrarDialog();
+    },
+    editarFila() {
+      this.editar = true;
+    },
     cancelar() {
       this.$refs.tabla.cerrarDialog();
-    }
+    },
   }
 };
 </script>`
@@ -423,5 +440,149 @@ export default {
     "__SUSTITUIR__"
   );
 };`
+  },
+  viewCode() {
+    var model = `model: {`;
+    if (this.propiedades.length > 0)
+      this.propiedades.forEach(propiedad => {
+        model += `\n\t\t${propiedad.COLUMNA}: undefined,`
+      });
+    model = model.substr(0, model.length - 1)
+    model += "\n\t}";
+
+    var rutaGet = "\`" + this.tabla.toLowerCase();
+    this.llaves.forEach(element => {
+      rutaGet += `/\$\{this.fila.${element.COLUMNA}\}`;
+    });
+    rutaGet += "\`";
+
+    var validacion = "if(!this.fila ||";
+    this.llaves.forEach(element => {
+      validacion += `!this.fila.${element.COLUMNA} ||`;
+    });
+    validacion = validacion.substr(0, validacion.length - 2);
+    validacion += ") return;";
+    // if (this.llaves.length <= 0) { this.validacion = ""; }
+
+
+    var js = `<template>
+    <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-scroll-y-transition mode="out-in">
+        <v-flex xs12 v-if="cargando">
+          <v-progress-linear :indeterminate="true"></v-progress-linear>
+        </v-flex>
+      </v-scroll-y-transition>`;
+    if (this.propiedades.length > 0) {
+      this.propiedades.forEach(propiedad => {
+        js += `
+      <v-flex xs3>
+        <v-hover>
+          <v-card slot-scope="\{ hover \}" :class="\`elevation-\$\{hover ? 12 : 2\}\`" class="mx-auto">
+            <v-card-text class="text-sm-left">
+              <span class="grey--text">${propiedad.COLUMNA}</span>
+              <div>{{(model && model.${propiedad.COLUMNA}) ? model.${propiedad.COLUMNA} : ""}}</div>
+            </v-card-text>
+          </v-card>
+        </v-hover>
+      </v-flex>`
+      });
+    }
+    js += `
+      <v-flex xs12>
+        <v-tooltip top>
+          <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
+            <v-icon>done_outline</v-icon>
+          </v-btn>
+          <span>Seleccionar</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <v-btn slot="activator" color="primary" @click="editarFila" fab small dark>
+            <v-icon>edit</v-icon>
+          </v-btn>
+          <span>Editar</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <v-btn slot="activator" color="error" @click="eliminar" fab small dark>
+            <v-icon>delete</v-icon>
+          </v-btn>
+          <span>Eliminar</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <v-btn slot="activator" @click="cancelar" fab small>
+            <v-icon>undo</v-icon>
+          </v-btn>
+          <span>Cancelar</span>
+        </v-tooltip>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>`;
+    js += `
+<script>
+import { mapActions, mapGetters } from "vuex";
+export default {
+  props: ["fila"],
+  data:()=>({
+    cargando: false,
+    ${model}
+  }),
+  mounted() {
+    this.refrescarDatos();
+  },
+  methods: {
+    ...mapActions(["notificacion"]),
+    refrescarDatos() {
+      ${validacion}
+      this.cargando = true;
+      this.model = {};
+      this.$http
+        .get(${rutaGet})
+        .then(res => {
+          this.model = res.result.recordset[0];
+        })
+        .then(() => {
+          this.cargando = false;
+        })
+        .catch(err => {
+          this.cargando = false;
+        });
+    },
+    seleccionar() {
+      this.$emit("seleccionar", this.model);
+    },
+    eliminar() {
+      return this.notificacion({
+        message: "No está permitido eliminar un registro de esta tabla, intente inactivarlo",
+        type: "error"
+      });
+    },
+    cancelar() {
+      this.$emit("cancelar");
+    },
+    editarFila() {
+      this.$emit("editar");
+    },
+  },
+  watch: {
+    fila() {
+      this.refrescarDatos();
+    }
   }
+}
+</script>
+    `;
+    return js;
+  },
+  viewDeclare() {
+    return `const ${this.Tabla} = resolve => {
+  require.ensure(
+    ["./${this.tabla.toLowerCase()}/Detalles.vue"],
+    () => {
+      resolve(require("./${this.tabla.toLowerCase()}/Detalles.vue"));
+    },
+    "__SUSTITUIR__"
+  );
+};`
+  },
 }
