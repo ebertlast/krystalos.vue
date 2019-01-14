@@ -4,7 +4,7 @@
     :filas="filas"
     :loading="cargando_tabla"
     @fila="fila=$event;"
-    titulo="Clase de Medicamentos"
+    titulo="ICLA"
     ref="tabla"
   >
     <template slot="detalles">
@@ -29,7 +29,7 @@
       </v-scroll-y-transition>
     </template>
     <template slot="formulario">
-      <en-construccion @cancelar="cancelar"></en-construccion>
+      <formulario @cancelar="cancelar" @guardar="guardar($event)" ref="formulario_nuevo"></formulario>
     </template>
   </tabla>
 </template>

@@ -359,7 +359,7 @@ export default {
       </v-scroll-y-transition>
     </template>
     <template slot="formulario">
-      <en-construccion @cancelar="cancelar"></en-construccion>
+      <formulario @cancelar="cancelar" @guardar="guardar($event)" ref="formulario_nuevo"></formulario>
     </template>
   </tabla>\n</template>`;
 
