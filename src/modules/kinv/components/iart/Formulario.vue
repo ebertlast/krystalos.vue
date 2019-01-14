@@ -4,44 +4,15 @@
       <v-flex xs3>
         <v-text-field
           name="IDARTICULO"
-          label="IDARTICULO"
+          label="CODIGO"
           id="IDARTICULO"
           ref="IDARTICULO"
           v-model="model.IDARTICULO"
+          :disabled="editar"
         ></v-text-field>
       </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="IDCLASE"
-          label="IDCLASE"
-          id="IDCLASE"
-          ref="IDCLASE"
-          v-model="model.IDCLASE"
-        ></v-text-field>
-      </v-flex>
-
-      <v-flex xs3>
-        <v-text-field
-          name="IDSUBCLASE"
-          label="IDSUBCLASE"
-          id="IDSUBCLASE"
-          ref="IDSUBCLASE"
-          v-model="model.IDSUBCLASE"
-        ></v-text-field>
-      </v-flex>
-
-      <v-flex xs3>
-        <v-text-field
-          name="IDGRUPO"
-          label="IDGRUPO"
-          id="IDGRUPO"
-          ref="IDGRUPO"
-          v-model="model.IDGRUPO"
-        ></v-text-field>
-      </v-flex>
-
-      <v-flex xs3>
+      <v-flex xs9>
         <v-text-field
           name="DESCRIPCION"
           label="DESCRIPCION"
@@ -51,25 +22,117 @@
         ></v-text-field>
       </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="IDPRINACTIVO"
-          label="IDPRINACTIVO"
-          id="IDPRINACTIVO"
-          ref="IDPRINACTIVO"
-          v-model="model.IDPRINACTIVO"
-        ></v-text-field>
+      <v-flex xs1>
+        <v-autocomplete
+          label="IDCLASE"
+          :items="iclas"
+          v-model="model.IDCLASE"
+          item-value="IDCLASE"
+          item-text="IDCLASE"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+      <v-flex xs5>
+        <v-autocomplete
+          label="CLASE"
+          :items="iclas"
+          v-model="model.IDCLASE"
+          item-value="IDCLASE"
+          item-text="DESCRIPCION"
+          ref="IDCLASE"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
       </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="IDFORFARM"
-          label="IDFORFARM"
-          id="IDFORFARM"
-          ref="IDFORFARM"
-          v-model="model.IDFORFARM"
-        ></v-text-field>
+      <v-flex xs1>
+        <v-autocomplete
+          label="IDSUBCLASE"
+          :items="iclahFiltradas"
+          v-model="model.IDSUBCLASE"
+          item-value="IDSUBCLASE"
+          item-text="IDSUBCLASE"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
       </v-flex>
+      <v-flex xs5>
+        <v-autocomplete
+          label="SUBCLASE"
+          :items="iclahFiltradas"
+          v-model="model.IDSUBCLASE"
+          item-value="IDSUBCLASE"
+          item-text="DESCRIPCION"
+          ref="IDSUBCLASE"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+
+      <v-flex xs1>
+        <v-autocomplete
+          label="IDGRUPO"
+          :items="igrusFiltrados"
+          v-model="model.IDGRUPO"
+          item-value="IDGRUPO"
+          item-text="IDGRUPO"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+      <v-flex xs5>
+        <v-autocomplete
+          label="GRUPO"
+          :items="igrusFiltrados"
+          v-model="model.IDGRUPO"
+          item-value="IDGRUPO"
+          item-text="DESCRIPCION"
+          ref="IDGRUPO"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+
+      <v-flex xs1>
+        <v-autocomplete
+          label="IDFORFARM"
+          :items="iffas"
+          v-model="model.IDFORFARM"
+          item-value="IDFORFARM"
+          item-text="IDFORFARM"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+      <v-flex xs5>
+        <v-autocomplete
+          label="IDFORFARM"
+          :items="iffas"
+          v-model="model.IDFORFARM"
+          item-value="IDFORFARM"
+          item-text="DESCRIPCION"
+          ref="IDFORFARM"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+
+      <v-flex xs2>
+        <v-autocomplete
+          label="PRINCIPIO ACTIVO"
+          :items="ipacs"
+          v-model="model.IDPRINACTIVO"
+          item-value="IDPRINACTIVO"
+          item-text="IDPRINACTIVO"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+      <v-flex xs10>
+        <v-autocomplete
+          label="PRINCIPIO ACTIVO"
+          :items="ipacs"
+          v-model="model.IDPRINACTIVO"
+          item-value="IDPRINACTIVO"
+          item-text="DESCRIPCION"
+          ref="IDPRINACTIVO"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+
+      
 
       <v-flex xs3>
         <v-text-field
@@ -516,7 +579,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  props: ["fila"],
+  props: ["fila", "editar"],
   data: () => ({
     model: {
       IDARTICULO: undefined,
@@ -582,11 +645,50 @@ export default {
     if (this.fila) {
       this.model = this.fila;
     }
+    if (this.iclas.length <= 0) {
+      this.refrescarIclas();
+    }
+    if (this.iclahs.length <= 0) {
+      this.refrescarIclahs();
+    }
+    if (this.igrus.length <= 0) {
+      this.refrescarIgrus();
+    }
+    if (this.ipacs.length <= 0) {
+      this.refrescarIpacs();
+    }
+    if (this.iffas.length <= 0) {
+      this.refrescarIffas();
+    }
   },
   methods: {
+    ...mapActions("kinv", ["refrescarIclas", "refrescarIclahs", "refrescarIgrus", "refrescarIpacs", "refrescarIffas"]),
     guardar() {
       this.$emit("guardar", this.model);
     }
+  },
+  computed: {
+    ...mapGetters("kinv", ["iclas", "iclahs", "igrus", "ipacs", "iffas"]),
+    iclahFiltradas() {
+      var _idclase = this.model.IDCLASE;
+      return this.iclahs.filter(function(el) {
+        return el.IDCLASE == _idclase;
+      });
+    },
+    igrusFiltrados() {
+      var _idsubclase = this.model.IDSUBCLASE;
+      return this.igrus.filter(function(el) {
+        return el.IDSUBCLASE == _idsubclase;
+      });
+    }
+  },
+  watch: {
+    "model.IDCLASE"() {
+      this.$refs.IDSUBCLASE.focus();
+    },
+    // "model.IDSUBCLASE"(){
+    //   this.$refs.IDGRUPO.focus();
+    // }
   }
 };
 </script>

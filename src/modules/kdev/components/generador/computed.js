@@ -354,12 +354,12 @@ export default {
       </v-scroll-y-transition>
       <v-scroll-y-transition mode="out-in">
         <v-container grid-list-md text-xs-center v-if="editar">
-          <formulario @cancelar="editar=false" @guardar="guardar($event)" :fila="model" ref="formulario_edicion"></formulario>
+          <formulario @cancelar="editar=false" @guardar="guardar($event)" :fila="model" ref="formulario_edicion" :editar="true"></formulario>
         </v-container>
       </v-scroll-y-transition>
     </template>
     <template slot="formulario">
-      <formulario @cancelar="cancelar" @guardar="guardar($event)" ref="formulario_nuevo"></formulario>
+      <formulario @cancelar="cancelar" @guardar="guardar($event)" ref="formulario_nuevo" :editar="false"></formulario>
     </template>
   </tabla>\n</template>`;
 
@@ -686,7 +686,7 @@ export default {
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  props: ["fila"],
+  props: ["fila", "editar"],
   data: () => ({
     ${model}
   }),

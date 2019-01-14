@@ -4,21 +4,38 @@
     :filas="filas"
     :loading="cargando_tabla"
     @fila="fila=$event;"
-    titulo="Artículos"
+    titulo="Concentraciones"
     ref="tabla"
   >
     <template slot="detalles">
       <v-scroll-y-transition mode="out-in">
-        <detalles @cancelar="cancelar" :fila="fila" v-if="!editar" @editar="editarFila($event)" @seleccionar="seleccionar($event)"></detalles>
+        <detalles
+          @cancelar="cancelar"
+          :fila="fila"
+          v-if="!editar"
+          @editar="editarFila($event)"
+          @seleccionar="seleccionar($event)"
+        ></detalles>
       </v-scroll-y-transition>
       <v-scroll-y-transition mode="out-in">
         <v-container grid-list-md text-xs-center v-if="editar">
-          <formulario @cancelar="editar=false" @guardar="guardar($event)" :fila="model" ref="formulario_edicion" :editar="true"></formulario>
+          <formulario
+            @cancelar="editar=false"
+            @guardar="guardar($event)"
+            :fila="model"
+            ref="formulario_edicion"
+            :editar="true"
+          ></formulario>
         </v-container>
       </v-scroll-y-transition>
     </template>
     <template slot="formulario">
-      <formulario @cancelar="cancelar" @guardar="guardar($event)" ref="formulario_nuevo" :editar="false"></formulario>
+      <formulario
+        @cancelar="cancelar"
+        @guardar="guardar($event)"
+        ref="formulario_nuevo"
+        :editar="false"
+      ></formulario>
     </template>
   </tabla>
 </template>
@@ -35,71 +52,17 @@ export default {
     columnas: [],
     cargando_tabla: false,
     model: {
-			IDARTICULO: undefined,
-			IDCLASE: undefined,
-			IDSUBCLASE: undefined,
-			IDGRUPO: undefined,
-			DESCRIPCION: undefined,
-			IDPRINACTIVO: undefined,
-			IDFORFARM: undefined,
-			IDCONCENTRA: undefined,
-			IDUNIDAD: undefined,
-			PCOSTO: undefined,
-			EXISTOTAL: undefined,
-			STOCKMINIMO: undefined,
-			STOCKMAXIMO: undefined,
-			PUNTOREORDEN: undefined,
-			IDITAR: undefined,
-			ESTRANSFORMABLE: undefined,
-			ESTADO: undefined,
-			IDGENERICO: undefined,
-			CUENTA: undefined,
-			IDFABRICANTE: undefined,
-			ESACTIVO: undefined,
-			IDTIPOACTIVO: undefined,
-			IDALTERNA: undefined,
-			REGINVIMA: undefined,
-			ALTO_COSTO: undefined,
-			CONT_ESPECIAL: undefined,
-			ENTREGA_TURNO: undefined,
-			UTILIDAD: undefined,
-			DOSIFICADO: undefined,
-			NDOSIS: undefined,
-			CODCUM: undefined,
-			ESCALA_RIESGO: undefined,
-			IDSERVICIO: undefined,
-			PRINCIPAL: undefined,
-			CLASERIESGO: undefined,
-			TESTABILIDAD: undefined,
-			CLASE: undefined,
-			MLOTEO: undefined,
-			IDSERVICIOBASE: undefined,
-			CANTIDADBASE: undefined,
-			IDSERVICIOMEZCLA: undefined,
-			CANTIDADMEZCLA: undefined,
-			CODIBASE: undefined,
-			CENTRAL: undefined,
-			IDSERVICIOCOBRO: undefined,
-			CTV: undefined,
-			F_VIGENCIAINV: undefined,
-			REGULADO: undefined,
-			PRECOMERCIAL: undefined,
-			NOPOS: undefined,
-			CONTADOR: undefined,
-			GRUPO: undefined,
-			LABILIDAD: undefined,
-			INSTITUCIONAL: undefined,
-			HEMOCLASIFICACION: undefined,
-			JUSTIFICACION: undefined,
-			CODBARRA: undefined
-		},
+      IDCONCENTRA: undefined,
+      DESCRIPCION: undefined,
+      IDITAR: undefined
+    },
     editar: false
   }),
   components: {
     Tabla: global_components.DataTabla,
     EnConstruccion: global_components.EnConstruccion,
-    Detalles: components.IARTDetalles,
-    Formulario: components.IARTFormulario
+    Detalles: components.ICCNDetalles,
+    Formulario: components.ICCNFormulario
   },
   mounted() {
     this.recargarFilas();
@@ -111,7 +74,7 @@ export default {
       this.filas = [];
       this.columnas = [];
       this.$http
-        .get(`iart`)
+        .get(`iccn`)
         .then(res => {
           this.filas = res.result.recordset;
           this.columnas = [];
@@ -141,7 +104,7 @@ export default {
       this.cargando = true;
       if (!this.editar) {
         this.$http
-          .put(`iart`, json)
+          .put(`iccn`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -168,7 +131,7 @@ export default {
           });
       } else {
         this.$http
-          .post(`iart`, json)
+          .post(`iccn`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -196,7 +159,7 @@ export default {
     },
     cancelar() {
       this.$refs.tabla.cerrarDialog();
-    },
+    }
   }
 };
 </script>

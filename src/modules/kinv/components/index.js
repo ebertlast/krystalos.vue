@@ -106,6 +106,60 @@ const IARTDetalles = resolve => {
     "kinv"
   );
 };
+const ITARDetalles = resolve => {
+  require.ensure(
+    ["./itar/Detalles.vue"],
+    () => {
+      resolve(require("./itar/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const ITARFormulario = resolve => {
+  require.ensure(
+    ["./itar/Formulario.vue"],
+    () => {
+      resolve(require("./itar/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const ITARRegistros = resolve => {
+  require.ensure(
+    ["./itar/Registros.vue"],
+    () => {
+      resolve(require("./itar/Registros.vue"));
+    },
+    "kinv"
+  );
+};
+const ICCNDetalles = resolve => {
+  require.ensure(
+    ["./iccn/Detalles.vue"],
+    () => {
+      resolve(require("./iccn/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const ICCNFormulario = resolve => {
+  require.ensure(
+    ["./iccn/Formulario.vue"],
+    () => {
+      resolve(require("./iccn/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const ICCNRegistros = resolve => {
+  require.ensure(
+    ["./iccn/Registros.vue"],
+    () => {
+      resolve(require("./iccn/Registros.vue"));
+    },
+    "kinv"
+  );
+};
 export default {
-  Marco, ICLA, ICLADetalles, ICLAFormulario, ICLAH, IGRU, IPAC, IFFA, IGEN, IART, IARTFormulario, IARTDetalles
+  Marco, ICLA, ICLADetalles, ICLAFormulario, ICLAH, IGRU, IPAC, IFFA, IGEN, IART, IARTFormulario, IARTDetalles, ITARDetalles, ITARFormulario, ITARRegistros, ICCNDetalles, ICCNFormulario, ICCNRegistros
 };

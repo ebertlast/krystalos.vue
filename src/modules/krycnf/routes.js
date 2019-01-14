@@ -17,6 +17,8 @@ export const routes = [
       { path: "iffa", component: components_inv.IFFA, name: "iffa" },
       { path: "igen", component: components_inv.IGEN, name: "igen" },
       { path: "iart", component: components_inv.IART, name: "iart" },
+      { path: "iccn", component: components_inv.ICCNRegistros, name: "iccn" },
+      { path: "itar", component: components_inv.ITARRegistros, name: "itar" },
       { path: "aec", component: components.AECNavegar, name: "aec" },
       { path: "hare", component: components_conta.HARENavegar, name: "hare" },
     ]

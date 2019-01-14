@@ -28,7 +28,9 @@
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>{{ child.text }}</v-list-tile-title>
+                <v-list-tile-title>
+                  {{ child.text }}
+                </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
@@ -118,11 +120,20 @@ export default {
         model: false,
         divider: true,
         children: [
-          { text: "Clases de Medicamentos", route: { name: "icla" } },
+          {
+            text: "Tipos de Artículos",
+            route: { name: "itar" }
+          },
+          {
+            text: "Clases de Medicamentos",
+            route: { name: "icla" },
+            divider: true
+          },
           { text: "Subclases de Medicamentos", route: { name: "iclah" } },
           { text: "Agrupación de Medicamentos", route: { name: "igru" } },
           { text: "Principios Activos", route: { name: "ipac" } },
           { text: "Formas Farmacéuticas", route: { name: "iffa" } },
+          { text: "Concentraciones", route: { name: "iccn" } },
           { text: "Genéricos", route: { name: "igen" } },
           { text: "Artículos", route: { name: "iart" } }
         ]
@@ -136,7 +147,7 @@ export default {
         children: [
           { text: "Médicos", route: { name: "med" } },
           { text: "Terceros", route: { name: "ter" } },
-          { text: "Actividades Económicas", route: { name: "aec" } },
+          { text: "Actividades Económicas", route: { name: "aec" } }
         ]
       },
       // { icon: "settings", text: "Settings" },
