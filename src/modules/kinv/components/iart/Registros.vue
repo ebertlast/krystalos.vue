@@ -4,7 +4,7 @@
     :filas="filas"
     :loading="cargando_tabla"
     @fila="fila=$event;"
-    titulo="IART"
+    titulo="Artículos"
     ref="tabla"
   >
     <template slot="detalles">
