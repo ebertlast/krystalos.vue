@@ -76,11 +76,19 @@ export default {
       this.$http
         .get(`auta_bot`)
         .then(res => {
+          // this.archivos = res.result.recordset;
           this.filas = res.result.recordset;
           this.columnas = [];
           Object.keys(this.filas[0]).forEach(col => {
             this.columnas.push({ text: col.replace("_", " "), value: col });
           });
+
+          // this.archivos.forEach(arch => {
+          //   this.filas.push({"Archivo ID": arch.IDARCHIVO, "Email": arch.EMAIL})
+          // });
+
+          // this.columnas.push({ text: "Archivo ID", value: "Archivo ID" });
+          // this.columnas.push({ text: "Email", value: "Email" });
         })
         .catch(err => {
           console.log(err);

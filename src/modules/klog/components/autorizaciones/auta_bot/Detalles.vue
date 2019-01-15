@@ -31,30 +31,30 @@
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
               <span class="grey--text">ARCHIVO</span>
-              <div>{{(model && model.ARCHIVO) ? model.ARCHIVO : ""}}</div>
+              <div> <a :href="model.ARCHIVO" target="_blank" rel="noopener noreferrer">Descargar Archivo</a></div>
             </v-card-text>
           </v-card>
         </v-hover>
       </v-flex>
       <v-flex xs12>
-        <v-tooltip top>
+        <!-- <v-tooltip top>
           <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
             <v-icon>done_outline</v-icon>
           </v-btn>
           <span>Seleccionar</span>
-        </v-tooltip>
-        <v-tooltip top>
+        </v-tooltip> -->
+        <!-- <v-tooltip top>
           <v-btn slot="activator" color="primary" @click="editarFila" fab small dark>
             <v-icon>edit</v-icon>
           </v-btn>
           <span>Editar</span>
-        </v-tooltip>
-        <v-tooltip top>
+        </v-tooltip> -->
+        <!-- <v-tooltip top>
           <v-btn slot="activator" color="error" @click="eliminar" fab small dark>
             <v-icon>delete</v-icon>
           </v-btn>
           <span>Eliminar</span>
-        </v-tooltip>
+        </v-tooltip> -->
         <v-tooltip top>
           <v-btn slot="activator" @click="cancelar" fab small>
             <v-icon>undo</v-icon>
