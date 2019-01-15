@@ -8,6 +8,7 @@ export const routes = [
     children: [
       { path: "autorizaciones", component: components.Autorizaciones, name: "autorizaciones" },
       { path: "autorizaciones/nueva", component: components.Nueva, name: "autorizacion_add" },
+      { path: "autorizaciones/archivos", component: components.AUTA_BOTRegistros, name: "autorizacion_archivos" },
       { path: "", redirect: { name: "autorizaciones" } },
       { path: "**", redirect: { name: "autorizaciones" } }
 

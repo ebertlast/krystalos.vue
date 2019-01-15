@@ -85,7 +85,6 @@ export default {
           .get(`itar/`)
           .then(res => {
             this.itars = res.result.recordset;
-            console.log("Tipos de Artículos: ",this.itars)
           })
           .catch(err => {
             console.log(err);

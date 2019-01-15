@@ -158,11 +158,11 @@ export default {
       //   model: false,
       //   children: [{ icon: "add", text: "Create label" }]
       // },
-      // {
-      //   icon: "beenhere",
-      //   text: "Droguería",
-      //   route: { name: "klog" }
-      // },
+      {
+        icon: "attach_file",
+        text: "Archivos",
+        route: { name: "autorizacion_archivos" }
+      },
       // {
       //   icon: "keyboard_arrow_up",
       //   "icon-alt": "keyboard_arrow_down",

@@ -25,6 +25,34 @@ const Nueva = resolve => {
     "klog"
   );
 };
+const AUTA_BOTRegistros = resolve => {
+  require.ensure(
+    ["./autorizaciones/auta_bot/Registros.vue"],
+    () => {
+      resolve(require("./autorizaciones/auta_bot/Registros.vue"));
+    },
+    "klog"
+  );
+};
+const AUTA_BOTFormulario = resolve => {
+  require.ensure(
+    ["./autorizaciones/auta_bot/Formulario.vue"],
+    () => {
+      resolve(require("./autorizaciones/auta_bot/Formulario.vue"));
+    },
+    "klog"
+  );
+};
+const AUTA_BOTDetalles = resolve => {
+  require.ensure(
+    ["./autorizaciones/auta_bot/Detalles.vue"],
+    () => {
+      resolve(require("./autorizaciones/auta_bot/Detalles.vue"));
+    },
+    "klog"
+  );
+};
+
 export default {
-  Marco, Autorizaciones, Nueva
+  Marco, Autorizaciones, Nueva, AUTA_BOTRegistros, AUTA_BOTFormulario, AUTA_BOTDetalles
 };
