@@ -67,6 +67,9 @@
           <v-divider v-if="item.divider"></v-divider>
         </template>
       </v-list>
+      <v-footer class="red lighten-5" height="auto">
+          <strong class="font-italic">{{ususu.INSTITUCION}}</strong>.-&nbsp;<strong class="caption">{{ususu.DB_NAME}}</strong>
+      </v-footer>
     </v-navigation-drawer>
     <v-toolbar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
@@ -175,16 +178,16 @@ export default {
     if (!this.mes || this.mes.length <= 0) {
       this.actualizarMes();
     }
-    if (!this.departamentos || this.departamentos.length <= 0) {
-      this.actualizarDepartamentos();
+    if (!this.deps || this.deps.length <= 0) {
+      this.refrescarDeps();
     }
-    if (!this.ciudades || this.ciudades.length <= 0) {
-      this.actualizarCiudades();
+    if (!this.cius || this.cius.length <= 0) {
+      this.refrescarCius();
     }
     if (!this.tipoDocumentos || this.tipoDocumentos.length <= 0) {
       this.actualizarTipoDocumentos();
     }
-    if (!this.barrios || this.barrios.length < 1) {
+    if (!this.ciubs || this.ciubs.length < 1) {
       this.actualizarBarrios();
     }
     if (this.docXTpo.length <= 0) {
@@ -209,8 +212,8 @@ export default {
   methods: {
     ...mapActions("krycnf", [
       "actualizarMes",
-      "actualizarDepartamentos",
-      "actualizarCiudades",
+      "refrescarDeps",
+      "refrescarCius",
       "actualizarBarrios",
       "actualizarDocXTpo",
       "actualizarTipoDocumentos",
@@ -224,9 +227,9 @@ export default {
     ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"]),
     ...mapGetters("krycnf", [
       "mes",
-      "ciudades",
-      "departamentos",
-      "barrios",
+      "cius",
+      "deps",
+      "ciubs",
       "tipoDocumentos",
       "docXTpo",
       "sers",

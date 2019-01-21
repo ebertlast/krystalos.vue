@@ -122,6 +122,7 @@ export default {
       const json = "json=" + JSON.stringify({ model: _model });
       this.cargando = true;
       if (!this.editar) {
+        this.$refs.tabla.cerrarDialog();
         this.$http
           .put(`itar`, json)
           .then(res => {
@@ -133,7 +134,6 @@ export default {
                   "Registro Agregado a la Base de Datos Satisfactoriamente",
                 type: "success"
               });
-              this.$refs.tabla.cerrarDialog();
             } else {
               this.notificacion({
                 message:
@@ -149,6 +149,7 @@ export default {
             this.cargando = false;
           });
       } else {
+        this.editar = false;
         this.$http
           .post(`itar`, json)
           .then(res => {
@@ -159,7 +160,6 @@ export default {
                 message: "Registro Actualizado Satisfactoriamente",
                 type: "success"
               });
-              this.editar = false;
             } else {
               this.notificacion({
                 message:

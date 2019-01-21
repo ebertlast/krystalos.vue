@@ -336,7 +336,7 @@
                   <v-flex xs4>
                     <v-autocomplete
                       label="Departamento Donde Atendieron al Paciente"
-                      :items="departamentos"
+                      :items="deps"
                       v-model="departamento"
                       item-text="NOMBRE"
                       item-value="DPTO"

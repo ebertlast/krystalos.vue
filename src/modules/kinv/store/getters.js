@@ -14,4 +14,13 @@ export default {
   iffas: state => {
     return state.iffas;
   },
+  iccns: state => {
+    return state.iccns;
+  },
+  iunis: state => {
+    return state.iunis;
+  },
+  itars: state => {
+    return state.itars;
+  },
 };

@@ -5,4 +5,6 @@ export default {
   ipacs: [],
   iffas: [],
   iccns: [],
+  iunis: [],
+  itars: [],
 };

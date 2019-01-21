@@ -103,8 +103,9 @@ export default {
       const json = "json=" + JSON.stringify({ model: _model });
       this.cargando = true;
       if (!this.editar) {
+        this.$refs.tabla.cerrarDialog();
         this.$http
-          .put(`iccn`, json)
+          .post(`iccn`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -114,7 +115,6 @@ export default {
                   "Registro Agregado a la Base de Datos Satisfactoriamente",
                 type: "success"
               });
-              this.$refs.tabla.cerrarDialog();
             } else {
               this.notificacion({
                 message:
@@ -130,8 +130,9 @@ export default {
             this.cargando = false;
           });
       } else {
+        this.editar = false;
         this.$http
-          .post(`iccn`, json)
+          .put(`iccn`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -140,7 +141,6 @@ export default {
                 message: "Registro Actualizado Satisfactoriamente",
                 type: "success"
               });
-              this.editar = false;
             } else {
               this.notificacion({
                 message:

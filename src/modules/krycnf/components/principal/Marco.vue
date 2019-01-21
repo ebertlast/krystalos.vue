@@ -2,51 +2,60 @@
   <v-app id="inspire">
     <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" fixed app>
       <v-list dense>
-        <template v-for="item in items">
-          <v-layout v-if="item.heading" :key="item.heading" row align-center>
-            <v-flex xs6>
-              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
-            </v-flex>
-            <v-flex xs6 class="text-xs-center">
-              <a href="#!" class="body-2 black--text">EDIT</a>
-            </v-flex>
-          </v-layout>
+        <template v-for="(menu, index) in menus">
           <v-list-group
-            v-else-if="item.children"
-            v-model="item.model"
-            :key="item.text"
-            :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon
+            :prepend-icon="menu.icono"
+            :value="menu.desplegado"
+            :key="index"
+            v-if="!menu.individual"
           >
             <v-list-tile slot="activator">
-              <v-list-tile-content>
-                <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-              </v-list-tile-content>
+              <v-list-tile-title v-text="menu.texto"></v-list-tile-title>
             </v-list-tile>
-            <v-list-tile v-for="(child, i) in item.children" :key="i" :to="child.route">
-              <v-list-tile-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ child.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+
+            <template v-for="submenu in menu.submenus">
+              <v-divider v-if="submenu.divisor"></v-divider>
+              <v-list-tile
+                @click
+                :to="submenu.ruta"
+                v-if="!submenu.items || submenu.items.length<=0"
+              >
+                <v-list-tile-title v-text="submenu.texto"></v-list-tile-title>
+                <v-list-tile-action>
+                  <v-icon v-text="submenu.icono"></v-icon>
+                </v-list-tile-action>
+              </v-list-tile>
+              <v-list-group no-action sub-group :value="submenu.desplegado" v-else>
+                <v-list-tile slot="activator">
+                  <v-list-tile-title v-text="submenu.texto"></v-list-tile-title>
+                </v-list-tile>
+
+                <v-list-tile v-for="(item, i) in submenu.items" :key="i" @click :to="item.ruta">
+                  <v-list-tile-title v-text="item.texto"></v-list-tile-title>
+                  <v-list-tile-action>
+                    <v-icon v-text="item.icono"></v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
+              </v-list-group>
+            </template>
           </v-list-group>
-          <v-list-tile v-else :key="item.text" @click :to="item.route">
+
+          <v-list-tile :key="menu.texto" :to="menu.ruta" v-else>
             <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon>{{ menu.icono }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+              <v-list-tile-title>{{ menu.texto }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-divider v-if="item.divider"></v-divider>
         </template>
       </v-list>
+      <v-footer class="blue-grey lighten-5" height="auto">
+        <strong class="font-italic">{{ususu.INSTITUCION}}</strong>.-&nbsp;
+        <strong class="caption">{{ususu.DB_NAME}}</strong>
+      </v-footer>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue-grey lighten-3" app fixed>
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue-grey" dark app fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Konfiguración</span>
@@ -92,74 +101,210 @@ export default {
   data: () => ({
     dialog: false,
     drawer: null,
-    items: [
-      // { icon: "contacts", text: "Contacts" },
-      // { icon: "history", text: "Frequently contacted" },
-      // { icon: "content_copy", text: "Duplicates" },
-      // {
-      //   icon: "keyboard_arrow_up",
-      //   "icon-alt": "keyboard_arrow_down",
-      //   text: "Labels",
-      //   model: true,
-      //   children: [{ icon: "add", text: "Create label" }]
-      // },
+    admins: [["Management", "people_outline"], ["Settings", "settings"]],
+    cruds: [
+      ["Create", "add"],
+      ["Read", "insert_drive_file"],
+      ["Update", "update"],
+      ["Delete", "delete"]
+    ],
+    menus: [
       {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Contable",
-        model: false,
-        divider: true,
-        children: [
-          { text: "Grupos de Areas Funcionales", route: { name: "hare" } }
-        ]
-      },
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Inventario",
-        model: false,
-        divider: true,
-        children: [
+        icono: "local_atm",
+        texto: "Contable",
+        desplegado: false,
+        submenus: [
           {
-            text: "Tipos de Artículos",
-            route: { name: "itar" }
+            texto: "Grupos de Áreas Funcionales",
+            ruta: { name: "hare" },
+            icono: ""
           },
           {
-            text: "Clases de Medicamentos",
-            route: { name: "icla" },
-            divider: true
+            texto: "Cuentas Contables",
+            ruta: { name: "cue" },
+            icono: ""
           },
-          { text: "Subclases de Medicamentos", route: { name: "iclah" } },
-          { text: "Agrupación de Medicamentos", route: { name: "igru" } },
-          { text: "Principios Activos", route: { name: "ipac" } },
-          { text: "Formas Farmacéuticas", route: { name: "iffa" } },
-          { text: "Concentraciones", route: { name: "iccn" } },
-          { text: "Genéricos", route: { name: "igen" } },
-          { text: "Artículos", route: { name: "iart" } }
+          {
+            texto: "Cuentas Contables NIIF",
+            ruta: { name: "cueniif" },
+            icono: ""
+          },
         ]
       },
       {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Generales",
-        model: false,
-        divider: true,
-        children: [
-          { text: "Médicos", route: { name: "med" } },
-          { text: "Terceros", route: { name: "ter" } },
-          { text: "Actividades Económicas", route: { name: "aec" } }
+        icono: "widgets",
+        texto: "Inventario",
+        desplegado: false,
+        submenus: [
+          {
+            texto: "Tipos de Artículos",
+            ruta: { name: "itar" },
+            icono: "",
+            divisor: false
+          },
+          {
+            texto: "Formas Farmacéuticas",
+            ruta: { name: "iffa" },
+            icono: "",
+            divisor: false
+          },
+          {
+            texto: "Clases de Medicamentos",
+            ruta: { name: "icla" },
+            icono: "",
+            divisor: true
+          },
+          {
+            texto: "Subclases de Medicamentos",
+            ruta: { name: "iclah" },
+            icono: "",
+            divisor: false
+          },
+          {
+            texto: "Agrupación de Medicamentos",
+            ruta: { name: "igru" },
+            icono: "",
+            divisor: false
+          },
+          {
+            texto: "Principios Activos",
+            ruta: { name: "ipac" },
+            icono: "",
+            divisor: false
+          },
+          {
+            texto: "Unidades de Medida",
+            ruta: { name: "iuni" },
+            icono: "",
+            divisor: false
+          },
+          {
+            texto: "Concentraciones",
+            ruta: { name: "iccn" },
+            icono: "",
+            divisor: false
+          },
+          {
+            texto: "Genéricos",
+            icono: "",
+            divisor: true,
+            items: [
+              {
+                texto: "Tipos de Genéricos",
+                ruta: { name: "itgen" },
+                icono: ""
+              },
+              {
+                texto: "Genéricos",
+                ruta: { name: "igen" },
+                icono: ""
+              }
+            ]
+          },
+          {
+            texto: "Artículos",
+            ruta: { name: "iart" },
+            icono: "",
+            divisor: false
+          }
         ]
       },
-      // { icon: "settings", text: "Settings" },
-      // { icon: "chat_bubble", text: "Send feedback" },
-      // { icon: "help", text: "Help" },
-      // {
-      //   icon: "accessible",
-      //   text: "Pacientes",
-      //   divider: true,
-      //   route: { name: "afi" }
-      // },
-      { icon: "home", text: "Regresar a Inicio", route: "/" }
+      {
+        icono: "domain",
+        texto: "Activos Fijos",
+        desplegado: false,
+        submenus: [
+          {
+            texto: "Tipos de Activos",
+            ruta: { name: "iactt" },
+            icono: ""
+          }
+        ]
+      },
+      {
+        icono: "settings",
+        texto: "Generales",
+        desplegado: false,
+        submenus: [
+          {
+            texto: "Terceros",
+            icono: "",
+            divisor: true,
+            items: [
+              {
+                texto: "Categorias",
+                ruta: { name: "cat" },
+                icono: ""
+              },
+              {
+                texto: "Terceros",
+                ruta: { name: "ter" },
+                icono: ""
+              }
+            ]
+          },
+          {
+            texto: "Médicos",
+            ruta: { name: "med" },
+            icono: ""
+          },
+          {
+            texto: "Direcciones",
+            icono: "",
+            divisor: true,
+            items: [
+              {
+                texto: "Paises",
+                ruta: { name: "pais" },
+                icono: ""
+              },
+              {
+                texto: "Departamentos",
+                ruta: { name: "dep" },
+                icono: ""
+              },
+              {
+                texto: "Ciudades",
+                ruta: { name: "ciu" },
+                icono: ""
+              },
+              {
+                texto: "Barrios",
+                ruta: { name: "ciub" },
+                icono: ""
+              },
+              {
+                texto: "Zonas",
+                ruta: { name: "zon" },
+                icono: ""
+              }
+            ]
+          },
+          {
+            texto: "Otros",
+            icono: "",
+            divisor: true,
+            items: [
+              {
+                texto: "Ocupaciones",
+                ruta: { name: "ocu" },
+                icono: ""
+              },
+              {
+                texto: "Actividades Econonómicas",
+                ruta: { name: "aec" },
+                icono: ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        icono: "home",
+        texto: "Regresar a Inicio",
+        ruta: "/",
+        individual: true
+      }
     ]
   }),
   props: {
@@ -169,16 +314,16 @@ export default {
     if (!this.mes || this.mes.length <= 0) {
       this.actualizarMes();
     }
-    if (!this.departamentos || this.departamentos.length <= 0) {
-      this.actualizarDepartamentos();
+    if (!this.deps || this.deps.length <= 0) {
+      this.refrescarDeps();
     }
-    if (!this.ciudades || this.ciudades.length <= 0) {
-      this.actualizarCiudades();
+    if (!this.cius || this.cius.length <= 0) {
+      this.refrescarCius();
     }
     if (!this.tipoDocumentos || this.tipoDocumentos.length <= 0) {
       this.actualizarTipoDocumentos();
     }
-    if (!this.barrios || this.barrios.length < 1) {
+    if (!this.ciubs || this.ciubs.length < 1) {
       this.actualizarBarrios();
     }
     if (this.docXTpo.length <= 0) {
@@ -200,8 +345,8 @@ export default {
   methods: {
     ...mapActions("krycnf", [
       "actualizarMes",
-      "actualizarDepartamentos",
-      "actualizarCiudades",
+      "refrescarDeps",
+      "refrescarCius",
       "actualizarBarrios",
       "actualizarDocXTpo",
       "actualizarTipoDocumentos",
@@ -215,9 +360,9 @@ export default {
     ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"]),
     ...mapGetters("krycnf", [
       "mes",
-      "ciudades",
-      "departamentos",
-      "barrios",
+      "cius",
+      "deps",
+      "ciubs",
       "tipoDocumentos",
       "docXTpo",
       "sers",

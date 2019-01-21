@@ -16,7 +16,7 @@
           </v-card>
         </v-hover>
       </v-flex>
-      <v-flex xs3>
+      <v-flex xs9>
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
@@ -32,6 +32,16 @@
             <v-card-text class="text-sm-left">
               <span class="grey--text">IDITAR</span>
               <div>{{(model && model.IDITAR) ? model.IDITAR : ""}}</div>
+            </v-card-text>
+          </v-card>
+        </v-hover>
+      </v-flex>
+      <v-flex xs9>
+        <v-hover>
+          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
+            <v-card-text class="text-sm-left">
+              <span class="grey--text">TIPO ARTICULO</span>
+              <div>{{(model && model.TIPOARTICULO) ? model.TIPOARTICULO : ""}}</div>
             </v-card-text>
           </v-card>
         </v-hover>

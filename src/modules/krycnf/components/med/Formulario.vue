@@ -121,7 +121,7 @@
 
       <v-flex xs6>
         <v-autocomplete
-          :items="departamentos"
+          :items="deps"
           v-model="departamento"
           label="Departamento"
           solo
@@ -242,7 +242,7 @@ export default {
         var self = this;
         setTimeout(() => {
           self.ciudad = self.model.CIUDAD;
-          self.departamento = self.ciudades.filter(function(el) {
+          self.departamento = self.cius.filter(function(el) {
             return el.CIUDAD == self.model.CIUDAD;
           })[0].DPTO;
         }, 2000);
@@ -253,8 +253,8 @@ export default {
     ...mapGetters("krycnf", [
       "mes",
       "tipoDocumentos",
-      "ciudades",
-      "departamentos"
+      "cius",
+      "deps"
     ]),
     nombre() {
       var nombre = `${this.model.PAPELLIDO} ${this.model.SAPELLIDO} ${
@@ -268,7 +268,7 @@ export default {
       if (!departamento || departamento === "") {
         return "";
       }
-      return this.ciudades.filter(function(el) {
+      return this.cius.filter(function(el) {
         return el.DPTO === departamento;
       });
     }
@@ -286,9 +286,9 @@ export default {
     ciudad() {
       this.model.CIUDAD = this.ciudad;
       if (!this.departamento || this.departamento === "") {
-        if (this.ciudad && this.ciudad !== "" && this.ciudades) {
+        if (this.ciudad && this.ciudad !== "" && this.cius) {
           var self = this;
-          this.departamento = this.ciudades.filter(function(el) {
+          this.departamento = this.cius.filter(function(el) {
             return el.CIUDAD == self.CIUDAD;
           })[0].DPTO;
         }

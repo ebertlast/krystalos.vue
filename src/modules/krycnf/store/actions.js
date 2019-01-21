@@ -1,15 +1,15 @@
 import axios from "axios"
 export default {
-  actualizarPaises: ({ commit }, payload) => {
+  refrescarPaiss: ({ commit }, payload) => {
     if (!payload) {
       axios.get(`pais/`).then(res => {
-        commit("setPaises", res.result.recordset);
+        commit("setPaiss", res.result.recordset);
       }).catch(err => { console.log(err) })
     } else {
-      commit("setPaises", payload);
+      commit("setPaiss", payload);
     }
   },
-  actualizarDepartamentos: ({ commit }, payload) => {
+  refrescarDeps: ({ commit }, payload) => {
     if (!payload) {
       axios.get(`dep/`).then(res => {
         commit("setDepartamentos", res.result.recordset);
@@ -18,13 +18,13 @@ export default {
       commit("setDepartamentos", payload);
     }
   },
-  actualizarCiudades: ({ commit }, payload) => {
+  refrescarCius: ({ commit }, payload) => {
     if (!payload) {
       axios.get(`ciu/`).then(res => {
-        commit("setCiudades", res.result.recordset);
+        commit("setCius", res.result.recordset);
       }).catch(err => { console.log(err) })
     } else {
-      commit("setCiudades", payload);
+      commit("setCius", payload);
     }
   },
   actualizarBarrios: ({ commit }, payload) => {

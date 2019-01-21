@@ -244,7 +244,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("krycnf", ["ciudades", "departamentos", "barrios"]),
+    ...mapGetters("krycnf", ["cius", "deps", "ciubs"]),
     edad() {
       var hoy = new Date();
       var cumpleanos = new Date(this.afi.FNACIMIENTO);
@@ -462,19 +462,16 @@ export default {
       // console.log(this.$refs.tabla)
       // this.$refs.tabla.cerrarDialog();
       // this.setAfi(afi);
-      // console.log("Departamentos: ", this.departamentos);
-      // console.log("ciudades: ", this.ciudades);
-
       // {{afi.NOMBRE_BARRIO}} - {{afi.NOMBRE_CIUDAD}} - {{afi.NOMBRE_DEPARTAMENTO}}
 
-      var ciu = this.ciudades.filter(function(el) {
+      var ciu = this.cius.filter(function(el) {
         return (el.CIUDAD = afi.CIUDAD);
       })[0];
       afi.NOMBRE_CIUDAD = ciu.NOMBRE;
-      afi.NOMBRE_DEPARTAMENTO = this.departamentos.filter(function(el) {
+      afi.NOMBRE_DEPARTAMENTO = this.deps.filter(function(el) {
         return (el.DPTO = ciu.DPTO);
       })[0].NOMBRE;
-      afi.NOMBRE_BARRIO = this.barrios.filter(function(el) {
+      afi.NOMBRE_BARRIO = this.ciubs.filter(function(el) {
         return (el.IDBARRIO = afi.IDBARRIO);
       })[0].NOMBRE;
 
@@ -518,9 +515,6 @@ export default {
       this.$refs.tabla.cerrarDialog();
     },
     editar() {
-      // console.log("Departamentos: ", this.departamentos);
-      // console.log("ciudades: ", this.ciudades);
-
       this.cargando = true;
       this.$http
         .get(`afi/${this.afi.IDAFILIADO}`)

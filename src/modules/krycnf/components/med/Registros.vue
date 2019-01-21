@@ -259,6 +259,7 @@ export default {
       // return;
       this.cargando = true;
       if (!this.editar) {
+        this.$refs.tabla.cerrarDialog();
         this.$http
           .put(`med`, json)
           .then(res => {
@@ -270,7 +271,6 @@ export default {
                   "Registro Agregado a la Base de Datos Satisfactoriamente",
                 type: "success"
               });
-              this.$refs.tabla.cerrarDialog();
             } else {
               this.notificacion({
                 message:
@@ -286,6 +286,7 @@ export default {
             this.cargando = false;
           });
       } else {
+        this.editar = false;
         this.$http
           .post(`med`, json)
           .then(res => {
@@ -297,7 +298,6 @@ export default {
                 type: "success"
               });
               // this.$refs.tabla.cerrarDialog();
-              this.editar = false;
             } else {
               this.notificacion({
                 message:
@@ -325,7 +325,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("krycnf", ["mes", "ciudades", "departamentos"]),
+    ...mapGetters("krycnf", ["mes", "cius", "deps"]),
     especialidad() {
       // console.log(this.mes);
       var model = this.model;
@@ -350,7 +350,7 @@ export default {
       if (!this.model.CIUDAD || this.model.CIUDAD === "") return "";
       var model = this.model;
       var ciudad = "";
-      var ciu = this.ciudades.filter(function(el) {
+      var ciu = this.cius.filter(function(el) {
         return el.CIUDAD == model.CIUDAD;
       })[0];
       if (!ciu) {
@@ -358,7 +358,7 @@ export default {
       }
       if (ciu.NOMBRE && ciu.NOMBRE !== "") {
         ciudad += " - " + ciu.NOMBRE;
-        var departamento = this.departamentos.filter(function(el) {
+        var departamento = this.deps.filter(function(el) {
           return el.DPTO == ciu.DPTO;
         })[0];
         if (departamento.NOMBRE && departamento.NOMBRE !== "") {

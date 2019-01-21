@@ -14,4 +14,13 @@ export default {
   setIffas: (state, iffas) => {
     state.iffas = iffas;
   },
+  setIccns: (state, iccns) => {
+    state.iccns = iccns;
+  },
+  setIunis: (state, iunis) => {
+    state.iunis = iunis;
+  },
+  setItars: (state, itars) => {
+    state.itars = itars;
+  },
 };

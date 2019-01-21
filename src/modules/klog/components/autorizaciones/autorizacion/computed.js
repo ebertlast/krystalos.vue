@@ -1,7 +1,7 @@
 import { mapGetters } from "vuex";
 export default {
   ...mapGetters("kasis", ["edad_afi"]),
-  ...mapGetters("krycnf", ["docXTpo", "mes", "departamentos", "ciudades", "mdxs", "sers", "ipss", "epss"]),
+  ...mapGetters("krycnf", ["docXTpo", "mes", "deps", "cius", "mdxs", "sers", "ipss", "epss"]),
   ...mapGetters(["extensionArchivo", "fechayhora"]),
   nombre_afi() {
     return `${this.afi.PNOMBRE} ${this.afi.SNOMBRE} ${this.afi.PAPELLIDO} ${
@@ -21,7 +21,7 @@ export default {
       return []
     }
     var dpto = this.departamento
-    return this.ciudades.filter(function (el) {
+    return this.cius.filter(function (el) {
       return el.DPTO == dpto;
     })
   },

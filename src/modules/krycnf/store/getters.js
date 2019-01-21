@@ -1,15 +1,15 @@
 export default {
-  paises: state => {
-    return state.paises;
+  paiss: state => {
+    return state.paiss;
   },
-  departamentos: state => {
-    return state.departamentos;
+  deps: state => {
+    return state.deps;
   },
-  ciudades: state => {
-    return state.ciudades;
+  cius: state => {
+    return state.cius;
   },
-  barrios: state => {
-    return state.barrios;
+  ciubs: state => {
+    return state.ciubs;
   },
   tipoDocumentos: state => {
     return state.tipoDocumentos;

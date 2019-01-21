@@ -127,7 +127,7 @@
             <v-flex xs3>
                 <v-scroll-y-transition mode="out-in" v-if="valido&&afi.PNOMBRE&&afi.PNOMBRRE!==''&&afi.PAPELLIDO&&afi.PAPELLIDO!==''">
                    <v-autocomplete
-                    :items="departamentos"
+                    :items="deps"
                     v-model="departamento"
                     label="Departamento"
                     solo
@@ -216,9 +216,6 @@ export default {
     // }, 2000);
     // Si el IDAFILIADO está lleno es porque es para editar el registro
     if (this.afi.IDAFILIADO && this.afi.IDAFILIADO !== "") {
-      console.log("Ciudades: ",this.ciudades)
-      console.log("Departamentos: ",this.departamentos)
-      // alert("mounted Formulario")
       this.ciudad = this.afi.CIUDAD;
       this.barrio = this.afi.IDBARRIO;
       this.cargando = true;
@@ -334,9 +331,9 @@ export default {
   },
   computed: {
     ...mapGetters("krycnf", [
-      "departamentos",
-      "ciudades",
-      "barrios",
+      "deps",
+      "cius",
+      "ciubs",
       "tipoDocumentos"
     ]),
     camposLlenos() {
@@ -376,21 +373,19 @@ export default {
     },
     ciudadesFiltradas() {
       var departamento = this.departamento;
-      return this.ciudades.filter(function(el) {
+      return this.cius.filter(function(el) {
         return el.DPTO === departamento;
       });
     },
     barriosFiltrados() {
       var ciudad = this.ciudad;
-      return this.barrios.filter(function(el) {
+      return this.ciubs.filter(function(el) {
         return el.CIUDAD === ciudad;
       });
     }
   },
   watch: {
     departamento() {
-      // console.log("Departamento: ",this.departamento)
-      // console.log("Departamentos: ",this.departamentos)
       this.afi.CIUDAD = undefined;
       this.afi.IDBARRIO = undefined;
     },

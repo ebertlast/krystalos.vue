@@ -9,33 +9,16 @@
   >
     <template slot="detalles">
       <v-scroll-y-transition mode="out-in">
-        <detalles
-          @cancelar="cancelar"
-          :fila="fila"
-          v-if="!editar"
-          @editar="editarFila($event)"
-          @seleccionar="seleccionar($event)"
-        ></detalles>
+        <detalles @cancelar="cancelar" :fila="fila" v-if="!editar" @editar="editarFila($event)" @seleccionar="seleccionar($event)"></detalles>
       </v-scroll-y-transition>
       <v-scroll-y-transition mode="out-in">
         <v-container grid-list-md text-xs-center v-if="editar">
-          <formulario
-            @cancelar="editar=false"
-            @guardar="guardar($event)"
-            :fila="model"
-            ref="formulario_edicion"
-            :editar="true"
-          ></formulario>
+          <formulario @cancelar="editar=false" @guardar="guardar($event)" :fila="model" ref="formulario_edicion" :editar="true"></formulario>
         </v-container>
       </v-scroll-y-transition>
     </template>
     <template slot="formulario">
-      <formulario
-        @cancelar="cancelar"
-        @guardar="guardar($event)"
-        ref="formulario_nuevo"
-        :editar="false"
-      ></formulario>
+      <formulario @cancelar="cancelar" @guardar="guardar($event)" ref="formulario_nuevo" :editar="false"></formulario>
     </template>
   </tabla>
 </template>
@@ -52,10 +35,17 @@ export default {
     columnas: [],
     cargando_tabla: false,
     model: {
-      IDARCHIVO: undefined,
-      EMAIL: undefined,
-      ARCHIVO: undefined
-    },
+			ID: undefined,
+			EMAIL: undefined,
+			AUTORIZACION: undefined,
+			ORDENMEDICA: undefined,
+			NUMEROCONTACTO: undefined,
+			DIRECCION: undefined,
+			PROCESADO: undefined,
+			ANULADO: undefined,
+			OBSERVACION: undefined,
+			FECHA: undefined
+		},
     editar: false
   }),
   components: {
@@ -76,19 +66,11 @@ export default {
       this.$http
         .get(`auta_bot`)
         .then(res => {
-          // this.archivos = res.result.recordset;
           this.filas = res.result.recordset;
           this.columnas = [];
           Object.keys(this.filas[0]).forEach(col => {
             this.columnas.push({ text: col.replace("_", " "), value: col });
           });
-
-          // this.archivos.forEach(arch => {
-          //   this.filas.push({"Archivo ID": arch.IDARCHIVO, "Email": arch.EMAIL})
-          // });
-
-          // this.columnas.push({ text: "Archivo ID", value: "Archivo ID" });
-          // this.columnas.push({ text: "Email", value: "Email" });
         })
         .catch(err => {
           console.log(err);
@@ -167,7 +149,7 @@ export default {
     },
     cancelar() {
       this.$refs.tabla.cerrarDialog();
-    }
+    },
   }
 };
 </script>

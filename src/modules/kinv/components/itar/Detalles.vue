@@ -1,12 +1,12 @@
 <template>
-    <v-container grid-list-md text-xs-center>
-      <v-layout row wrap>
-        <v-scroll-y-transition mode="out-in">
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-scroll-y-transition mode="out-in">
         <v-flex xs12 v-if="cargando">
           <v-progress-linear :indeterminate="true"></v-progress-linear>
         </v-flex>
       </v-scroll-y-transition>
-      <v-flex xs3>
+      <v-flex xs1>
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
@@ -16,7 +16,7 @@
           </v-card>
         </v-hover>
       </v-flex>
-      <v-flex xs3>
+      <v-flex xs5>
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
@@ -30,8 +30,8 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">MCLASE</span>
-              <div>{{(model && model.MCLASE) ? model.MCLASE : ""}}</div>
+              <span class="grey--text">MANEJA CLASE</span>
+              <div>{{(model && model.MCLASE) ? ((model.MCLASE*1===1)?"SI":"NO") : "NO"}}</div>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -40,8 +40,9 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">MPAC</span>
-              <div>{{(model && model.MPAC) ? model.MPAC : ""}}</div>
+              <span class="grey--text">MANEJA PRINCIPIO ACTIVO</span>
+              <div>{{(model && model.MPAC) ? ((model.MPAC*1===1) ? "SI" : "NO") : "NO"}}</div>
+
             </v-card-text>
           </v-card>
         </v-hover>
@@ -50,8 +51,8 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">MFFA</span>
-              <div>{{(model && model.MFFA) ? model.MFFA : ""}}</div>
+              <span class="grey--text">MANEJA FORMA FARMACEUTICA</span>
+              <div>{{(model && model.MFFA) ? ((model.MFFA*1===1) ? "SI" : "NO") : "NO"}}</div>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -259,32 +260,32 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["fila"],
-  data:()=>({
+  data: () => ({
     cargando: false,
     model: {
-		IDITAR: undefined,
-		DESCRIPCION: undefined,
-		MCLASE: undefined,
-		MPAC: undefined,
-		MFFA: undefined,
-		MCCN: undefined,
-		MUNI: undefined,
-		IDGRUPOIMP: undefined,
-		MFECHAVENCIMIENTO: undefined,
-		CUENTA: undefined,
-		PINDIVIDUAL: undefined,
-		DECONSUMO: undefined,
-		PREFIJO: undefined,
-		MLOTEO: undefined,
-		ESACTIVO: undefined,
-		MSTOCK: undefined,
-		MPRINCIPAL: undefined,
-		MCNS: undefined,
-		PRECNS: undefined,
-		MGRUPO: undefined,
-		MLABILIDAD: undefined,
-		MRIESGO: undefined
-	}
+      IDITAR: undefined,
+      DESCRIPCION: undefined,
+      MCLASE: undefined,
+      MPAC: undefined,
+      MFFA: undefined,
+      MCCN: undefined,
+      MUNI: undefined,
+      IDGRUPOIMP: undefined,
+      MFECHAVENCIMIENTO: undefined,
+      CUENTA: undefined,
+      PINDIVIDUAL: undefined,
+      DECONSUMO: undefined,
+      PREFIJO: undefined,
+      MLOTEO: undefined,
+      ESACTIVO: undefined,
+      MSTOCK: undefined,
+      MPRINCIPAL: undefined,
+      MCNS: undefined,
+      PRECNS: undefined,
+      MGRUPO: undefined,
+      MLABILIDAD: undefined,
+      MRIESGO: undefined
+    }
   }),
   mounted() {
     this.refrescarDatos();
@@ -292,7 +293,7 @@ export default {
   methods: {
     ...mapActions(["notificacion"]),
     refrescarDatos() {
-      if(!this.fila ||!this.fila.IDITAR ) return;
+      if (!this.fila || !this.fila.IDITAR) return;
       this.cargando = true;
       this.model = {};
       this.$http
@@ -312,7 +313,8 @@ export default {
     },
     eliminar() {
       return this.notificacion({
-        message: "No está permitido eliminar un registro de esta tabla, intente inactivarlo",
+        message:
+          "No está permitido eliminar un registro de esta tabla, intente inactivarlo",
         type: "error"
       });
     },
@@ -321,12 +323,12 @@ export default {
     },
     editarFila() {
       this.$emit("editar", this.model);
-    },
+    }
   },
   watch: {
     fila() {
       this.refrescarDatos();
     }
   }
-}
+};
 </script>

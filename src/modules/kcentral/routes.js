@@ -4,7 +4,7 @@ export const routes = [
   {
     path: "/",
     component: components.Marco,
-    name: "kconta",
+    name: "kcentral",
     children: [
       // { path: "cartelera", component: components.Cartelera, name: "cartelera" }
       // { path: "usgruadd", component: components.UsgruAdd, name: "usgruadd" },

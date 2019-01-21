@@ -7,8 +7,8 @@ export default {
   ...mapActions("dynamic_report", ["setReportes"]),
   ...mapActions("krycnf", [
     "actualizarMes",
-    "actualizarDepartamentos",
-    "actualizarCiudades",
+    "refrescarDeps",
+    "refrescarCius",
     "actualizarBarrios",
     "actualizarDocXTpo",
     "actualizarTipoDocumentos"

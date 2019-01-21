@@ -4,21 +4,29 @@
     :filas="filas"
     :loading="cargando_tabla"
     @fila="fila=$event;"
-    titulo="Medicamentos Genéricos"
+    titulo="Genéricos de Medicamentos"
     ref="tabla"
   >
     <template slot="detalles">
-      <en-construccion @cancelar="cancelar"></en-construccion>
+      <v-scroll-y-transition mode="out-in">
+        <detalles @cancelar="cancelar" :fila="fila" v-if="!editar" @editar="editarFila($event)" @seleccionar="seleccionar($event)"></detalles>
+      </v-scroll-y-transition>
+      <v-scroll-y-transition mode="out-in">
+        <v-container grid-list-md text-xs-center v-if="editar">
+          <formulario @cancelar="editar=false" @guardar="guardar($event)" :fila="model" ref="formulario_edicion" :editar="true"></formulario>
+        </v-container>
+      </v-scroll-y-transition>
     </template>
     <template slot="formulario">
-      <en-construccion @cancelar="cancelar"></en-construccion>
+      <formulario @cancelar="cancelar" @guardar="guardar($event)" ref="formulario_nuevo" :editar="false"></formulario>
     </template>
   </tabla>
 </template>
 
 <script>
 import { default as global_components } from "../../../../common/components/";
-
+import { default as components } from "../";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
     cargando: false,
@@ -27,24 +35,27 @@ export default {
     columnas: [],
     cargando_tabla: false,
     model: {
-      IDGENERICO: undefined,
-      DESCRIPCION: undefined,
-      IDCLASE: undefined,
-      IDSUBCLASE: undefined,
-      IDGRUPO: undefined,
-      IDPRINACTIVO: undefined,
-      IDTGENERICO: undefined
-    },
+			IDGENERICO: undefined,
+			DESCRIPCION: undefined,
+			IDCLASE: undefined,
+			IDSUBCLASE: undefined,
+			IDGRUPO: undefined,
+			IDPRINACTIVO: undefined,
+			IDTGENERICO: undefined
+		},
     editar: false
   }),
   components: {
     Tabla: global_components.DataTabla,
-    EnConstruccion: global_components.EnConstruccion
+    EnConstruccion: global_components.EnConstruccion,
+    Detalles: components.IGENDetalles,
+    Formulario: components.IGENFormulario,
   },
   mounted() {
     this.recargarFilas();
   },
   methods: {
+    ...mapActions(["notificacion"]),
     recargarFilas() {
       this.cargando_tabla = true;
       this.filas = [];
@@ -65,9 +76,77 @@ export default {
           this.cargando_tabla = false;
         });
     },
+    seleccionar(model) {
+      this.model = model;
+      this.$emit("model", this.model);
+      this.$refs.tabla.cerrarDialog();
+    },
+    editarFila(_model) {
+      this.model = _model;
+      this.editar = true;
+    },
+    guardar(_model) {
+      const json = "json=" + JSON.stringify({ model: _model });
+      this.cargando = true;
+      if (!this.editar) {
+        this.$refs.tabla.cerrarDialog();
+        this.$http
+          .post(`igen`, json)
+          .then(res => {
+            this.cargando = false;
+            if (res.success) {
+              this.recargarFilas();
+              this.notificacion({
+                message:
+                  "Registro Agregado a la Base de Datos Satisfactoriamente",
+                type: "success"
+              });
+            } else {
+              this.notificacion({
+                message:
+                  "Problemas al Intentar Realizar el Registro en la Base de Datos",
+                type: "error"
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .then(() => {
+            this.cargando = false;
+          });
+      } else {
+        this.editar = false;
+        this.$http
+          .put(`igen`, json)
+          .then(res => {
+            this.cargando = false;
+            if (res.success) {
+              this.recargarFilas();
+              this.notificacion({
+                message: "Registro Actualizado Satisfactoriamente",
+                type: "success"
+              });
+            } else {
+              this.notificacion({
+                message:
+                  "Problemas al Intentar Actualizar el Registro en la Base de Datos",
+                type: "error"
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
+          .then(() => {
+            this.cargando = false;
+          });
+      }
+    },
     cancelar() {
       this.$refs.tabla.cerrarDialog();
-    }
-  }
+    },
+  },
+  
 };
 </script>

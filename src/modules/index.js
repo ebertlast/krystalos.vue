@@ -10,6 +10,7 @@ import kasis from "./kasis";
 import klab from "./klab";
 import kinv from "./kinv";
 import kconta from "./kconta";
+import kiaf from "./kiaf";
 export default {
   kcentral,
   kseg,
@@ -22,4 +23,5 @@ export default {
   klab,
   kinv,
   kconta,
+  kiaf,
 };

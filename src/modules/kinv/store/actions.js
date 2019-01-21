@@ -70,4 +70,46 @@ export default {
       commit("setIffas", payload);
     }
   },
+  refrescarIccns: ({ commit }, payload) => {
+    if (!payload) {
+      axios
+        .get(`iccn/`)
+        .then(res => {
+          commit("setIccns", res.result.recordset);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    } else {
+      commit("setIccns", payload);
+    }
+  },
+  refrescarIunis: ({ commit }, payload) => {
+    if (!payload) {
+      axios
+        .get(`iuni/`)
+        .then(res => {
+          commit("setIunis", res.result.recordset);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    } else {
+      commit("setIunis", payload);
+    }
+  },
+  refrescarItars: ({ commit }, payload) => {
+    if (!payload) {
+      axios
+        .get(`itar/`)
+        .then(res => {
+          commit("setItars", res.result.recordset);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    } else {
+      commit("setItars", payload);
+    }
+  },
 };

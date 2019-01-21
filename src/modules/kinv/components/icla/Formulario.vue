@@ -11,7 +11,7 @@
         ></v-text-field>
       </v-flex>
 
-      <v-flex xs3>
+      <v-flex xs9>
         <v-text-field
           name="DESCRIPCION"
           label="DESCRIPCION"
@@ -22,7 +22,23 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="IDITAR" label="IDITAR" id="IDITAR" ref="IDITAR" v-model="model.IDITAR"></v-text-field>
+        <v-autocomplete
+          :items="itars"
+          item-value="IDITAR"
+          item-text="IDITAR"
+          label="Tipo de Artículo"
+          ref="IDITAR" 
+          v-model="model.IDITAR"
+        ></v-autocomplete>
+      </v-flex>
+      <v-flex xs9>
+        <v-autocomplete
+          :items="itars"
+          item-value="IDITAR"
+          item-text="DESCRIPCION"
+          label="Tipo de Artículo"
+          v-model="model.IDITAR"
+        ></v-autocomplete>
       </v-flex>
 
       <v-flex xs12>
@@ -48,12 +64,23 @@ export default {
     if (this.fila) {
       this.model = this.fila;
     }
+    if (this.itars.length <= 0) {
+      this.refrescarItars();
+    }
   },
   methods: {
+    ...mapActions("kinv", [
+      "refrescarItars"
+    ]),
     guardar() {
       this.$emit("guardar", this.model);
     }
-  }
+  },
+  computed: {
+    ...mapGetters("kinv", [
+      "itars"
+    ]),
+  },
 };
 </script>
     

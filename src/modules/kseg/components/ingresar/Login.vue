@@ -85,8 +85,8 @@ export default {
     // this.notificacion({ message: "Bienvenido de vuelta a Krystalos Online" });
     this.setReportes([]);
     this.actualizarMes([]);
-    this.actualizarDepartamentos([]);
-    this.actualizarCiudades([]);
+    this.refrescarDeps([]);
+    this.refrescarCius([]);
     this.actualizarBarrios([]);
     this.actualizarDocXTpo([]);
     this.actualizarTipoDocumentos([]);

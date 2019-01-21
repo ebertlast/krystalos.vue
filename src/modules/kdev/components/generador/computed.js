@@ -140,18 +140,35 @@ export default {
 
     for (let index = 0; index < this.propiedades.length; index++) {
       const item = this.propiedades[index];
-      if (item.TIPO.toUpperCase() === "DATETIME") {
-        code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
-          item.COLUMNA
-          }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
-          item.TAMANIO
-          }, precision: ${item.PRECISION}, valor: (new Date(params.${item.COLUMNA})) });}`;
-      } else {
-        code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
-          item.COLUMNA
-          }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
-          item.TAMANIO
-          }, precision: ${item.PRECISION}, valor: params.${item.COLUMNA} });}`;
+      switch (item.TIPO.toUpperCase()) {
+        case "DATETIME":
+          code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+            item.COLUMNA
+            }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
+            item.TAMANIO
+            }, precision: ${item.PRECISION}, valor: (new Date(params.${item.COLUMNA})) });}`;
+          break;
+        case "DECIMAL":
+          code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+            item.COLUMNA
+            }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
+            item.PRECISION
+            }, precision: ${item.TAMANIO}, valor: params.${item.COLUMNA} });}`;
+          break;
+        case "BIT":
+          code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
+            item.COLUMNA
+            }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
+            item.PRECISION
+            }, precision: ${item.TAMANIO}, valor: params.${item.COLUMNA} });}`;
+          break;
+        default:
+          code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+            item.COLUMNA
+            }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
+            item.TAMANIO
+            }, precision: ${item.PRECISION}, valor: params.${item.COLUMNA} });}`;
+          break;
       }
     }
 
@@ -289,7 +306,7 @@ export default {
     // #region PUT
     code += `\n\trouter.put('', function (req, res) {`;
     code += `\n\t\tvar model = JSON.parse(req.body.json).model;`;
-    code += `\n\t\tm.create(req.dbConfig, model, function (data, err) {`;
+    code += `\n\t\tm.update(req.dbConfig, model, function (data, err) {`;
     code += `\n\t\t\tif (err) {`;
     code += `\n\t\t\t\treturn res.status('500').send(JSON.stringify({ success: false, error: err })).end();`;
     code += `\n\t\t\t} else {`;
@@ -302,7 +319,7 @@ export default {
     // #region POST
     code += `\n\trouter.post('', function (req, res) {`;
     code += `\n\t\tvar model = JSON.parse(req.body.json).model;`;
-    code += `\n\t\tm.update(req.dbConfig, model, function (data, err) {`;
+    code += `\n\t\tm.create(req.dbConfig, model, function (data, err) {`;
     code += `\n\t\t\tif (err) {`;
     code += `\n\t\t\t\treturn res.status('500').send(JSON.stringify({ success: false, error: err })).end();`;
     code += `\n\t\t\t} else {`;
@@ -430,8 +447,9 @@ export default {
       const json = "json=" + JSON.stringify({ model: _model });
       this.cargando = true;
       if (!this.editar) {
+        this.$refs.tabla.cerrarDialog();
         this.$http
-          .put(\`${this.tabla.toLowerCase()}\`, json)
+          .post(\`${this.tabla.toLowerCase()}\`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -441,7 +459,6 @@ export default {
                   "Registro Agregado a la Base de Datos Satisfactoriamente",
                 type: "success"
               });
-              this.$refs.tabla.cerrarDialog();
             } else {
               this.notificacion({
                 message:
@@ -457,8 +474,9 @@ export default {
             this.cargando = false;
           });
       } else {
+        this.editar = false;
         this.$http
-          .post(\`${this.tabla.toLowerCase()}\`, json)
+          .put(\`${this.tabla.toLowerCase()}\`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -467,7 +485,6 @@ export default {
                 message: "Registro Actualizado Satisfactoriamente",
                 type: "success"
               });
-              this.editar = false;
             } else {
               this.notificacion({
                 message:
@@ -648,7 +665,7 @@ export default {
 };`
   },
   formCode() {
-    
+
     var fields = "";
 
     var model = `model: {`;
@@ -656,7 +673,7 @@ export default {
       this.propiedades.forEach(propiedad => {
         model += `\n\t\t\t${propiedad.COLUMNA}: undefined,`
 
-        fields +=`
+        fields += `
       <v-flex xs3>
         <v-text-field
           name="${propiedad.COLUMNA}"

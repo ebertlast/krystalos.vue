@@ -46,4 +46,8 @@ modules.kconta.routes.forEach(route => {
   routes.push(route);
 });
 
+modules.kiaf.routes.forEach(route => {
+  routes.push(route);
+});
+
 // console.log(modules.kconta.routes);

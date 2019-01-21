@@ -1,8 +1,8 @@
 export default {
-  paises: [],
-  departamentos: [],
-  ciudades: [],
-  barrios: [],
+  paiss: [],
+  deps: [],
+  cius: [],
+  ciubs: [],
   tipoDocumentos: [],
   docXTpo: [],
   mes: [],

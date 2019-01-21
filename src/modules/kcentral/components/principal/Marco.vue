@@ -135,7 +135,7 @@
     <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs4>
-        <v-card color="indigo">
+        <v-card color="indigo" dark>
           <v-card-title primary-title>
             <div class="headline">Contable</div>
             <div>Provisiones, Libros Auxiliares, Balances de Comprobación, Estado de Resultados.</div>
@@ -200,6 +200,7 @@
           </v-card-actions>
         </v-card>
       </v-flex>
+
       <v-flex xs4>
         <v-card color="orange lighten-2">
           <v-card-title primary-title>
@@ -211,10 +212,22 @@
           </v-card-actions>
         </v-card>
       </v-flex>
+
+      <v-flex xs4>
+        <v-card color="deep-orange darken-1" dark >
+          <v-card-title primary-title>
+            <div class="headline">Activos Fijos</div>
+            <div>Tipos de Activos, eventos, movimientos, depreciaciones, inflación, artículos.</div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn flat :to="{name:'kiaf'}">Ir al módulo</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
       
       
       <v-flex xs4>
-        <v-card color="blue-grey lighten-3">
+        <v-card color="blue-grey" dark>
           <v-card-title primary-title>
             <div class="headline">Konfiguración</div>
             <div>Configuraciones Generales del Sistema, Tablas Genéricas, Seguridad.</div>
@@ -315,7 +328,7 @@ export default {
     title: APPNAME,
     items: [
       {
-        icon: "trending_up",
+        icon: "local_atm",
         text: "Contabilidad",
         // divider: true,
         route: "kconta"
@@ -353,6 +366,11 @@ export default {
         icon: "widgets",
         text: "Inventario",
         route: "kinv"
+      },
+      {
+        icon: "domain",
+        text: "Activos Fijos",
+        route: "kiaf"
       },
       {
         icon: "settings",

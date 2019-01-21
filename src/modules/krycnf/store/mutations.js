@@ -1,16 +1,15 @@
 export default {
-  setPaises: (state, paises) => {
-    state.paises = paises;
+  setPaiss: (state, paiss) => {
+    state.paiss = paiss;
   },
-  setDepartamentos: (state, departamentos) => {
-    // console.log("Departamentos (store): ", departamentos)
-    state.departamentos = departamentos;
+  setDepartamentos: (state, deps) => {
+    state.deps = deps;
   },
-  setCiudades: (state, ciudades) => {
-    state.ciudades = ciudades;
+  setCius: (state, cius) => {
+    state.cius = cius;
   },
-  setBarrios: (state, barrios) => {
-    state.barrios = barrios;
+  setBarrios: (state, ciubs) => {
+    state.ciubs = ciubs;
   },
   setTipoDocumentos: (state, tipoDocumentos) => {
     state.tipoDocumentos = tipoDocumentos;

@@ -43,8 +43,11 @@
           <v-divider v-if="item.divider"></v-divider>
         </template>
       </v-list>
+      <v-footer class="indigo lighten-5" height="auto">
+          <strong class="font-italic">{{ususu.INSTITUCION}}</strong>.-&nbsp;<strong class="caption">{{ususu.DB_NAME}}</strong>
+      </v-footer>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="indigo" app fixed>
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="indigo" dark app fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Contable</span>
@@ -91,7 +94,6 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      
       // {
       //   icon: "keyboard_arrow_up",
       //   "icon-alt": "keyboard_arrow_down",
@@ -108,17 +110,15 @@ export default {
   props: {
     source: String
   },
-  mounted() {
-  },
-  methods: {
-  },
+  mounted() {},
+  methods: {},
   computed: {
     ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"]),
     ...mapGetters("krycnf", [
       "mes",
-      "ciudades",
-      "departamentos",
-      "barrios",
+      "cius",
+      "deps",
+      "ciubs",
       "tipoDocumentos",
       "docXTpo",
       "sers",

@@ -34,7 +34,7 @@ const ICLAFormulario = resolve => {
     "kinv"
   );
 };
-const ICLAH = resolve => {
+const ICLAHRegistros = resolve => {
   require.ensure(
     ["./iclah/Registros.vue"],
     () => {
@@ -43,7 +43,25 @@ const ICLAH = resolve => {
     "kinv"
   );
 };
-const IGRU = resolve => {
+const ICLAHFormulario = resolve => {
+  require.ensure(
+    ["./iclah/Formulario.vue"],
+    () => {
+      resolve(require("./iclah/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const ICLAHDetalles = resolve => {
+  require.ensure(
+    ["./iclah/Detalles.vue"],
+    () => {
+      resolve(require("./iclah/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const IGRURegistros = resolve => {
   require.ensure(
     ["./igru/Registros.vue"],
     () => {
@@ -52,7 +70,25 @@ const IGRU = resolve => {
     "kinv"
   );
 };
-const IPAC = resolve => {
+const IGRUFormulario = resolve => {
+  require.ensure(
+    ["./igru/Formulario.vue"],
+    () => {
+      resolve(require("./igru/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const IGRUDetalles = resolve => {
+  require.ensure(
+    ["./igru/Detalles.vue"],
+    () => {
+      resolve(require("./igru/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const IPACRegistros = resolve => {
   require.ensure(
     ["./ipac/Registros.vue"],
     () => {
@@ -61,11 +97,47 @@ const IPAC = resolve => {
     "kinv"
   );
 };
-const IFFA = resolve => {
+const IPACFormulario = resolve => {
+  require.ensure(
+    ["./ipac/Formulario.vue"],
+    () => {
+      resolve(require("./ipac/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const IPACDetalles = resolve => {
+  require.ensure(
+    ["./ipac/Detalles.vue"],
+    () => {
+      resolve(require("./ipac/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const IFFARegistros = resolve => {
   require.ensure(
     ["./iffa/Registros.vue"],
     () => {
       resolve(require("./iffa/Registros.vue"));
+    },
+    "kinv"
+  );
+};
+const IFFAFormulario = resolve => {
+  require.ensure(
+    ["./iffa/Formulario.vue"],
+    () => {
+      resolve(require("./iffa/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const IFFADetalles = resolve => {
+  require.ensure(
+    ["./iffa/Detalles.vue"],
+    () => {
+      resolve(require("./iffa/Detalles.vue"));
     },
     "kinv"
   );
@@ -90,9 +162,9 @@ const IART = resolve => {
 };
 const IARTFormulario = resolve => {
   require.ensure(
-    ["./iart/Formulario.vue"],
+    ["./iart/formulario/Formulario.vue"],
     () => {
-      resolve(require("./iart/Formulario.vue"));
+      resolve(require("./iart/formulario/Formulario.vue"));
     },
     "kinv"
   );
@@ -160,6 +232,78 @@ const ICCNRegistros = resolve => {
     "kinv"
   );
 };
+const IUNIRegistros = resolve => {
+  require.ensure(
+    ["./iuni/Registros.vue"],
+    () => {
+      resolve(require("./iuni/Registros.vue"));
+    },
+    "kinv"
+  );
+};
+const IUNIFormulario = resolve => {
+  require.ensure(
+    ["./iuni/Formulario.vue"],
+    () => {
+      resolve(require("./iuni/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const IUNIDetalles = resolve => {
+  require.ensure(
+    ["./iuni/Detalles.vue"],
+    () => {
+      resolve(require("./iuni/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const IGENFormulario = resolve => {
+  require.ensure(
+    ["./igen/Formulario.vue"],
+    () => {
+      resolve(require("./igen/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const IGENDetalles = resolve => {
+  require.ensure(
+    ["./igen/Detalles.vue"],
+    () => {
+      resolve(require("./igen/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
+const ITGENRegistros = resolve => {
+  require.ensure(
+    ["./itgen/Registros.vue"],
+    () => {
+      resolve(require("./itgen/Registros.vue"));
+    },
+    "kinv"
+  );
+};
+const ITGENFormulario = resolve => {
+  require.ensure(
+    ["./itgen/Formulario.vue"],
+    () => {
+      resolve(require("./itgen/Formulario.vue"));
+    },
+    "kinv"
+  );
+};
+const ITGENDetalles = resolve => {
+  require.ensure(
+    ["./itgen/Detalles.vue"],
+    () => {
+      resolve(require("./itgen/Detalles.vue"));
+    },
+    "kinv"
+  );
+};
 export default {
-  Marco, ICLA, ICLADetalles, ICLAFormulario, ICLAH, IGRU, IPAC, IFFA, IGEN, IART, IARTFormulario, IARTDetalles, ITARDetalles, ITARFormulario, ITARRegistros, ICCNDetalles, ICCNFormulario, ICCNRegistros
+  Marco, ICLA, ICLADetalles, ICLAFormulario, ICLAHDetalles, ICLAHFormulario, ICLAHRegistros, IGRURegistros, IGRUDetalles, IGRUFormulario, IPACRegistros, IPACDetalles, IPACFormulario, IFFADetalles, IFFAFormulario, IFFARegistros, IGEN, IART, IARTFormulario, IARTDetalles, ITARDetalles, ITARFormulario, ITARRegistros, ICCNDetalles, ICCNFormulario, ICCNRegistros, IUNIDetalles, IUNIFormulario, IUNIRegistros, IGENDetalles, IGENFormulario, ITGENRegistros, ITGENFormulario, ITGENDetalles
 };
