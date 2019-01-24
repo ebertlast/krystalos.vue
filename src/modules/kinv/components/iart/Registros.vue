@@ -168,44 +168,47 @@ export default {
       this.cargando_tabla = true;
       this.filas = [];
       this.columnas = [];
+      var model = {
+        PRINCIPAL: 1
+      };
       if (_palabras) {
-        var model = {
+        model = {
           PRINCIPAL: 1,
           PALABRAS: _palabras
         };
-        const json = "json=" + JSON.stringify({ model: model });
-        this.$http
-          .post(`iart/get`, json)
-          .then(res => {
-            this.filas = res.result.recordset;
-            this.columnas = [];
-            Object.keys(this.filas[0]).forEach(col => {
-              this.columnas.push({ text: col.replace("_", " "), value: col });
-            });
-          })
-          .catch(err => {
-            console.log(err);
-          })
-          .then(() => {
-            this.cargando_tabla = false;
-          });
       } else {
-        this.$http
-          .get(`iart`)
-          .then(res => {
-            this.filas = res.result.recordset;
-            this.columnas = [];
-            Object.keys(this.filas[0]).forEach(col => {
-              this.columnas.push({ text: col.replace("_", " "), value: col });
-            });
-          })
-          .catch(err => {
-            console.log(err);
-          })
-          .then(() => {
-            this.cargando_tabla = false;
-          });
+        // this.$http
+        //   .get(`iart`)
+        //   .then(res => {
+        //     this.filas = res.result.recordset;
+        //     this.columnas = [];
+        //     Object.keys(this.filas[0]).forEach(col => {
+        //       this.columnas.push({ text: col.replace("_", " "), value: col });
+        //     });
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   })
+        //   .then(() => {
+        //     this.cargando_tabla = false;
+        //   });
       }
+      const json = "json=" + JSON.stringify({ model: model });
+      this.$http
+        .post(`iart/get`, json)
+        .then(res => {
+          this.filas = res.result.recordset;
+          this.columnas = [];
+          Object.keys(this.filas[0]).forEach(col => {
+            this.columnas.push({ text: col.replace("_", " "), value: col });
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .then(() => {
+          this.cargando_tabla = false;
+        });
     },
     seleccionar(model) {
       this.model = model;

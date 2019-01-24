@@ -12,10 +12,10 @@ export default {
   refrescarDeps: ({ commit }, payload) => {
     if (!payload) {
       axios.get(`dep/`).then(res => {
-        commit("setDepartamentos", res.result.recordset);
+        commit("setDeps", res.result.recordset);
       }).catch(err => { console.log(err) })
     } else {
-      commit("setDepartamentos", payload);
+      commit("setDeps", payload);
     }
   },
   refrescarCius: ({ commit }, payload) => {

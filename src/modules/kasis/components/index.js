@@ -1,3 +1,12 @@
+const AFIRegistros = resolve => {
+  require.ensure(
+    ["./afi/Registros.vue"],
+    () => {
+      resolve(require("./afi/Registros.vue"));
+    },
+    "kasis"
+  );
+};
 const AFIFormulario = resolve => {
   require.ensure(
     ["./afi/Formulario.vue"],
@@ -7,11 +16,11 @@ const AFIFormulario = resolve => {
     "kasis"
   );
 };
-const AFINavegar = resolve => {
+const AFIDetalles = resolve => {
   require.ensure(
-    ["./afi/Registros.vue"],
+    ["./afi/Detalles.vue"],
     () => {
-      resolve(require("./afi/Registros.vue"));
+      resolve(require("./afi/Detalles.vue"));
     },
     "kasis"
   );
@@ -26,5 +35,5 @@ const Marco = resolve => {
   );
 };
 export default {
-  AFIFormulario, AFINavegar, Marco
+  AFIRegistros, AFIFormulario, AFIDetalles, Marco
 };

@@ -112,4 +112,18 @@ export default {
       commit("setItars", payload);
     }
   },
+  refrescarPrecomercials: ({ commit }, payload) => {
+    if (!payload) {
+      axios
+        .get(`tgen/IART/PRECOMERCIAL/`)
+        .then(res => {
+          commit("setPrecomercials", res.result.recordset);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    } else {
+      commit("setPrecomercials", payload);
+    }
+  },
 };

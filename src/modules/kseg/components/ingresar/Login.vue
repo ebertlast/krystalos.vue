@@ -22,7 +22,7 @@
                    <v-combobox
                     v-model="cli"
                     :items="clis"
-                    label="Elije la organización a la que quieres acceder"
+                    label="Servidor"
                     autofocus
                     item-text="RAZONSOCIAL"
                     item-value="CLIENTEID"
@@ -31,7 +31,7 @@
                   <v-combobox
                     v-model="cia"
                     :items="cias"
-                    label="Empresa"
+                    label="Base de Datos"
                     v-show="cias.length>0"
                     item-text="RAZONSOCIAL"
                     item-VALUE="COMPANIA"

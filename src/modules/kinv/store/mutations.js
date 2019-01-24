@@ -23,4 +23,7 @@ export default {
   setItars: (state, itars) => {
     state.itars = itars;
   },
+  setPrecomercials: (state, precomercials) => {
+    state.precomercials = precomercials;
+  },
 };

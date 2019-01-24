@@ -35,4 +35,5 @@ export default {
   ipss: state => {
     return state.ipss;
   },
+
 }

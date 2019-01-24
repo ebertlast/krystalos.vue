@@ -15,7 +15,8 @@
       <v-tab key="3" ripple>Inventario</v-tab>
       <v-tab key="4" ripple>Transformaciones</v-tab>
       <v-tab key="5" ripple>Unidosis</v-tab>
-      <v-tab key="6" ripple>Otras Configuraciones</v-tab>
+      <v-tab key="6" ripple v-show="false">Otras Configuraciones</v-tab>
+      <v-tab key="7" ripple>Fabricantes</v-tab>
       <v-tab-item key="1">
         <v-card flat>
           <v-container grid-list-md text-xs-center>
@@ -94,8 +95,6 @@
                   v-model="model.IDSERVICIO"
                 ></v-text-field>
               </v-flex>
-
-              
 
               <v-flex xs12 v-if="false">
                 <v-btn color="success" @click="guardar">Guardar</v-btn>
@@ -293,11 +292,57 @@
                       slot="header"
                     >{{model.PRECOMERCIAL}} {{(tgen_precomercial) ? tgen_precomercial.DESCRIPCION : ""}}</div>
                     <v-card>
-                      <tgen
+                      <!-- <tgen
                         nombre_tabla="IART"
                         nombre_campo="PRECOMERCIAL"
                         @model="elegirPreComercial($event)"
-                      ></tgen>
+                      ></tgen>-->
+                      <v-container grid-list-md text-xs-center>
+                        <v-layout row wrap>
+                          <v-flex xs10>
+                            <v-tooltip top>
+                              <div class="text-xs-center" slot="activator">
+                                <v-combobox
+                                  v-model="palabras"
+                                  :items="items_palabras"
+                                  label="Escribe aquí las palabras a coincidir en las presentaciones comerciales"
+                                  chips
+                                  clearable
+                                  prepend-icon="filter_list"
+                                  solo
+                                  multiple
+                                  v-on:keyup.ctrl.enter="filtrarPrecomerciales"
+                                >
+                                  <template slot="selection" slot-scope="data">
+                                    <v-chip
+                                      :selected="data.selected"
+                                      close
+                                      @input="remove(data.item)"
+                                    >
+                                      <strong>{{ data.item }}</strong>&nbsp;
+                                      <span v-if="false">(interest)</span>
+                                    </v-chip>
+                                  </template>
+                                </v-combobox>
+                              </div>
+                              <span>Ctrl+Enter para consultar</span>
+                            </v-tooltip>
+                          </v-flex>
+                          <v-flex xs2>
+                            <v-btn @click="filtrarPrecomerciales">Consultar</v-btn>
+                          </v-flex>
+                          <v-flex xs12>
+                            <tabla
+                              :columnas="columnas"
+                              :filas="filas"
+                              :loading="cargando_tabla"
+                              @fila="elegirPreComercial($event);"
+                              titulo="Presentaciones Comerciales"
+                              ref="tabla_precomercial"
+                            ></tabla>
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
                     </v-card>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
@@ -388,28 +433,6 @@
                 ></v-text-field>
               </v-flex>
 
-              
-
-              <v-flex xs3>
-                <v-text-field
-                  name="REGINVIMA"
-                  label="REGINVIMA"
-                  id="REGINVIMA"
-                  ref="REGINVIMA"
-                  v-model="model.REGINVIMA"
-                ></v-text-field>
-              </v-flex>
-
-              <v-flex xs3>
-                <v-text-field
-                  name="F_VIGENCIAINV"
-                  label="F_VIGENCIAINV"
-                  id="F_VIGENCIAINV"
-                  ref="F_VIGENCIAINV"
-                  v-model="model.F_VIGENCIAINV"
-                ></v-text-field>
-              </v-flex>
-
               <v-flex xs3>
                 <v-checkbox
                   name="ALTO_COSTO"
@@ -431,10 +454,6 @@
                   value="1"
                 ></v-checkbox>
               </v-flex>
-
-              
-
-              
 
               <v-flex xs3>
                 <v-checkbox
@@ -672,6 +691,26 @@
               </v-flex>
               <v-flex xs3>
                 <v-text-field
+                  name="REGINVIMA"
+                  label="REGINVIMA"
+                  id="REGINVIMA"
+                  ref="REGINVIMA"
+                  v-model="model.REGINVIMA"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs3>
+                <v-text-field
+                  name="F_VIGENCIAINV"
+                  label="F_VIGENCIAINV"
+                  id="F_VIGENCIAINV"
+                  ref="F_VIGENCIAINV"
+                  v-model="model.F_VIGENCIAINV"
+                  mask="date"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs3>
+                <v-text-field
                   name="CUENTA"
                   label="CUENTA"
                   id="CUENTA"
@@ -758,6 +797,14 @@
           </v-container>
         </v-card>
       </v-tab-item>
+
+      <v-tab-item key="7">
+        <v-container grid-list-md text-xs-center>
+          <v-layout row wrap>
+            <v-flex xs12></v-flex>
+          </v-layout>
+        </v-container>
+      </v-tab-item>
     </v-tabs>
 
     <div class="text-xs-center mt-3">
@@ -769,10 +816,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import { default as components } from "../../";
+import { default as global_components } from "../../../../../common/components/";
 import { default as krycnf_components } from "../../../../krycnf/components";
+import { default as methods } from "./methods";
 export default {
+  name: "frmIart",
   props: ["fila", "editar"],
   data: () => ({
     cargando: false,
@@ -780,8 +830,9 @@ export default {
       { descripcion: "No Aplica", valor: "NA" },
       { descripcion: "Plaquetas", valor: "PLAQUETAS" },
       { descripcion: "Glóbulos Rojos", valor: "GLOBULOS" },
-      { descripcion: "Plasma", valor: "Plasma" },
+      { descripcion: "Plasma", valor: "Plasma" }
     ],
+
     model: {
       IDARTICULO: undefined,
       IDCLASE: undefined,
@@ -841,6 +892,65 @@ export default {
       JUSTIFICACION: undefined,
       CODBARRA: undefined
     },
+    fabricante: {
+      IDARTICULO: undefined,
+      IDCLASE: undefined,
+      IDSUBCLASE: undefined,
+      IDGRUPO: undefined,
+      DESCRIPCION: undefined,
+      IDPRINACTIVO: undefined,
+      IDFORFARM: undefined,
+      IDCONCENTRA: undefined,
+      IDUNIDAD: undefined,
+      PCOSTO: undefined,
+      EXISTOTAL: undefined,
+      STOCKMINIMO: undefined,
+      STOCKMAXIMO: undefined,
+      PUNTOREORDEN: undefined,
+      IDITAR: undefined,
+      ESTRANSFORMABLE: undefined,
+      ESTADO: undefined,
+      IDGENERICO: undefined,
+      CUENTA: undefined,
+      IDFABRICANTE: undefined,
+      ESACTIVO: undefined,
+      IDTIPOACTIVO: undefined,
+      IDALTERNA: undefined,
+      REGINVIMA: undefined,
+      ALTO_COSTO: undefined,
+      CONT_ESPECIAL: undefined,
+      ENTREGA_TURNO: undefined,
+      UTILIDAD: undefined,
+      DOSIFICADO: undefined,
+      NDOSIS: undefined,
+      CODCUM: undefined,
+      ESCALA_RIESGO: undefined,
+      IDSERVICIO: undefined,
+      PRINCIPAL: undefined,
+      CLASERIESGO: undefined,
+      TESTABILIDAD: undefined,
+      MLOTEO: undefined,
+      IDSERVICIOBASE: undefined,
+      CANTIDADBASE: undefined,
+      IDSERVICIOMEZCLA: undefined,
+      CANTIDADMEZCLA: undefined,
+      CODIBASE: undefined,
+      CENTRAL: undefined,
+      IDSERVICIOCOBRO: undefined,
+      CTV: undefined,
+      F_VIGENCIAINV: undefined,
+      REGULADO: undefined,
+      PRECOMERCIAL: undefined,
+      NOPOS: undefined,
+      CONTADOR: undefined,
+      LABILIDAD: undefined,
+      INSTITUCIONAL: undefined,
+      HEMOCLASIFICACION: undefined,
+      JUSTIFICACION: undefined,
+      CODBARRA: undefined
+    },
+    fabricantes: [],
+    hermanos: [],
     generico: {
       IDGENERICO: undefined,
       DESCRIPCION: undefined,
@@ -853,6 +963,7 @@ export default {
     panelGenerico: [],
     panelPresentacionComercial: [],
     precomercial: [],
+
     tgen_precomercial: {
       TABLA: undefined,
       CAMPO: undefined,
@@ -866,7 +977,12 @@ export default {
       VALORFIN: undefined,
       VALOR2: undefined,
       DATO2: undefined
-    }
+    },
+    cargando_tabla: false,
+    filas: [],
+    columnas: [],
+    items_palabras: [],
+    palabras: []
   }),
   mounted() {
     if (this.fila) {
@@ -896,44 +1012,14 @@ export default {
     if (this.itars.length <= 0) {
       this.refrescarItars();
     }
-    // this.cargando = true;
-    // this.$http
-    //   .get(`tgen/IART/PRECOMERCIAL`)
-    //   .then(res => {
-    //     this.precomercial = res.result.recordset;
-    //     console.log(this.precomercial)
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
-    //   .then(() => {
-    //     this.cargando = false;
-    //   });
+    var self = this;
+    setInterval(() => {
+      self.tgen_precomercial = self.precomercials.filter(function(el) {
+        return el.CODIGO == self.model.PRECOMERCIAL;
+      })[0];
+    }, 5000);
   },
-  methods: {
-    ...mapActions("kinv", [
-      "refrescarIclas",
-      "refrescarIclahs",
-      "refrescarIgrus",
-      "refrescarIpacs",
-      "refrescarIffas",
-      "refrescarIccns",
-      "refrescarIunis",
-      "refrescarItars"
-    ]),
-    guardar() {
-      this.$emit("guardar", this.model);
-    },
-    elegirGenerico(model) {
-      this.model.IDGENERICO = model.IDGENERICO;
-      this.generico = model.DESCRIPCION;
-    },
-    elegirPreComercial(tgen) {
-      this.panelPresentacionComercial = undefined;
-      this.tgen_precomercial = tgen;
-      this.model.PRECOMERCIAL = tgen.CODIGO;
-    }
-  },
+  methods,
   computed: {
     ...mapGetters("kinv", [
       "iclas",
@@ -943,7 +1029,8 @@ export default {
       "iffas",
       "iccns",
       "iunis",
-      "itars"
+      "itars",
+      "precomercials"
     ]),
     iclahFiltradas() {
       var _idclase = this.model.IDCLASE;
@@ -988,11 +1075,15 @@ export default {
       //   ebert
       //   alert("")
       // }
+    },
+    "model.IDARTICULO"() {
+      this.cargarHermanos();
     }
   },
   components: {
     Genericos: components.IGEN,
-    Tgen: krycnf_components.TGENRegistros
+    Tgen: krycnf_components.TGENRegistros,
+    Tabla: global_components.DataTabla
   }
 };
 </script>

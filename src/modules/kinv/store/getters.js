@@ -23,4 +23,7 @@ export default {
   itars: state => {
     return state.itars;
   },
+  precomercials: state => {
+    return state.precomercials;
+  },
 };

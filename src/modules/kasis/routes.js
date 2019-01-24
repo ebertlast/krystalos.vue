@@ -6,7 +6,7 @@ export const routes = [
     component: components.Marco,
     name: "kasis",
     children: [
-      { path: "afi", component: components.AFINavegar, name: "afi" }
+      { path: "afi", component: components.AFIRegistros, name: "afi" }
       // { path: "usgruadd", component: components.UsgruAdd, name: "usgruadd" },
     ]
   },

@@ -9,7 +9,7 @@ export const routes = [
     component: components.Marco,
     name: "krycnf",
     children: [
-      { path: "med", component: components.MEDNavegar, name: "med" },
+      { path: "med", component: components.MEDRegistros, name: "med" },
       { path: "ter", component: components.TERRegistros, name: "ter" },
       { path: "cat", component: components.CATRegistros, name: "cat" },
       { path: "icla", component: components_inv.ICLA, name: "icla" },

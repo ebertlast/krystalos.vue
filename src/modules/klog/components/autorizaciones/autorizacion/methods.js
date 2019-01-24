@@ -2,6 +2,9 @@ import { mapActions } from "vuex";
 
 export default {
   ...mapActions(["setAlert", "notificacion"]),
+  ...mapActions("krycnf", [
+    "actualizarIpss"
+  ]),
   submit() {
     this.$validator.validateAll();
     console.log(this.$validator.validateAll());
@@ -56,7 +59,7 @@ export default {
       aux++;
     });
   },
-  actualizarIPSs() {
+  actualizarIPSsDEPRECATED() {
     this.cargando = true;
     this.ipss = [];
     this.$http

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-progress-linear color="grey darken-2" indeterminate v-if="cargando"></v-progress-linear>
     <v-expansion-panel v-model="panel" expand v-show="!(nombre_tabla&&nombre_campo)">
       <v-expansion-panel-content>
         <div slot="header">Filtros</div>
@@ -73,6 +74,7 @@
             v-if="!editar"
             @editar="editarFila($event)"
             @seleccionar="seleccionar($event)"
+            @eliminar="eliminarRegistro($event)"
           ></detalles>
         </v-scroll-y-transition>
         <v-scroll-y-transition mode="out-in">
@@ -83,6 +85,8 @@
               :fila="model"
               ref="formulario_edicion"
               :editar="true"
+              :tablas="tablas"
+              :campos="campos"
             ></formulario>
           </v-container>
         </v-scroll-y-transition>
@@ -93,6 +97,8 @@
           @guardar="guardar($event)"
           ref="formulario_nuevo"
           :editar="false"
+          :tablas="tablas"
+          :campos="campos"
         ></formulario>
       </template>
     </tabla>
@@ -222,10 +228,10 @@ export default {
       const json = "json=" + JSON.stringify({ model: _model });
       this.cargando = true;
       if (!this.editar) {
+        this.$refs.tabla.cerrarDialog();
         this.$http
-          .put(`tgen`, json)
+          .post(`tgen`, json)
           .then(res => {
-            this.cargando = false;
             if (res.success) {
               this.recargarFilas();
               this.notificacion({
@@ -233,7 +239,6 @@ export default {
                   "Registro Agregado a la Base de Datos Satisfactoriamente",
                 type: "success"
               });
-              this.$refs.tabla.cerrarDialog();
             } else {
               this.notificacion({
                 message:
@@ -249,8 +254,9 @@ export default {
             this.cargando = false;
           });
       } else {
+        this.editar = false;
         this.$http
-          .post(`tgen`, json)
+          .put(`tgen`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -259,7 +265,6 @@ export default {
                 message: "Registro Actualizado Satisfactoriamente",
                 type: "success"
               });
-              this.editar = false;
             } else {
               this.notificacion({
                 message:
@@ -278,6 +283,35 @@ export default {
     },
     cancelar() {
       this.$refs.tabla.cerrarDialog();
+    },
+    eliminarRegistro(_model) {
+      // console.log(_model);
+      this.$refs.tabla.cerrarDialog();
+      this.cargando = true;
+      this.$http
+        .delete(`tgen/${_model.TABLA}/${_model.CAMPO}/${_model.CODIGO}`)
+        .then(res => {
+          if (res.success) {
+            this.recargarFilas();
+            this.notificacion({
+              message: "Registro Eliminado Satisfactoriamente",
+              type: "success"
+            });
+            this.editar = false;
+          } else {
+            this.notificacion({
+              message:
+                "Problemas al Intentar Borrar el Registro de la Base de Datos",
+              type: "error"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .then(() => {
+          this.cargando = false;
+        });
     }
   },
   watch: {

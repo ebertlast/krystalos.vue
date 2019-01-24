@@ -2,7 +2,7 @@ export default {
   setPaiss: (state, paiss) => {
     state.paiss = paiss;
   },
-  setDepartamentos: (state, deps) => {
+  setDeps: (state, deps) => {
     state.deps = deps;
   },
   setCius: (state, cius) => {
@@ -35,4 +35,5 @@ export default {
   setIpss: (state, ipss) => {
     state.ipss = ipss;
   },
+  
 }

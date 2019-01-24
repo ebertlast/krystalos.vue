@@ -194,7 +194,7 @@ export default {
     if (!this.mes || this.mes.length <= 0) {
       this.actualizarMes();
     }
-    if (!this.departamentos || this.departamentos.length <= 0) {
+    if (!this.deps || this.deps.length <= 0) {
       this.refrescarDeps();
     }
     if (!this.cius || this.cius.length <= 0) {
@@ -244,7 +244,7 @@ export default {
     ...mapGetters("krycnf", [
       "mes",
       "cius",
-      "departamentos",
+      "deps",
       "ciubs",
       "tipoDocumentos",
       "docXTpo",

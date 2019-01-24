@@ -1,4 +1,4 @@
-const MEDNavegar = resolve => {
+const MEDRegistros = resolve => {
   require.ensure(
     ["./med/Registros.vue"],
     () => {
@@ -12,6 +12,15 @@ const MEDFormulario = resolve => {
     ["./med/Formulario.vue"],
     () => {
       resolve(require("./med/Formulario.vue"));
+    },
+    "krycnf"
+  );
+};
+const MEDDetalles = resolve => {
+  require.ensure(
+    ["./med/Detalles.vue"],
+    () => {
+      resolve(require("./med/Detalles.vue"));
     },
     "krycnf"
   );
@@ -297,5 +306,5 @@ const ZONDetalles = resolve => {
   );
 };
 export default {
-  MEDNavegar, MEDFormulario, TERRegistros, TERDetalles, TERFormulario, Marco, AECRegistros, AECDetalles, AECFormulario, TGENDetalles, TGENFormulario, TGENRegistros, OCURegistros, OCUFormulario, OCUDetalles, CATRegistros, CATDetalles, CATFormulario, PAISDetalles, PAISFormulario, PAISRegistros, DEPDetalles, DEPFormulario, DEPRegistros, CIUDetalles, CIUFormulario, CIURegistros, CIUBDetalles, CIUBFormulario, CIUBRegistros, ZONDetalles, ZONFormulario, ZONRegistros
+  MEDRegistros, MEDFormulario, MEDDetalles, TERRegistros, TERDetalles, TERFormulario, Marco, AECRegistros, AECDetalles, AECFormulario, TGENDetalles, TGENFormulario, TGENRegistros, OCURegistros, OCUFormulario, OCUDetalles, CATRegistros, CATDetalles, CATFormulario, PAISDetalles, PAISFormulario, PAISRegistros, DEPDetalles, DEPFormulario, DEPRegistros, CIUDetalles, CIUFormulario, CIURegistros, CIUBDetalles, CIUBFormulario, CIUBRegistros, ZONDetalles, ZONFormulario, ZONRegistros
 };

@@ -2,11 +2,13 @@
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs3>
-        <v-text-field name="TABLA" label="TABLA" id="TABLA" ref="TABLA" v-model="model.TABLA"></v-text-field>
+        <v-text-field name="TABLA" label="TABLA" id="TABLA" ref="TABLA" v-model="model.TABLA" 
+        ></v-text-field>
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="CAMPO" label="CAMPO" id="CAMPO" ref="CAMPO" v-model="model.CAMPO"></v-text-field>
+        <v-text-field name="CAMPO" label="CAMPO" id="CAMPO" ref="CAMPO" v-model="model.CAMPO" 
+        ></v-text-field>
       </v-flex>
 
       <v-flex xs3>
@@ -84,7 +86,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  props: ["fila", "editar"],
+  props: ["fila", "editar", "tablas", "campos"],
   data: () => ({
     model: {
       TABLA: undefined,
@@ -109,6 +111,25 @@ export default {
   methods: {
     guardar() {
       this.$emit("guardar", this.model);
+      this.model = this.model_limpio;
+    }
+  },
+  computed: {
+    model_limpio() {
+      return {
+        TABLA: undefined,
+        CAMPO: undefined,
+        CODIGO: undefined,
+        DESCRIPCION: undefined,
+        VALOR1: undefined,
+        DATO1: undefined,
+        DFECHA: undefined,
+        OPCIONESLIBRES: undefined,
+        VALORINI: undefined,
+        VALORFIN: undefined,
+        VALOR2: undefined,
+        DATO2: undefined
+      };
     }
   }
 };

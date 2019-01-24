@@ -4,8 +4,8 @@ export default {
   ...mapGetters("krycnf", ["docXTpo", "mes", "deps", "cius", "mdxs", "sers", "ipss", "epss"]),
   ...mapGetters(["extensionArchivo", "fechayhora"]),
   nombre_afi() {
-    return `${this.afi.PNOMBRE} ${this.afi.SNOMBRE} ${this.afi.PAPELLIDO} ${
-      this.afi.SAPELLIDO
+    return `${this.afi.PNOMBRE} ${this.afi.SNOMBRE || ""} ${this.afi.PAPELLIDO} ${
+      this.afi.SAPELLIDO || ""
       }`;
   },
   especialidad() {

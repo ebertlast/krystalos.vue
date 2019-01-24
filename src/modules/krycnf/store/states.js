@@ -10,5 +10,7 @@ export default {
   mdxs: [],
   sers: [],
   epss: [],
-  ipss: []
+  ipss: [],
+  tgen_tablas: [],
+  tgen_campos: []
 }

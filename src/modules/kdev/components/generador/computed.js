@@ -142,14 +142,14 @@ export default {
       const item = this.propiedades[index];
       switch (item.TIPO.toUpperCase()) {
         case "DATETIME":
-          code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+          code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
             item.COLUMNA
             }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
             item.TAMANIO
             }, precision: ${item.PRECISION}, valor: (new Date(params.${item.COLUMNA})) });}`;
           break;
         case "DECIMAL":
-          code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+          code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
             item.COLUMNA
             }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
             item.PRECISION
@@ -163,7 +163,7 @@ export default {
             }, precision: ${item.TAMANIO}, valor: params.${item.COLUMNA} });}`;
           break;
         default:
-          code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+          code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
             item.COLUMNA
             }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
             item.TAMANIO
@@ -189,7 +189,7 @@ export default {
 
     if (this.llaves.length <= 0) {
       const item = this.noLlaves[0];
-      code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+      code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
         item.COLUMNA
         }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
         item.TAMANIO
@@ -198,7 +198,7 @@ export default {
 
     for (let index = 0; index < this.llaves.length; index++) {
       const item = this.llaves[index];
-      code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+      code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
         item.COLUMNA
         }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
         item.TAMANIO
@@ -220,13 +220,13 @@ export default {
     for (let index = 0; index < this.propiedades.length; index++) {
       const item = this.propiedades[index];
       if (item.TIPO.toUpperCase() === "DATETIME") {
-        code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+        code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
           item.COLUMNA
           }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
           item.TAMANIO
           }, precision: ${item.PRECISION}, valor: (new Date(params.${item.COLUMNA})) });}`;
       } else {
-        code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+        code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
           item.COLUMNA
           }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
           item.TAMANIO
@@ -248,7 +248,7 @@ export default {
     code += `\n\t\t\t//#region ****INPUTS***`;
     if (this.llaves.length <= 0) {
       const item = this.noLlaves[0];
-      code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+      code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
         item.COLUMNA
         }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
         item.TAMANIO
@@ -256,7 +256,7 @@ export default {
     }
     for (let index = 0; index < this.llaves.length; index++) {
       const item = this.llaves[index];
-      code += `\n\t\t\tif(params.${item.COLUMNA}){ inputs.push({ nombre: '${
+      code += `\n\t\t\tif(params.${item.COLUMNA} != undefined){ inputs.push({ nombre: '${
         item.COLUMNA
         }', tipo: '${item.TIPO.toUpperCase()}', tamanio: ${
         item.TAMANIO
@@ -435,7 +435,6 @@ export default {
     },
     seleccionar(model) {
       this.model = model;
-      console.log(this.model);
       this.$emit("model", this.model);
       this.$refs.tabla.cerrarDialog();
     },
@@ -568,32 +567,34 @@ export default {
       });
     }
     js += `
-      <v-flex xs12>
-        <v-tooltip top>
-          <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
-            <v-icon>done_outline</v-icon>
-          </v-btn>
-          <span>Seleccionar</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn slot="activator" color="primary" @click="editarFila" fab small dark>
-            <v-icon>edit</v-icon>
-          </v-btn>
-          <span>Editar</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn slot="activator" color="error" @click="eliminar" fab small dark>
-            <v-icon>delete</v-icon>
-          </v-btn>
-          <span>Eliminar</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn slot="activator" @click="cancelar" fab small>
-            <v-icon>undo</v-icon>
-          </v-btn>
-          <span>Cancelar</span>
-        </v-tooltip>
-      </v-flex>
+      <v-scroll-y-transition mode="out-in" v-if="!cargando">
+        <v-flex xs12>
+          <v-tooltip top>
+            <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
+              <v-icon>done_outline</v-icon>
+            </v-btn>
+            <span>Seleccionar</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <v-btn slot="activator" color="primary" @click="editarFila" fab small dark>
+              <v-icon>edit</v-icon>
+            </v-btn>
+            <span>Editar</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <v-btn slot="activator" color="error" @click="eliminar" fab small dark>
+              <v-icon>delete</v-icon>
+            </v-btn>
+            <span>Eliminar</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <v-btn slot="activator" @click="cancelar" fab small>
+              <v-icon>undo</v-icon>
+            </v-btn>
+            <span>Cancelar</span>
+          </v-tooltip>
+        </v-flex>
+      </v-scroll-y-transition>
     </v-layout>
   </v-container>
 </template>`;
@@ -669,9 +670,11 @@ export default {
     var fields = "";
 
     var model = `model: {`;
+    var _propiedades = "";
     if (this.propiedades.length > 0)
       this.propiedades.forEach(propiedad => {
         model += `\n\t\t\t${propiedad.COLUMNA}: undefined,`
+        _propiedades += `\n\t\t\t${propiedad.COLUMNA}: undefined,`
 
         fields += `
       <v-flex xs3>
@@ -687,6 +690,7 @@ export default {
       });
     model = model.substr(0, model.length - 1)
     model += "\n\t\t}";
+    _propiedades = _propiedades.substr(0, _propiedades.length - 1);
 
     var js = `<template>
   <v-container grid-list-md text-xs-center>
@@ -715,6 +719,15 @@ export default {
   methods: {
     guardar() {
       this.$emit("guardar", this.model);
+      this.model = this.model_limpio;
+    }
+  },
+  computed: {
+    model_limpio() {
+      var model = {
+        ${_propiedades}
+      };
+      return model;
     }
   }
 }

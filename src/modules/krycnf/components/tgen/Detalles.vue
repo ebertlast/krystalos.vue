@@ -126,7 +126,7 @@
           </v-card>
         </v-hover>
       </v-flex>
-      <v-flex xs12>
+      <v-flex xs12 v-show="!cargando">
         <v-tooltip top>
           <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
             <v-icon>done_outline</v-icon>
@@ -207,11 +207,12 @@ export default {
       this.$emit("seleccionar", this.model);
     },
     eliminar() {
-      return this.notificacion({
-        message:
-          "No está permitido eliminar un registro de esta tabla, intente inactivarlo",
-        type: "error"
-      });
+      // return this.notificacion({
+      //   message:
+      //     "No está permitido eliminar un registro de esta tabla, intente inactivarlo",
+      //   type: "error"
+      // });
+      this.$emit("eliminar", this.model);
     },
     cancelar() {
       this.$emit("cancelar");

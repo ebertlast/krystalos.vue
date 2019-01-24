@@ -7,4 +7,5 @@ export default {
   iccns: [],
   iunis: [],
   itars: [],
+  precomercials: [],
 };

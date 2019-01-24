@@ -69,6 +69,8 @@ export default {
   },
   methods: {
     ...mapActions(["notificacion"]),
+    ...mapActions("krycnf", ["refrescarDeps"]),
+
     recargarFilas() {
       this.cargando_tabla = true;
       this.filas = [];
@@ -77,6 +79,7 @@ export default {
         .get(`dep`)
         .then(res => {
           this.filas = res.result.recordset;
+          this.refrescarDeps(this.filas);
           this.columnas = [];
           Object.keys(this.filas[0]).forEach(col => {
             this.columnas.push({ text: col.replace("_", " "), value: col });
@@ -91,7 +94,6 @@ export default {
     },
     seleccionar(model) {
       this.model = model;
-      console.log(this.model);
       this.$emit("model", this.model);
       this.$refs.tabla.cerrarDialog();
     },

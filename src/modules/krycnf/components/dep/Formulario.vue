@@ -1,16 +1,34 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
-      <v-flex xs3>
+      <v-flex xs2>
         <v-text-field name="DPTO" label="DPTO" id="DPTO" ref="DPTO" v-model="model.DPTO"></v-text-field>
       </v-flex>
 
-      <v-flex xs3>
+      <v-flex xs4>
         <v-text-field name="NOMBRE" label="NOMBRE" id="NOMBRE" ref="NOMBRE" v-model="model.NOMBRE"></v-text-field>
       </v-flex>
 
-      <v-flex xs3>
-        <v-text-field name="PAIS" label="PAIS" id="PAIS" ref="PAIS" v-model="model.PAIS"></v-text-field>
+      <v-flex xs2>
+        <v-autocomplete
+          label="IDPAIS"
+          :items="paiss"
+          v-model="model.PAIS"
+          item-value="IDPAIS"
+          item-text="IDPAIS"
+          ref="PAIS"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
+      </v-flex>
+      <v-flex xs4>
+        <v-autocomplete
+          label="PAIS"
+          :items="paiss"
+          v-model="model.PAIS"
+          item-value="IDPAIS"
+          item-text="NOMBRE"
+          no-data-text="Registro no encontrado"
+        ></v-autocomplete>
       </v-flex>
 
       <v-flex xs12>
@@ -41,6 +59,9 @@ export default {
     guardar() {
       this.$emit("guardar", this.model);
     }
+  },
+  computed: {
+    ...mapGetters("krycnf", ["paiss"])
   }
 };
 </script>

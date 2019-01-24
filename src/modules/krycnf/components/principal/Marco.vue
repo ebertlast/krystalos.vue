@@ -89,7 +89,7 @@
       </v-scroll-y-transition>
       <!-- </v-container> -->
     </v-content>
-    <v-btn fab bottom right color="pink" dark fixed @click="$router.back(1)">
+    <v-btn fab bottom right color="pink" dark fixed @click="$router.back(1)" v-if="false">
       <v-icon>chevron_left</v-icon>
     </v-btn>
   </v-app>
@@ -128,7 +128,7 @@ export default {
             texto: "Cuentas Contables NIIF",
             ruta: { name: "cueniif" },
             icono: ""
-          },
+          }
         ]
       },
       {
@@ -300,6 +300,18 @@ export default {
         ]
       },
       {
+        icono: "headset_mic",
+        texto: "Sistemas",
+        desplegado: false,
+        submenus: [
+          {
+            texto: "Tablas Genéricas",
+            ruta: { name: "tgen" },
+            icono: ""
+          },
+        ]
+      },
+      {
         icono: "home",
         texto: "Regresar a Inicio",
         ruta: "/",
@@ -341,6 +353,12 @@ export default {
     if (this.epss.length <= 0) {
       this.actualizarEpss();
     }
+    if (this.precomercials.length <= 0) {
+      this.refrescarPrecomercials();
+    }
+    if (this.paiss.length <= 0) {
+      this.refrescarPaiss();
+    }
   },
   methods: {
     ...mapActions("krycnf", [
@@ -353,11 +371,14 @@ export default {
       "actualizarMdxs",
       "actualizarSers",
       "actualizarIpss",
-      "actualizarEpss"
-    ])
+      "actualizarEpss",
+      "refrescarPaiss"
+    ]),
+    ...mapActions("kinv", ["refrescarPrecomercials"])
   },
   computed: {
     ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"]),
+    ...mapGetters("kinv", ["precomercials"]),
     ...mapGetters("krycnf", [
       "mes",
       "cius",
@@ -368,7 +389,8 @@ export default {
       "sers",
       "ipss",
       "epss",
-      "mdxs"
+      "mdxs",
+      "paiss"
     ])
   }
 };
