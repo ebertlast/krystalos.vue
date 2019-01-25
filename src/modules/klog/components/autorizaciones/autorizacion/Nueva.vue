@@ -415,20 +415,22 @@
                     item-value="IDTERCERO"
                     item-text="RAZONSOCIAL"
                     no-data-text="Registro no encontrado"
+                    :disabled="servicios.length>0"
                   ></v-autocomplete>
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs12 v-if="plns.length>0">
                   <v-autocomplete
                     label="Planes del Tercero"
                     :items="plns"
-                    v-model="pln"
+                    v-model="aut.IDPLAN"
                     item-value="IDPLAN"
                     item-text="DESCPLAN"
                     no-data-text="Registro no encontrado"
+                    :disabled="servicios.length>0"
                   ></v-autocomplete>
                 </v-flex>
 
-                <v-flex xs12>
+                <v-flex xs12 v-show="servicios_del_plan.length>0">
                   <v-tooltip top>
                     <div class="text-xs-center" slot="activator">
                       <v-combobox
@@ -456,7 +458,7 @@
                     <span>Enter para agregar palabra</span>
                   </v-tooltip>
                 </v-flex>
-                <v-flex xs2>
+                <v-flex xs2 v-show="servicios_del_plan.length>0">
                   <v-autocomplete
                     label="Código"
                     :items="articulos"
@@ -467,7 +469,7 @@
                     ref="IDSERVICIO"
                   ></v-autocomplete>
                 </v-flex>
-                <v-flex xs8>
+                <v-flex xs8 v-show="servicios_del_plan.length>0">
                   <v-autocomplete
                     label="Artículo"
                     :items="articulos"
@@ -478,7 +480,7 @@
                     ref="DESCSERVICIO"
                   ></v-autocomplete>
                 </v-flex>
-                <v-flex xs1>
+                <v-flex xs1 v-show="servicios_del_plan.length>0">
                   <v-text-field
                     name="cantidad"
                     label="Cantidad"
@@ -489,7 +491,7 @@
                     ref="CANTIDADSERVICIO"
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs1>
+                <v-flex xs1 v-show="servicios_del_plan.length>0">
                   <v-btn color="primary" @click="agregarServicio">Agregar</v-btn>
                 </v-flex>
                 <v-flex xs12>
@@ -805,7 +807,8 @@ export default {
     palabras: [],
     items_palabras: [],
     dialogComentarios: false,
-    servicio_comentario: {}
+    servicio_comentario: {},
+    servicios_del_plan:[]
   }),
   mounted() {
     // this.$validator.localize("es");

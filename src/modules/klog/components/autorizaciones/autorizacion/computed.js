@@ -33,7 +33,7 @@ export default {
   // }
   articulos() {
     var servicios = [];
-    for (let i = 0; i < this.sers.length; i++) {
+    for (let i = 0; i < this.servicios_del_plan.length; i++) {
       const servicio = this.sers[i];
       var agregar = true;
       this.servicios.forEach(ser => {

@@ -22,8 +22,15 @@ export default {
   eps() {
     this.aut.IDTERCEROCA = this.eps;
   },
-  pln() {
-    this.aut.IDPLAN = this.pln;
+  // pln() {
+  //   this.aut.IDPLAN = this.pln;
+  // },
+  "aut.IDPLAN"() {
+    this.cargando = true;
+    this.servicios_del_plan = [];
+    this.$http.get(`ser/articulos/${this.aut.IDPLAN}`).then(res => {
+      this.servicios_del_plan = res.result.recordset;
+    }).catch(err => { console.log(err); }).then(() => { this.cargando = false; })
   },
   // eps(){
   //   this.aut.
