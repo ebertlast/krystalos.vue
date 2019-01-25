@@ -679,8 +679,8 @@ export default {
         fields += `
       <v-flex xs3>
         <v-text-field
-          name="${propiedad.COLUMNA}"
           label="${propiedad.COLUMNA}"
+          name="${propiedad.COLUMNA}"
           id="${propiedad.COLUMNA}"
           ref="${propiedad.COLUMNA}"
           v-model="model.${propiedad.COLUMNA}"

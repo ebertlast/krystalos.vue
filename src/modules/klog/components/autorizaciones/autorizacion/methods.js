@@ -3,7 +3,8 @@ import { mapActions } from "vuex";
 export default {
   ...mapActions(["setAlert", "notificacion"]),
   ...mapActions("krycnf", [
-    "actualizarIpss"
+    "actualizarIpss",
+    "actualizarEpss"
   ]),
   submit() {
     this.$validator.validateAll();
@@ -59,11 +60,11 @@ export default {
       aux++;
     });
   },
-  actualizarIPSsDEPRECATED() {
+  actualizarContratantes() {
     this.cargando = true;
-    this.ipss = [];
+    this.contratantes = [];
     this.$http
-      .get(`usvgs/TERCATIPS`)
+      .get(`usvgs/TERCATCONTRATANTE`)
       .then(res => {
         return res.result.recordset[0];
       })
@@ -72,7 +73,7 @@ export default {
         this.$http
           .get(`ter/categoria/${usvgs.DATO}`)
           .then(res => {
-            this.ipss = res.result.recordset;
+            this.contratantes = res.result.recordset;
           })
           .catch(err => {
             console.log(err);
@@ -88,7 +89,7 @@ export default {
         this.cargando = false;
       });
   },
-  actualizarEPSs() {
+  actualizarEPSsDEPRECATED() {
     this.cargando = true;
     this.epss = [];
     this.$http
@@ -120,7 +121,7 @@ export default {
   actualizarPLNs() {
     this.plns = [];
     this.cargando = true;
-    this.$http.get(`pln/ter/${this.aut.IDTERCEROCA}`).then(res => {
+    this.$http.get(`pln/ter/${this.aut.IDCONTRATANTE}`).then(res => {
       this.plns = res.result.recordset;
       console.log(this.plns);
     }).catch(err => { console.log(err) }).then(() => {
@@ -154,8 +155,6 @@ export default {
     this.servicios = this.servicios.filter(function (el) { return el != ser });
   },
   guardar() {
-
-
     this.cargando = true;
     this.$http.get('aut/generarid/').then(res => {
       const aut = this.aut;
@@ -215,5 +214,22 @@ export default {
         }
       }).catch(err => { console.log(err) }).then(() => { this.cargando = false; })
     }).catch(err => { console.log(err); this.cargando = false; })
+  },
+  descartarPalabra(item) {
+    this.palabras.splice(this.palabras.indexOf(item), 1);
+    this.palabras = [...this.palabras];
+  },
+  editarComentarios(item) {
+    console.log(item)
+    this.servicio_comentario = item;
+    this.dialogComentarios = true;
+    var self = this;
+    setTimeout(() => {
+      self.$refs.comentarios.focus();
+    }, 400);
+  },
+  editarDireccion() {
+    this.aut.DIRECCION = "";
+    this.$refs.direccionador.show = true;
   }
 }

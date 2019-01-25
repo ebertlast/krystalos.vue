@@ -73,6 +73,7 @@ export default {
   },
   methods: {
     ...mapActions(["notificacion"]),
+    ...mapActions("krycnf", ["refrescarCius"]),
     recargarFilas() {
       this.cargando_tabla = true;
       this.filas = [];
@@ -81,6 +82,7 @@ export default {
         .get(`ciu`)
         .then(res => {
           this.filas = res.result.recordset;
+          this.refrescarCius(this.filas);
           this.columnas = [];
           Object.keys(this.filas[0]).forEach(col => {
             this.columnas.push({ text: col.replace("_", " "), value: col });

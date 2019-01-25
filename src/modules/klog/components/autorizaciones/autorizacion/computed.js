@@ -31,4 +31,39 @@ export default {
   //   }
   //   return this.sers.filter(function (el) { return el.CODIGO == idservicio })
   // }
+  articulos() {
+    var servicios = [];
+    for (let i = 0; i < this.sers.length; i++) {
+      const servicio = this.sers[i];
+      var agregar = true;
+      this.servicios.forEach(ser => {
+        // console.log(ser.IDSERVICIO, servicio)
+        if (ser.IDSERVICIO == servicio.CODIGO) {
+          agregar = false;
+        }
+      });
+      if (agregar)
+        for (let j = 0; j < this.palabras.length; j++) {
+          const palabra = this.palabras[j];
+          if (agregar) {
+            if (servicio.ARTICULO.toUpperCase().search(palabra.toUpperCase()) < 0) {
+              agregar = false;
+            }
+          }
+        }
+      if (agregar) {
+        servicios.push(servicio)
+      }
+    }
+    // this.palabras.forEach(el => {
+    //   console.log(el)
+    // });
+    return servicios;
+  },
+  nombre_departamento() {
+    if (!this.aut || !this.aut.CIUDAD) return "";
+    var self = this;
+    var DPTO = this.cius.filter(function (el) { return el.CIUDAD == self.ciudad })[0].DPTO;
+    return this.deps.filter(function (el) { return el.DPTO == DPTO; })[0].NOMBRE || "";
+  }
 }

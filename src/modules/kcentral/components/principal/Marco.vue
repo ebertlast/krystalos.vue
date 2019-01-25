@@ -170,8 +170,8 @@
       <v-flex xs4>
         <v-card color="#0AA8AA" class="white--text">
           <v-card-title primary-title>
-            <div class="headline">Droguería</div>
-            <div>Solicitudes de Insumos y Drogas, Alistamiento, Logistica de despacho y entrega.</div>
+            <div class="headline">Logistica</div>
+            <div>Solicitudes de Drogas, Alistamiento, Logistica de despacho y entrega.</div>
           </v-card-title>
           <v-card-actions>
             <v-btn flat dark :to="{name:'klog'}">Ir al módulo</v-btn>
@@ -347,7 +347,7 @@ export default {
       },
       {
         icon: "beenhere",
-        text: "Droguería",
+        text: "Logistica",
         route: { name: "klog" }
       },
       {

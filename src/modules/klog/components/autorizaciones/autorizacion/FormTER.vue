@@ -33,6 +33,8 @@
                   required
                   hint="No incluya letras"
                   v-on:keypress.enter="guardar"
+                  :loading="consultando_idtercero"
+                  @change="validar_idtercero"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -43,6 +45,7 @@
                   ref="RAZONSOCIAL"
                   v-on:keypress.enter="guardar"
                   v-model="model.RAZONSOCIAL"
+                  :disabled="!valido"
                 ></v-text-field>
               </v-flex>
             </v-layout>
@@ -52,7 +55,12 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="dialog = false" :disabled="cargando">Cancelar</v-btn>
-          <v-btn color="blue darken-1" flat @click="guardar" :disabled="cargando">Guardar</v-btn>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="guardar"
+            :disabled="cargando||consultando_idtercero||!valido"
+          >Guardar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -148,7 +156,10 @@ export default {
       MANFACT: undefined,
       CTAVIGENCIAANTE: undefined,
       EMAILRECIBOFE: undefined
-    }
+    },
+    consultando_idtercero: false,
+    timepoEspera: 0,
+    valido: false
   }),
   computed: {
     model_limpio() {
@@ -248,6 +259,7 @@ export default {
         return this.$refs.RAZONSOCIAL.focus();
       }
       this.model.IDCATEGORIA = this.idcategoria;
+      this.model.NIT = this.model.IDTERCERO;
       const json = "json=" + JSON.stringify({ model: this.model });
       this.cargando = true;
       this.$http
@@ -276,6 +288,31 @@ export default {
         .then(() => {
           this.cargando = false;
         });
+    },
+    validar_idtercero() {
+      this.consultando_idtercero = true;
+      var self = this;
+      this.$http
+        .get(`ter/${this.model.IDTERCERO}`)
+        .then(res => {
+          this.consultando_idtercero = false;
+          if (res.result.recordset.length > 0) {
+            this.notificacion({
+              message: `Éste tercero ya esta registrado en la base de datos (${
+                res.result.recordset[0].RAZONSOCIAL
+              })`,
+              type: "error"
+            });
+          } else {
+            this.valido = true;
+            setTimeout(() => {
+              self.$refs.RAZONSOCIAL.focus();
+            }, 400);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   watch: {
@@ -286,6 +323,9 @@ export default {
           self.$refs.IDTERCERO.focus();
         }, 500);
       }
+    },
+    "model.IDTERCERO"() {
+      this.valido = false;
     }
   }
 };

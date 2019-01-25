@@ -30,27 +30,7 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">NIT</span>
-              <div>{{(model && model.NIT) ? model.NIT : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">DV</span>
-              <div>{{(model && model.DV) ? model.DV : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">TIPO_ID</span>
+              <span class="grey--text">TIPO IDENTIFICACION</span>
               <div>{{(model && model.TIPO_ID) ? model.TIPO_ID : ""}}</div>
             </v-card-text>
           </v-card>
@@ -60,23 +40,13 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">IDALTERNA1</span>
-              <div>{{(model && model.IDALTERNA1) ? model.IDALTERNA1 : ""}}</div>
+              <span class="grey--text">IDENTIFICACION</span>
+              <div>{{(model && model.NIT) ? model.NIT : ""}}{{(model && model.DV) ? "-"+model.DV : ""}}</div>
             </v-card-text>
           </v-card>
         </v-hover>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">IDALTERNA2</span>
-              <div>{{(model && model.IDALTERNA2) ? model.IDALTERNA2 : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
+      <v-flex xs9>
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
@@ -90,8 +60,8 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">NATJURIDICA</span>
-              <div>{{(model && model.NATJURIDICA) ? model.NATJURIDICA : ""}}</div>
+              <span class="grey--text">CIUDAD</span>
+              <div>{{(model && model.NOMBRE_CIUDAD) ? model.NOMBRE_CIUDAD : ""}}</div>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -100,8 +70,8 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">CIUDAD</span>
-              <div>{{(model && model.CIUDAD) ? model.CIUDAD : ""}}</div>
+              <span class="grey--text">DEPARTAMENTO</span>
+              <div>{{(model && model.DEPARTAMENTO) ? model.DEPARTAMENTO : ""}}</div>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -120,86 +90,6 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">FAX</span>
-              <div>{{(model && model.FAX) ? model.FAX : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">APA</span>
-              <div>{{(model && model.APA) ? model.APA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">F_INSCRIPTO</span>
-              <div>{{(model && model.F_INSCRIPTO) ? model.F_INSCRIPTO : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">F_RENOVACION</span>
-              <div>{{(model && model.F_RENOVACION) ? model.F_RENOVACION : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">F_VENCIMIENT</span>
-              <div>{{(model && model.F_VENCIMIENT) ? model.F_VENCIMIENT : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">R_LEGAL</span>
-              <div>{{(model && model.R_LEGAL) ? model.R_LEGAL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">TIPO_ID_R</span>
-              <div>{{(model && model.TIPO_ID_R) ? model.TIPO_ID_R : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">NIT_R</span>
-              <div>{{(model && model.NIT_R) ? model.NIT_R : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
               <span class="grey--text">ESTADO</span>
               <div>{{(model && model.ESTADO) ? model.ESTADO : ""}}</div>
             </v-card-text>
@@ -210,488 +100,8 @@
         <v-hover>
           <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
             <v-card-text class="text-sm-left">
-              <span class="grey--text">REQAUTORIZA</span>
-              <div>{{(model && model.REQAUTORIZA) ? model.REQAUTORIZA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CUENTA</span>
-              <div>{{(model && model.CUENTA) ? model.CUENTA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">ZONA</span>
-              <div>{{(model && model.ZONA) ? model.ZONA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CIA</span>
-              <div>{{(model && model.CIA) ? model.CIA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">ACT_ECONOMICA</span>
-              <div>{{(model && model.ACT_ECONOMICA) ? model.ACT_ECONOMICA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">ENVIODICAJA</span>
-              <div>{{(model && model.ENVIODICAJA) ? model.ENVIODICAJA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">MODOCOPAGO</span>
-              <div>{{(model && model.MODOCOPAGO) ? model.MODOCOPAGO : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">EMPIDMODELOPC</span>
-              <div>{{(model && model.EMPIDMODELOPC) ? model.EMPIDMODELOPC : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">DIASVTO</span>
-              <div>{{(model && model.DIASVTO) ? model.DIASVTO : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">ESEXTRANJERO</span>
-              <div>{{(model && model.ESEXTRANJERO) ? model.ESEXTRANJERO : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CLASIFICADOR</span>
-              <div>{{(model && model.CLASIFICADOR) ? model.CLASIFICADOR : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">IDGRUPOIMP</span>
-              <div>{{(model && model.IDGRUPOIMP) ? model.IDGRUPOIMP : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">AUTORETENEDOR</span>
-              <div>{{(model && model.AUTORETENEDOR) ? model.AUTORETENEDOR : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">GRANCONTRIBUYENTE</span>
-              <div>{{(model && model.GRANCONTRIBUYENTE) ? model.GRANCONTRIBUYENTE : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
               <span class="grey--text">EMAIL</span>
-              <div>{{(model && model.EMAIL) ? model.EMAIL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">URL</span>
-              <div>{{(model && model.URL) ? model.URL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">NOMBRES_R_LEGAL</span>
-              <div>{{(model && model.NOMBRES_R_LEGAL) ? model.NOMBRES_R_LEGAL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">P_APELLIDO_R_LEGAL</span>
-              <div>{{(model && model.P_APELLIDO_R_LEGAL) ? model.P_APELLIDO_R_LEGAL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">S_APELLIDO_R_LEGAL</span>
-              <div>{{(model && model.S_APELLIDO_R_LEGAL) ? model.S_APELLIDO_R_LEGAL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">DE_NIT_R_LEGAL</span>
-              <div>{{(model && model.DE_NIT_R_LEGAL) ? model.DE_NIT_R_LEGAL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">IDACTIVIDAD</span>
-              <div>{{(model && model.IDACTIVIDAD) ? model.IDACTIVIDAD : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">TIPOREGIMEN</span>
-              <div>{{(model && model.TIPOREGIMEN) ? model.TIPOREGIMEN : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">MSUCURSALES</span>
-              <div>{{(model && model.MSUCURSALES) ? model.MSUCURSALES : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">FORMAPRE</span>
-              <div>{{(model && model.FORMAPRE) ? model.FORMAPRE : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CODIGO_ARP</span>
-              <div>{{(model && model.CODIGO_ARP) ? model.CODIGO_ARP : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">NORAD</span>
-              <div>{{(model && model.NORAD) ? model.NORAD : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">TIPOAPORTANTE</span>
-              <div>{{(model && model.TIPOAPORTANTE) ? model.TIPOAPORTANTE : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CODOPERADOR</span>
-              <div>{{(model && model.CODOPERADOR) ? model.CODOPERADOR : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CODIGO_AFP</span>
-              <div>{{(model && model.CODIGO_AFP) ? model.CODIGO_AFP : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CODIGO_CCF</span>
-              <div>{{(model && model.CODIGO_CCF) ? model.CODIGO_CCF : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">ASESOR_AFI</span>
-              <div>{{(model && model.ASESOR_AFI) ? model.ASESOR_AFI : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">ASESOR_MTO</span>
-              <div>{{(model && model.ASESOR_MTO) ? model.ASESOR_MTO : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">FNAC_RLEGAL</span>
-              <div>{{(model && model.FNAC_RLEGAL) ? model.FNAC_RLEGAL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">HOBBIE_RL</span>
-              <div>{{(model && model.HOBBIE_RL) ? model.HOBBIE_RL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">PROF_RL</span>
-              <div>{{(model && model.PROF_RL) ? model.PROF_RL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">EMAIL_RL</span>
-              <div>{{(model && model.EMAIL_RL) ? model.EMAIL_RL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">TIPOID_TH</span>
-              <div>{{(model && model.TIPOID_TH) ? model.TIPOID_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">NID_TH</span>
-              <div>{{(model && model.NID_TH) ? model.NID_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">DE_NIT_TH</span>
-              <div>{{(model && model.DE_NIT_TH) ? model.DE_NIT_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">NOMBRES_TH</span>
-              <div>{{(model && model.NOMBRES_TH) ? model.NOMBRES_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">P_APELLIDO_TH</span>
-              <div>{{(model && model.P_APELLIDO_TH) ? model.P_APELLIDO_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">S_APELLIDO_TH</span>
-              <div>{{(model && model.S_APELLIDO_TH) ? model.S_APELLIDO_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">FNAC_TH</span>
-              <div>{{(model && model.FNAC_TH) ? model.FNAC_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">HOBBIE_TH</span>
-              <div>{{(model && model.HOBBIE_TH) ? model.HOBBIE_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">PROF_TH</span>
-              <div>{{(model && model.PROF_TH) ? model.PROF_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">EMAIL_TH</span>
-              <div>{{(model && model.EMAIL_TH) ? model.EMAIL_TH : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">ITFC</span>
-              <div>{{(model && model.ITFC) ? model.ITFC : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CNSITFC</span>
-              <div>{{(model && model.CNSITFC) ? model.CNSITFC : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">HOMOLOGO</span>
-              <div>{{(model && model.HOMOLOGO) ? model.HOMOLOGO : ""}}</div>
+              <div>{{(model && model.EMAIL) ? model.EMAIL : "Sin Información"}}</div>
             </v-card-text>
           </v-card>
         </v-hover>
@@ -736,86 +146,48 @@
           </v-card>
         </v-hover>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CUE_BANCARIA</span>
-              <div>{{(model && model.CUE_BANCARIA) ? model.CUE_BANCARIA : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
+      <v-flex xs12>
+        <hr>
+        <h2>Categorizaciones</h2>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">TIPO_CUE</span>
-              <div>{{(model && model.TIPO_CUE) ? model.TIPO_CUE : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
+      <v-flex xs2>
+        <v-autocomplete
+          v-model="idcategoria"
+          :items="categoriasFiltradas"
+          label="ID Categoria"
+          persistent-hint
+          prepend-icon="mdi-city"
+          item-value="IDCATEGORIA"
+          item-text="IDCATEGORIA"
+          ref="categoria"
+          class="uppercase"
+        ></v-autocomplete>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">BANCO</span>
-              <div>{{(model && model.BANCO) ? model.BANCO : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
+      <v-flex xs8>
+        <v-autocomplete
+          v-model="idcategoria"
+          :items="categoriasFiltradas"
+          label="Categoría"
+          persistent-hint
+          prepend-icon="mdi-city"
+          item-value="IDCATEGORIA"
+          item-text="DESCRIPCION"
+          ref="categoria"
+          class="uppercase"
+        ></v-autocomplete>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">SUCURSAL</span>
-              <div>{{(model && model.SUCURSAL) ? model.SUCURSAL : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
+      <v-flex xs2>
+        <v-btn color="success" @click="guardarCategoria">Agregar</v-btn>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">NIIF_VTAEQUIEFECTIVOS</span>
-              <div>{{(model && model.NIIF_VTAEQUIEFECTIVOS) ? model.NIIF_VTAEQUIEFECTIVOS : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
+      <v-flex xs12>
+        <v-chip close @input="eliminarCategoria(item)" v-for="(item, index) in texca" :key="index">
+          <strong class="text-uppercase">{{ item.DESCRIPCION }}</strong>
+        </v-chip>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">MANFACT</span>
-              <div>{{(model && model.MANFACT) ? model.MANFACT : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
+      <v-flex xs12>
+        <hr>
       </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">CTAVIGENCIAANTE</span>
-              <div>{{(model && model.CTAVIGENCIAANTE) ? model.CTAVIGENCIAANTE : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
-      <v-flex xs3>
-        <v-hover>
-          <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`" class="mx-auto">
-            <v-card-text class="text-sm-left">
-              <span class="grey--text">EMAILRECIBOFE</span>
-              <div>{{(model && model.EMAILRECIBOFE) ? model.EMAILRECIBOFE : ""}}</div>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-flex>
+
       <v-flex xs12>
         <v-tooltip top>
           <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
@@ -933,10 +305,22 @@ export default {
       MANFACT: undefined,
       CTAVIGENCIAANTE: undefined,
       EMAILRECIBOFE: undefined
-    }
+    },
+    categorias: [],
+    texca: [],
+    idcategoria: undefined,
+    cargandoCategorias: false
   }),
   mounted() {
     this.refrescarDatos();
+    this.$http
+      .get("cat/")
+      .then(res => {
+        this.categorias = res.result.recordset;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   methods: {
     ...mapActions(["notificacion"]),
@@ -948,6 +332,9 @@ export default {
         .get(`ter/${this.fila.IDTERCERO}`)
         .then(res => {
           this.model = res.result.recordset[0];
+        })
+        .then(() => {
+          this.refrescarTexca();
         })
         .then(() => {
           this.cargando = false;
@@ -971,11 +358,106 @@ export default {
     },
     editarFila() {
       this.$emit("editar", this.model);
+    },
+    guardarCategoria() {
+      var _model = {
+        IDCATEGORIA: this.idcategoria,
+        IDTERCERO: this.model.IDTERCERO
+      };
+      const json = "json=" + JSON.stringify({ model: _model });
+      this.cargandoCategorias = true;
+      this.$http
+        .post(`texca`, json)
+        .then(res => {
+          if (res.success) {
+            this.notificacion({
+              message: "Registro Actualizado Satisfactoriamente",
+              type: "success"
+            });
+            this.refrescarTexca();
+          } else {
+            this.notificacion({
+              message:
+                "Problemas al Intentar Actualizar el Registro en la Base de Datos",
+              type: "error"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .then(() => {
+          this.cargandoCategorias = false;
+        });
+    },
+    eliminarCategoria(texca) {
+      for (let index = 0; index < this.texca.length; index++) {
+        const el = this.texca[index];
+        if (el.IDCATEGORIA == texca.IDCATEGORIA) {
+          this.cargandoCategorias = true;
+
+          this.$http
+            .delete(`texca/${this.model.IDTERCERO}/${el.IDCATEGORIA}`)
+            .then(res => {
+              if (res.success) {
+                this.notificacion({
+                  message: "Registro Actualizado Satisfactoriamente",
+                  type: "success"
+                });
+                this.texca.splice(index, 1);
+              } else {
+                this.notificacion({
+                  message:
+                    "Problemas al Intentar Actualizar el Registro en la Base de Datos",
+                  type: "error"
+                });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .then(() => {
+              this.cargandoCategorias = false;
+            });
+        }
+      }
+    },
+    refrescarTexca() {
+      if (this.model && this.model.IDTERCERO) {
+        this.$http.get(`texca/${this.model.IDTERCERO}/`).then(res => {
+          this.texca = [];
+          res.result.recordset.forEach(el => {
+            this.texca.push({
+              IDCATEGORIA: el.IDCATEGORIA,
+              DESCRIPCION: el.CATEGORIA
+            });
+          });
+        });
+      }
     }
   },
   watch: {
     fila() {
       this.refrescarDatos();
+    }
+  },
+  computed: {
+    categoriasFiltradas() {
+      var cats = [];
+      this.categorias.forEach(el => {
+        var agregar = true;
+        this.texca.forEach(element => {
+          if (agregar) {
+            if (el.IDCATEGORIA == element.IDCATEGORIA) {
+              agregar = false;
+            }
+          }
+        });
+        if (agregar) {
+          cats.push(el);
+        }
+      });
+      return cats;
     }
   }
 };
