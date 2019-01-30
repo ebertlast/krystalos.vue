@@ -7,6 +7,15 @@ const Ingresar = resolve => {
     "kseg"
   );
 };
+const CambiarClave = resolve => {
+  require.ensure(
+    ["./CambiarClave.vue"],
+    () => {
+      resolve(require("./CambiarClave.vue"));
+    },
+    "kseg"
+  );
+};
 export default {
-  Ingresar
+  Ingresar, CambiarClave
 };

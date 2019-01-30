@@ -55,6 +55,15 @@ export default {
     };
   },
   ingresar() {
+    if (!this.cia || !this.cia.COMPANIA || this.cia.COMPANIA === "") {
+      return this.$refs.cliente.focus();
+    }
+    if (!this.usuario || this.usuario === "") {
+      return this.$refs.usuario.focus();
+    }
+    if (!this.clave || this.clave === "") {
+      return this.$refs.clave.focus();
+    }
     this.cargando = true;
     this.$http.get(`/ususu/ingresar/${this.cia.COMPANIA}/${this.usuario}/${this.clave}`).then(res => {
       // console.log(res);
@@ -62,15 +71,23 @@ export default {
       if (!res.result.recordset[0]) {
         // this.animarDiv("sign-wrapper");
         this.notificacion({ message: "Credenciales incorrectas", type: "error" });
+        this.cargando = false;
       } else {
         ususu.URL_API = this.api_url;
         // console.log(ususu);
         this.setUsusu(ususu).then(() => {
-          return this.$router.push({ name: "kcentral" });
           // return (document.location = "/");
+          this.$http.get(`usgruh/${ususu.GRUPO}`).then(res => {
+            ususu.USGRUH = (res.result.recordset);
+            this.setUsusu(ususu).then(() => {
+              return this.$router.push({ name: "kcentral" });
+            });
+          }).catch(err => {
+            this.cargando = false
+            console.log(err);
+          });
         });
       }
-      this.cargando = false;
     }).catch(err => {
       this.cargando = false;
       console.log(err)

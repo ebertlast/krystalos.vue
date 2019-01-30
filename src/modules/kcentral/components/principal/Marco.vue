@@ -1,23 +1,11 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      :clipped="$vuetify.breakpoint.lgAndUp"
-      v-model="drawer"
-      fixed
-      app
-    >
+    <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" fixed app>
       <v-list dense>
-        <template v-for="item in items">
-          <v-layout
-            v-if="item.heading"
-            :key="item.heading"
-            row
-            align-center
-          >
+        <template v-for="item in menus">
+          <v-layout v-if="item.heading" :key="item.heading" row align-center>
             <v-flex xs6>
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
+              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-flex>
             <v-flex xs6 class="text-xs-center">
               <a href="#!" class="body-2 black--text">EDIT</a>
@@ -28,68 +16,55 @@
             v-model="item.model"
             :key="item.text"
             :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon=""
+            append-icon
           >
             <v-list-tile slot="activator">
               <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ item.text }}
-                </v-list-tile-title>
+                <v-list-tile-title>{{ item.text }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile
-              v-for="(child, i) in item.children"
-              :key="i"
-              @click=""
-              :to="child.route"
-            >
+            <v-list-tile v-for="(child, i) in item.children" :key="i" @click :to="child.route">
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ child.text }}
-                </v-list-tile-title>
+                <v-list-tile-title>{{ child.text }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-
           </v-list-group>
           <v-list-tile v-else :key="item.text" :to="item.route">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>
-                {{ item.text }}
-              </v-list-tile-title>
+              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider v-if="item.divider"></v-divider>
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="blue darken-2"
-      dark
-      app
-      fixed
-    >
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue darken-2" dark app fixed>
       <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">{{title}}</span>
       </v-toolbar-title>
-      <v-text-field v-show="false"
+      <v-text-field
+        v-show="true"
         flat
         solo-inverted
         hide-details
         prepend-inner-icon="search"
-        label="Search"
+        label="Filtrar"
         class="hidden-sm-and-down"
+        v-model="texto_filtro"
+        ref="texto_filtro"
       ></v-text-field>
-      
+
       <v-spacer></v-spacer>
-      <h2>{{nombreUsuario}}</h2>
+      <h2 @click="$router.push({name:'cambiar_clave'})" style="cursor:pointer;">
+        {{nombreUsuario}}
+      </h2>
       <v-btn icon v-show="false">
         <v-icon>apps</v-icon>
       </v-btn>
@@ -98,10 +73,7 @@
       </v-btn>
       <v-btn icon large>
         <v-avatar size="32px" tile>
-          <img
-            src="/src/assets/Krystalos.ico"
-            alt="Krystalos"
-          >
+          <img src="/src/assets/Krystalos.ico" alt="Krystalos">
         </v-avatar>
       </v-btn>
     </v-toolbar>
@@ -114,7 +86,7 @@
             </v-btn>
             <span>Dynamic Report</span>
           </v-tooltip>
-           <v-tooltip right v-show="ususu.USUARIO==='EZERPA'">
+          <v-tooltip right v-show="ususu.USUARIO==='EZERPA'">
             <v-btn
               slot="activator"
               :href="source"
@@ -131,165 +103,47 @@
           </v-tooltip>
         </v-layout>
       </v-container>
-      
-    <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs4>
-        <v-card color="indigo" dark>
-          <v-card-title primary-title>
-            <div class="headline">Contable</div>
-            <div>Provisiones, Libros Auxiliares, Balances de Comprobación, Estado de Resultados.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat :to="'/kconta'">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-      <v-flex xs4>
-        <v-card color="red accent-1">
-          <v-card-title primary-title>
-            <div class="headline">Apoyo Diagnóstico</div>
-            <div>Exámenes de laboratorio, Pruebas Cruzadas, Rayos X, Tomografías.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat :to="{name:'klab'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-      <v-flex xs4>
-        <v-card color="pink lighten-4" class="black--text">
-          <v-card-title primary-title>
-            <div class="headline">Asistencial</div>
-            <div>Admisiones, Pacientes, Historias Clínicas, Triages, Cirugías, Prestaciones.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn class="black--text" flat dark :to="{name:'kasis'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-      <v-flex xs4>
-        <v-card color="#0AA8AA" class="white--text">
-          <v-card-title primary-title>
-            <div class="headline">Logistica</div>
-            <div>Solicitudes de Drogas, Alistamiento, Logistica de despacho y entrega.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat dark :to="{name:'klog'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-      <v-flex xs4>
-        <v-card color="amber" class="black--text">
-          <v-card-title primary-title>
-            <div class="headline">Dynamic Report</div>
-            <div>Construcción de Reportes, Indicadores, Exportación a Excel.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn class="black--text" flat dark :to="{name:'dynamic_report'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-      <v-flex xs4>
-        <v-card color="purple" class="white--text">
-          <v-card-title primary-title>
-            <div class="headline">Sistema de Archivos</div>
-            <div>Digitalizaciones, Radicaciones, Sistema de gestión de archivos, PDF.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat dark :to="{name:'kryocr'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
 
-      <v-flex xs4>
-        <v-card color="orange lighten-2">
-          <v-card-title primary-title>
-            <div class="headline">Inventario</div>
-            <div>Compras, entradas, salidas, despachos, traslados entre bodegas, conteo físico.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat :to="{name:'kinv'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-
-      <v-flex xs4>
-        <v-card color="deep-orange darken-1" dark >
-          <v-card-title primary-title>
-            <div class="headline">Activos Fijos</div>
-            <div>Tipos de Activos, eventos, movimientos, depreciaciones, inflación, artículos.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat :to="{name:'kiaf'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-      
-      
-      <v-flex xs4>
-        <v-card color="blue-grey" dark>
-          <v-card-title primary-title>
-            <div class="headline">Konfiguración</div>
-            <div>Configuraciones Generales del Sistema, Tablas Genéricas, Seguridad.</div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn flat :to="{name:'krycnf'}">Ir al módulo</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-
-    </v-layout>
-  </v-container>
+      <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs4 v-for="(item, index) in menus" :key="index">
+            <v-card :color="item.color" :dark="item.dark" :class="item.class">
+              <v-card-title primary-title>
+                <div class="headline" v-text="item.text"></div>
+                <div v-text="item.description"></div>
+              </v-card-title>
+              <v-card-actions>
+                <v-btn flat :dark="item.dark" :to="item.route">Ir allí</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-content>
-    <v-btn v-show="false"
-      fab
-      bottom
-      right
-      color="pink"
-      dark
-      fixed
-      @click="dialog = !dialog"
-    >
+    <v-btn v-show="false" fab bottom right color="pink" dark fixed @click="dialog = !dialog">
       <v-icon>add</v-icon>
     </v-btn>
     <v-dialog v-model="dialog" width="800px">
       <v-card>
-        <v-card-title
-          class="grey lighten-4 py-4 title"
-        >
-          Create contact
-        </v-card-title>
+        <v-card-title class="grey lighten-4 py-4 title">Create contact</v-card-title>
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
             <v-flex xs12 align-center justify-space-between>
               <v-layout align-center>
                 <v-avatar size="40px" class="mr-3">
-                  <img
-                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                    alt=""
-                  >
+                  <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt>
                 </v-avatar>
-                <v-text-field
-                  placeholder="Name"
-                ></v-text-field>
+                <v-text-field placeholder="Name"></v-text-field>
               </v-layout>
             </v-flex>
             <v-flex xs6>
-              <v-text-field
-                prepend-icon="business"
-                placeholder="Company"
-              ></v-text-field>
+              <v-text-field prepend-icon="business" placeholder="Company"></v-text-field>
             </v-flex>
             <v-flex xs6>
-              <v-text-field
-                placeholder="Job title"
-              ></v-text-field>
+              <v-text-field placeholder="Job title"></v-text-field>
             </v-flex>
             <v-flex xs12>
-              <v-text-field
-                prepend-icon="mail"
-                placeholder="Email"
-              ></v-text-field>
+              <v-text-field prepend-icon="mail" placeholder="Email"></v-text-field>
             </v-flex>
             <v-flex xs12>
               <v-text-field
@@ -300,10 +154,7 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
-              <v-text-field
-                prepend-icon="notes"
-                placeholder="Notes"
-              ></v-text-field>
+              <v-text-field prepend-icon="notes" placeholder="Notes"></v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
@@ -326,61 +177,113 @@ export default {
     dialog: false,
     drawer: null,
     title: APPNAME,
+    texto_filtro: "",
     items: [
       {
         icon: "local_atm",
         text: "Contabilidad",
         // divider: true,
-        route: "kconta"
+        route: { name: "kconta" },
+        color: "indigo",
+        dark: true,
+        description:
+          "Provisiones, Libros Auxiliares, Balances de Comprobación, Estado de Resultados.",
+        name: "BContable"
       },
       {
         icon: "warning",
         text: "Apoyo Diagnóstico",
         // divider: true,
-        route: "klab"
+        route: { name: "klab" },
+        color: "red accent-1",
+        description:
+          "Exámenes de laboratorio, Pruebas Cruzadas, Rayos X, Tomografías.",
+        name: "BApoyoDX"
       },
       {
         icon: "contacts",
         text: "Asistencial",
         // divider: true,
-        route: "kasis"
+        route: { name: "kasis" },
+        color: "pink lighten-4",
+        description:
+          "Admisiones, Pacientes, Historias Clínicas, Triages, Cirugías, Prestaciones.",
+        class: "black--text",
+        name: "BAsistencial"
       },
       {
         icon: "beenhere",
-        text: "Logistica",
-        route: { name: "klog" }
+        text: "Autorizaciones",
+        route: { name: "klog" },
+        color: "#0AA8AA",
+        class: "white--text",
+        description:
+          "Solicitudes de Drogas, Alistamiento, Logistica de despacho y entrega.",
+        dark: true,
+        name: "BAutorizacion"
       },
       {
         icon: "table_chart",
         text: "Dynamic Report",
         // divider: true,
-        route: "dynamic_report"
+        route: { name: "dynamic_report" },
+        color: "amber",
+        class: "black--text",
+        description:
+          "Construcción de Reportes, Indicadores, Exportación a Excel.",
+        dark: false,
+        name: "BDinamic"
       },
       // { icon: "history", text: "Frequently contacted" },
       {
         icon: "scanner",
         text: "Sistema de Archivos",
-        route: "kryocr"
+        route: { name: "kryocr" },
+        color: "purple",
+        // class: "white--text",
+        description:
+          "Digitalizaciones, Radicaciones, Sistema de gestión de archivos, PDF.",
+        dark: true,
+        name: "BOCR"
       },
       {
         icon: "widgets",
         text: "Inventario",
-        route: "kinv"
+        route: { name: "kinv" },
+        color: "orange lighten-2",
+        description:
+          "Compras, entradas, salidas, despachos, traslados entre bodegas, conteo físico.",
+        dark: false,
+        name: "BInventario"
       },
       {
         icon: "domain",
         text: "Activos Fijos",
-        route: "kiaf"
+        route: { name: "kiaf" },
+        color: "deep-orange darken-1",
+        description:
+          "Tipos de Activos, eventos, movimientos, depreciaciones, inflación, artículos.",
+        dark: true,
+        name: "BActivosF"
       },
       {
         icon: "settings",
         text: "Configuración",
-        route: { name: "krycnf" } 
+        route: { name: "krycnf" },
+        color: "blue-grey",
+        description:
+          "Configuraciones Generales del Sistema, Tablas Genéricas, Seguridad.",
+        dark: true,
+        name: "BKonfiguracion"
       },
       {
         icon: "settings_ethernet",
         text: "Desarrollo",
-        route: { name: "kdev" } 
+        route: { name: "kdev" },
+        description:
+          "Configuraciones Generales del Sistema, Tablas Genéricas, Seguridad.",
+        dark: true,
+        name: "BDesarrollo"
       },
       // {
       //   icon: "keyboard_arrow_up",
@@ -410,19 +313,78 @@ export default {
       // { icon: "chat_bubble", text: "Send feedback" },
       // { icon: "help", text: "Help" },
       // { icon: "phonelink", text: "App downloads" },
-      { icon: "vpn_key", text: "Cerrar Sesión", route: { name: "ingresar" } }
+      {
+        icon: "vpn_key",
+        text: "Cerrar Sesión",
+        route: { name: "ingresar" },
+        color: "blue darken-2",
+        dark: true,
+        description:
+          "Cerrar sesión y salir del Sistema. Acceder a otras instituciones.",
+        name: "BSalir"
+      }
     ]
   }),
   mounted() {
     // console.log(this.ususu);
-    this.title = this.ususu.INSTITUCION;
+    var self = this;
+    self.title = self.ususu.INSTITUCION;
+    setTimeout(() => {
+      self.$refs.texto_filtro.focus();
+    }, 1000);
   },
   props: {
     source: String
   },
   methods: {},
   computed: {
-    ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"])
+    ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"]),
+    menus() {
+      var menus = this.items;
+      var _return = [];
+      var palabra = this.texto_filtro;
+      var permisos = undefined;
+
+      if (this.ususu && this.ususu.USGRUH) {
+        var permisos = this.ususu.USGRUH.filter(function(el) {
+          return el.IDPROCEDIMIENTO == "MenuKCentral";
+        });
+      }
+
+      for (let i = 0; i < menus.length; i++) {
+        const menu = menus[i];
+        var _push = true;
+        if (palabra && palabra !== "") {
+          if (
+            menu.description.toUpperCase().search(palabra.toUpperCase()) >= 0 ||
+            menu.text.toUpperCase().search(palabra.toUpperCase()) >= 0
+          ) {
+          } else {
+            _push = false;
+          }
+        }
+        if (_push && permisos) {
+          var permiso = permisos.filter(function(el) {
+            return el.IDCONTROL == menu.name;
+          })[0];
+          if (!permiso) {
+            _push = false;
+          } else {
+            if (permiso.PERMISO != 1) {
+              _push = false;
+            }
+          }
+        }
+        
+        if (menu.name == "BSalir") {
+          _push = true;
+        }
+        if (_push) {
+          _return.push(menu);
+        }
+      }
+      return _return;
+    }
   }
 };
 </script>

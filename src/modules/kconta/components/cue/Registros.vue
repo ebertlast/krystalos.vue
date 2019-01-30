@@ -124,7 +124,6 @@ export default {
     },
     seleccionar(model) {
       this.model = model;
-      console.log(this.model);
       this.$emit("model", this.model);
       this.$refs.tabla.cerrarDialog();
     },
@@ -135,10 +134,10 @@ export default {
     guardar(_model) {
       const json = "json=" + JSON.stringify({ model: _model });
       this.cargando = true;
-      if (this.editar) {
+      if (!this.editar) {
         this.$refs.tabla.cerrarDialog();
         this.$http
-          .put(`cue`, json)
+          .post(`cue`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {
@@ -165,7 +164,7 @@ export default {
       } else {
         this.editar = false;
         this.$http
-          .post(`cue`, json)
+          .put(`cue`, json)
           .then(res => {
             this.cargando = false;
             if (res.success) {

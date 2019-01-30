@@ -44,7 +44,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" v-on:click.prevent="ingresar">Ingresar</v-btn>
+                <v-btn color="primary" v-on:click.prevent="ingresar" :loading="cargando" :disabled="cargando || cia.COMPANIA==='' || usuario==='' || clave==='' ">Ingresar</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

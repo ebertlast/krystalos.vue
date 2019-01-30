@@ -17,7 +17,7 @@
           <v-container elevation-1>
             <!-- <h1>{{aut.NOAUT}}</h1> -->
             <v-layout row wrap>
-              <v-flex xs12>
+              <v-flex xs12 id="datos_autorizacion">
                 <v-expansion-panel popout>
                   <v-expansion-panel-content>
                     <div slot="header">
@@ -43,9 +43,9 @@
                           <v-flex xs7>
                             <v-card-text class="font-italic font-weight-thin indigo--text">
                               <!-- {{ciub.NOMBRE}} - {{ciu.NOMBRE}} - {{dep.NOMBRE}} -->
-                              {{ciu.NOMBRE}} - {{dep.NOMBRE}} - {{aut.DIRECCION}}
                             </v-card-text>
                           </v-flex>
+
                           <v-flex xs2 class="text-xs-right">
                             <v-card-text>{{aut.NOAUT}}</v-card-text>
                           </v-flex>
@@ -56,6 +56,11 @@
                       <template>
                         <v-container grid-list-md text-xs-center>
                           <v-layout row wrap>
+                            <v-flex xs12>
+                              Enviar a {{afi.PNOMBRE}} {{afi.SNOMBRE}} {{afi.PAPELLIDO}} {{afi.SAPELLIDO}}
+                              en
+                              {{ciu.NOMBRE}} - {{dep.NOMBRE}} - {{aut.DIRECCION}}
+                            </v-flex>
                             <v-flex xs12>
                               <v-card dark :color="color_progreso">
                                 <!-- <v-card-text class="px-0"> -->
@@ -71,7 +76,10 @@
 
                                     <v-list-tile-content>
                                       <v-list-tile-title v-text="item.DESCSERVICIO"></v-list-tile-title>
-                                      <v-list-tile-sub-title v-html="item.COMENTARIOS" class="red--text font-italic"></v-list-tile-sub-title>
+                                      <v-list-tile-sub-title
+                                        v-html="item.COMENTARIOS"
+                                        class="red--text font-italic"
+                                      ></v-list-tile-sub-title>
                                     </v-list-tile-content>
 
                                     <!-- <v-list-tile-avatar>
@@ -132,6 +140,9 @@
                                   </v-list-tile>
                                 </v-list>
                               </v-card>
+                            </v-flex>
+                            <v-flex xs12>
+                              <v-btn color="secondary" @click="imprimir('datos_impresion')">Imprimir</v-btn>
                             </v-flex>
                           </v-layout>
                         </v-container>
@@ -247,11 +258,103 @@
             </v-stepper>
 
             <div>
-              <v-btn color="primary">Aprobar</v-btn>
+              <v-btn
+                color="primary"
+                @click="confirmar_autorizacion"
+                :loading="cargando"
+                :disabled="cargando || inprocess>2"
+              >Aprobar</v-btn>
               <!-- <v-btn>Cancelar</v-btn> -->
             </div>
           </v-container>
         </v-scroll-y-transition>
+      </template>
+      <template>
+        <div id="datos_impresion" v-show="false">
+          <table border="0">
+            <tr>
+              <th colspan="20">
+                <h1>Autorización {{aut.NOAUT}}</h1>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="2" align="right">Consecutivo:</th>
+              <td colspan="10">{{aut.IDAUT}}</td>
+            </tr>
+            <tr>
+              <th colspan="2" align="right">Paciente:</th>
+              <td
+                colspan="10"
+              >{{afi.TIPO_DOC+afi.DOCIDAFILIADO}} {{afi.PNOMBRE}} {{afi.SNOMBRE}} {{afi.PAPELLIDO}} {{afi.SAPELLIDO}}</td>
+            </tr>
+            <tr>
+              <th colspan="2" align="right">Contactos:</th>
+              <td colspan="10">{{afi.EMAIL||""}} {{afi.CELULAR || ""}} {{afi.TELEFONORES || ""}}</td>
+            </tr>
+            <tr>
+              <th colspan="2" align="right">Dirección de Envío:</th>
+              <td colspan="10">{{ciu.NOMBRE}} - {{dep.NOMBRE}} - {{aut.DIRECCION}}</td>
+            </tr>
+            <tr>
+              <th colspan="2" align="right">EPS:</th>
+              <td colspan="10">{{aut.EPS || ""}}</td>
+            </tr>
+            <tr>
+              <th colspan="2" align="right">IPS:</th>
+              <td colspan="10">{{aut.IPS || ""}}</td>
+            </tr>
+            <tr>
+              <th colspan="2" align="right">Contratante:</th>
+              <td colspan="10">{{aut.CONTRATANTE || ""}}</td>
+            </tr>
+            <tr>
+              <th colspan="20">
+                <hr>
+                <h2>Artículos</h2>
+                <hr>
+              </th>
+            </tr>
+            <tr>
+              <th>Cantidad</th>
+              <th colspan="10">Descripción</th>
+            </tr>
+            <template>
+              <div v-for="item in autd" :key="item.NO_ITEM" border="1">
+                <tr>
+                  <td style="text-align:center">{{item.CANTIDAD}}</td>
+                  <td colspan="10">
+                    <p>{{item.DESCSERVICIO}}</p>
+                    <p v-if="item.COMENTARIOS && item.COMENTARIOS!==''" style="font-style: italic;">
+                      <b>{{item.COMENTARIOS}}</b>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <th colspan="20">
+                    <hr>
+                  </th>
+                </tr>
+              </div>
+            </template>
+            <tr>
+              <td colspan="20">
+                <h2>Observaciones</h2>
+                <p v-if="aut.OBS && aut.OBS!==''">{{aut.OBS}}</p>
+                <p>Ésta autorización tiene como soporte {{auta.length}} archivos correspondientes a {{archivos_adjuntos}} respectivamente.</p>
+                <hr>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="20" alig="left"></td>
+            </tr>
+            <tr>
+              <td
+                colspan="20"
+                align="right"
+              >Impreso por ({{ususu.USUARIO}}) {{ususu.NOMBRE}} - {{new Date().toLocaleString()}}</td>
+            </tr>
+          </table>
+        </div>
       </template>
 
       <v-scroll-y-transition mode="out-in">
@@ -459,6 +562,7 @@ export default {
     this.actualizarListado();
   },
   methods: {
+    ...mapActions(["setAlert", "notificacion"]),
     ...mapActions("kasis", ["setAfi"]),
     actualizarListado() {
       this.cargando_tabla = true;
@@ -468,9 +572,41 @@ export default {
         .get("aut")
         .then(res => {
           this.filas = res.result.recordset;
+          this.filas.forEach(fila=>{
+            var _class="";
+            switch(fila.ESTADO.toLowerCase()){
+              case "solicitada":
+                _class="red lighten-4";
+                break;
+              case "autorizada": 
+                _class = "lime lighten-3";
+                break;
+              case "alistada": {
+                _class = "light-green lighten-3";
+                break;
+              }
+              case "despachada": {
+                _class = "blue-grey lighten-3";
+                break;
+              }
+              case "entregada": {
+                _class = "green lighten-5";
+                break;
+              }
+              case "recibido": {
+                _class = "";
+                break;
+              }
+              default:
+                _class="";
+              
+            }
+            fila.class=`text-xs-left ${_class}`;
+          })
           this.columnas = [];
           Object.keys(this.filas[0]).forEach(col => {
-            this.columnas.push({ text: col.replace("_", " "), value: col });
+            if(col!=='class')
+              this.columnas.push({ text: col.replace("_", " "), value: col });
           });
         })
         .catch(err => {
@@ -506,6 +642,44 @@ export default {
         .get(`auta/descargar/${archivo.IDAUTA}`)
         .then(res => {
           console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .then(() => {
+          this.cargando = false;
+        });
+    },
+    imprimir(idDiv) {
+      var prtContent = document.getElementById(idDiv);
+      var WinPrint = window.open(
+        "",
+        "",
+        "left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0"
+      );
+      WinPrint.document.write(prtContent.innerHTML);
+      WinPrint.document.close();
+      WinPrint.focus();
+      WinPrint.print();
+      WinPrint.close();
+    },
+    confirmar_autorizacion() {
+      this.cargando = true;
+      this.$http
+        .get(`aut/confirmar/${this.aut.IDAUT}`)
+        .then(res => {
+          if (res.success) {
+            this.aut.ESTADO = "Autorizada";
+            this.notificacion({
+              message: "Autorización autorizada para ser Despachada",
+              type: "success"
+            });
+          } else {
+            this.notificacion({
+              message: "Problemas al confirmar la autorización",
+              type: "error"
+            });
+          }
         })
         .catch(err => {
           console.log(err);
@@ -611,6 +785,14 @@ export default {
         }
       }
       return inprocess;
+    },
+    archivos_adjuntos() {
+      var nombres = "";
+      this.auta.forEach(el => {
+        nombres += el.DESCRIPCION + ", ";
+      });
+      nombres = nombres.substring(0, nombres.length - 2);
+      return nombres;
     }
   }
 };

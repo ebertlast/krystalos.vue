@@ -25,7 +25,7 @@
           <!-- class="elevation-1" -->
           <v-progress-linear slot="progress" color="grey darken-2" indeterminate></v-progress-linear>
           <template slot="items" slot-scope="props">
-            <td class="text-xs-left" v-for="(item, index) in props.item" :key="index" v-fecha @click="detalles(props.item)" :style="{ cursor: 'pointer'}">
+            <td :class="(props.item && props.item.class) ? props.item.class:'text-xs-left'" v-for="(item, index) in props.item" :key="index" v-fecha @click="detalles(props.item)" :style="{ cursor: 'pointer'}" v-show="index!=='class'">
               {{item}}
             </td>
             <!-- <td>
@@ -102,7 +102,7 @@ export default {
     notifications: false,
     sound: true,
     widgets: false,
-    nuevoRegistro: false
+    nuevoRegistro: false,
   }),
   methods: {
     detalles(fila) {

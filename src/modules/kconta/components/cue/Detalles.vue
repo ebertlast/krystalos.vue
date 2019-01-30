@@ -366,32 +366,34 @@
           </v-card>
         </v-hover>
       </v-flex>
-      <v-flex xs12>
-        <v-tooltip top>
-          <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
-            <v-icon>done_outline</v-icon>
-          </v-btn>
-          <span>Seleccionar</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn slot="activator" color="primary" @click="editarFila" fab small dark>
-            <v-icon>edit</v-icon>
-          </v-btn>
-          <span>Editar</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn slot="activator" color="error" @click="eliminar" fab small dark>
-            <v-icon>delete</v-icon>
-          </v-btn>
-          <span>Eliminar</span>
-        </v-tooltip>
-        <v-tooltip top>
-          <v-btn slot="activator" @click="cancelar" fab small>
-            <v-icon>undo</v-icon>
-          </v-btn>
-          <span>Cancelar</span>
-        </v-tooltip>
-      </v-flex>
+      <v-scroll-y-transition mode="out-in" v-if="!cargando">
+        <v-flex xs12>
+          <v-tooltip top>
+            <v-btn slot="activator" color="warning" @click="seleccionar" fab small dark>
+              <v-icon>done_outline</v-icon>
+            </v-btn>
+            <span>Seleccionar</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <v-btn slot="activator" color="primary" @click="editarFila" fab small dark>
+              <v-icon>edit</v-icon>
+            </v-btn>
+            <span>Editar</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <v-btn slot="activator" color="error" @click="eliminar" fab small dark>
+              <v-icon>delete</v-icon>
+            </v-btn>
+            <span>Eliminar</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <v-btn slot="activator" @click="cancelar" fab small>
+              <v-icon>undo</v-icon>
+            </v-btn>
+            <span>Cancelar</span>
+          </v-tooltip>
+        </v-flex>
+      </v-scroll-y-transition>
     </v-layout>
   </v-container>
 </template>

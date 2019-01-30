@@ -3,8 +3,8 @@
     <v-layout row wrap>
       <v-flex xs3>
         <v-text-field
-          name="COMPANIA"
           label="COMPANIA"
+          name="COMPANIA"
           id="COMPANIA"
           ref="COMPANIA"
           v-model="model.COMPANIA"
@@ -12,13 +12,13 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="CUENTA" label="CUENTA" id="CUENTA" ref="CUENTA" v-model="model.CUENTA"></v-text-field>
+        <v-text-field label="CUENTA" name="CUENTA" id="CUENTA" ref="CUENTA" v-model="model.CUENTA"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
         <v-text-field
-          name="NOMCUENTA"
           label="NOMCUENTA"
+          name="NOMCUENTA"
           id="NOMCUENTA"
           ref="NOMCUENTA"
           v-model="model.NOMCUENTA"
@@ -26,13 +26,13 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="TIPO" label="TIPO" id="TIPO" ref="TIPO" v-model="model.TIPO"></v-text-field>
+        <v-text-field label="TIPO" name="TIPO" id="TIPO" ref="TIPO" v-model="model.TIPO"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
         <v-text-field
-          name="NEMONICO"
           label="NEMONICO"
+          name="NEMONICO"
           id="NEMONICO"
           ref="NEMONICO"
           v-model="model.NEMONICO"
@@ -40,13 +40,13 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="CENTRO" label="CENTRO" id="CENTRO" ref="CENTRO" v-model="model.CENTRO"></v-text-field>
+        <v-text-field label="CENTRO" name="CENTRO" id="CENTRO" ref="CENTRO" v-model="model.CENTRO"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
         <v-text-field
-          name="PRODUCTO"
           label="PRODUCTO"
+          name="PRODUCTO"
           id="PRODUCTO"
           ref="PRODUCTO"
           v-model="model.PRODUCTO"
@@ -55,8 +55,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="REFERENCIA"
           label="REFERENCIA"
+          name="REFERENCIA"
           id="REFERENCIA"
           ref="REFERENCIA"
           v-model="model.REFERENCIA"
@@ -65,8 +65,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="TERCERO"
           label="TERCERO"
+          name="TERCERO"
           id="TERCERO"
           ref="TERCERO"
           v-model="model.TERCERO"
@@ -75,8 +75,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="RETENCION"
           label="RETENCION"
+          name="RETENCION"
           id="RETENCION"
           ref="RETENCION"
           v-model="model.RETENCION"
@@ -85,8 +85,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CPTORETENCION"
           label="CPTORETENCION"
+          name="CPTORETENCION"
           id="CPTORETENCION"
           ref="CPTORETENCION"
           v-model="model.CPTORETENCION"
@@ -94,17 +94,17 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="AJUSTE" label="AJUSTE" id="AJUSTE" ref="AJUSTE" v-model="model.AJUSTE"></v-text-field>
+        <v-text-field label="AJUSTE" name="AJUSTE" id="AJUSTE" ref="AJUSTE" v-model="model.AJUSTE"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="CIERRE" label="CIERRE" id="CIERRE" ref="CIERRE" v-model="model.CIERRE"></v-text-field>
+        <v-text-field label="CIERRE" name="CIERRE" id="CIERRE" ref="CIERRE" v-model="model.CIERRE"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
         <v-text-field
-          name="CUENTAFISCAL"
           label="CUENTAFISCAL"
+          name="CUENTAFISCAL"
           id="CUENTAFISCAL"
           ref="CUENTAFISCAL"
           v-model="model.CUENTAFISCAL"
@@ -113,8 +113,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="IMPUESTO"
           label="IMPUESTO"
+          name="IMPUESTO"
           id="IMPUESTO"
           ref="IMPUESTO"
           v-model="model.IMPUESTO"
@@ -122,17 +122,17 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="ESTADO" label="ESTADO" id="ESTADO" ref="ESTADO" v-model="model.ESTADO"></v-text-field>
+        <v-text-field label="ESTADO" name="ESTADO" id="ESTADO" ref="ESTADO" v-model="model.ESTADO"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="NIVEL" label="NIVEL" id="NIVEL" ref="NIVEL" v-model="model.NIVEL"></v-text-field>
+        <v-text-field label="NIVEL" name="NIVEL" id="NIVEL" ref="NIVEL" v-model="model.NIVEL"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
         <v-text-field
-          name="CUENTA_SUMA"
           label="CUENTA_SUMA"
+          name="CUENTA_SUMA"
           id="CUENTA_SUMA"
           ref="CUENTA_SUMA"
           v-model="model.CUENTA_SUMA"
@@ -140,17 +140,17 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="CLASE" label="CLASE" id="CLASE" ref="CLASE" v-model="model.CLASE"></v-text-field>
+        <v-text-field label="CLASE" name="CLASE" id="CLASE" ref="CLASE" v-model="model.CLASE"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="RUBRO" label="RUBRO" id="RUBRO" ref="RUBRO" v-model="model.RUBRO"></v-text-field>
+        <v-text-field label="RUBRO" name="RUBRO" id="RUBRO" ref="RUBRO" v-model="model.RUBRO"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
         <v-text-field
-          name="TIPOTESORERO"
           label="TIPOTESORERO"
+          name="TIPOTESORERO"
           id="TIPOTESORERO"
           ref="TIPOTESORERO"
           v-model="model.TIPOTESORERO"
@@ -158,13 +158,13 @@
       </v-flex>
 
       <v-flex xs3>
-        <v-text-field name="BANCO" label="BANCO" id="BANCO" ref="BANCO" v-model="model.BANCO"></v-text-field>
+        <v-text-field label="BANCO" name="BANCO" id="BANCO" ref="BANCO" v-model="model.BANCO"></v-text-field>
       </v-flex>
 
       <v-flex xs3>
         <v-text-field
-          name="SUCURSAL"
           label="SUCURSAL"
+          name="SUCURSAL"
           id="SUCURSAL"
           ref="SUCURSAL"
           v-model="model.SUCURSAL"
@@ -173,8 +173,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CTA_BCO"
           label="CTA_BCO"
+          name="CTA_BCO"
           id="CTA_BCO"
           ref="CTA_BCO"
           v-model="model.CTA_BCO"
@@ -183,8 +183,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CODCAJA"
           label="CODCAJA"
+          name="CODCAJA"
           id="CODCAJA"
           ref="CODCAJA"
           v-model="model.CODCAJA"
@@ -193,8 +193,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="DETALLEXTERCERO"
           label="DETALLEXTERCERO"
+          name="DETALLEXTERCERO"
           id="DETALLEXTERCERO"
           ref="DETALLEXTERCERO"
           v-model="model.DETALLEXTERCERO"
@@ -203,8 +203,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="RESPONSABLE"
           label="RESPONSABLE"
+          name="RESPONSABLE"
           id="RESPONSABLE"
           ref="RESPONSABLE"
           v-model="model.RESPONSABLE"
@@ -213,8 +213,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CUENTA_HOMOLOGA"
           label="CUENTA_HOMOLOGA"
+          name="CUENTA_HOMOLOGA"
           id="CUENTA_HOMOLOGA"
           ref="CUENTA_HOMOLOGA"
           v-model="model.CUENTA_HOMOLOGA"
@@ -223,8 +223,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CUENTANIIF"
           label="CUENTANIIF"
+          name="CUENTANIIF"
           id="CUENTANIIF"
           ref="CUENTANIIF"
           v-model="model.CUENTANIIF"
@@ -233,8 +233,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CONCEPTOEXO"
           label="CONCEPTOEXO"
+          name="CONCEPTOEXO"
           id="CONCEPTOEXO"
           ref="CONCEPTOEXO"
           v-model="model.CONCEPTOEXO"
@@ -243,8 +243,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="FORMATOEXO"
           label="FORMATOEXO"
+          name="FORMATOEXO"
           id="FORMATOEXO"
           ref="FORMATOEXO"
           v-model="model.FORMATOEXO"
@@ -253,8 +253,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="NODEDUCIBLE"
           label="NODEDUCIBLE"
+          name="NODEDUCIBLE"
           id="NODEDUCIBLE"
           ref="NODEDUCIBLE"
           v-model="model.NODEDUCIBLE"
@@ -263,8 +263,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="ASUMIDA_PRACTICADA"
           label="ASUMIDA_PRACTICADA"
+          name="ASUMIDA_PRACTICADA"
           id="ASUMIDA_PRACTICADA"
           ref="ASUMIDA_PRACTICADA"
           v-model="model.ASUMIDA_PRACTICADA"
@@ -273,8 +273,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CTACIERRECOSTOS"
           label="CTACIERRECOSTOS"
+          name="CTACIERRECOSTOS"
           id="CTACIERRECOSTOS"
           ref="CTACIERRECOSTOS"
           v-model="model.CTACIERRECOSTOS"
@@ -283,8 +283,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CTACREDITOCOSTOS"
           label="CTACREDITOCOSTOS"
+          name="CTACREDITOCOSTOS"
           id="CTACREDITOCOSTOS"
           ref="CTACREDITOCOSTOS"
           v-model="model.CTACREDITOCOSTOS"
@@ -293,8 +293,8 @@
 
       <v-flex xs3>
         <v-text-field
-          name="CORRIENTE"
           label="CORRIENTE"
+          name="CORRIENTE"
           id="CORRIENTE"
           ref="CORRIENTE"
           v-model="model.CORRIENTE"
@@ -361,6 +361,50 @@ export default {
   methods: {
     guardar() {
       this.$emit("guardar", this.model);
+      this.model = this.model_limpio;
+    }
+  },
+  computed: {
+    model_limpio() {
+      var model = {
+        COMPANIA: undefined,
+        CUENTA: undefined,
+        NOMCUENTA: undefined,
+        TIPO: undefined,
+        NEMONICO: undefined,
+        CENTRO: undefined,
+        PRODUCTO: undefined,
+        REFERENCIA: undefined,
+        TERCERO: undefined,
+        RETENCION: undefined,
+        CPTORETENCION: undefined,
+        AJUSTE: undefined,
+        CIERRE: undefined,
+        CUENTAFISCAL: undefined,
+        IMPUESTO: undefined,
+        ESTADO: undefined,
+        NIVEL: undefined,
+        CUENTA_SUMA: undefined,
+        CLASE: undefined,
+        RUBRO: undefined,
+        TIPOTESORERO: undefined,
+        BANCO: undefined,
+        SUCURSAL: undefined,
+        CTA_BCO: undefined,
+        CODCAJA: undefined,
+        DETALLEXTERCERO: undefined,
+        RESPONSABLE: undefined,
+        CUENTA_HOMOLOGA: undefined,
+        CUENTANIIF: undefined,
+        CONCEPTOEXO: undefined,
+        FORMATOEXO: undefined,
+        NODEDUCIBLE: undefined,
+        ASUMIDA_PRACTICADA: undefined,
+        CTACIERRECOSTOS: undefined,
+        CTACREDITOCOSTOS: undefined,
+        CORRIENTE: undefined
+      };
+      return model;
     }
   }
 };
