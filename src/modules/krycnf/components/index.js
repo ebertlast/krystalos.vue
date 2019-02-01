@@ -305,6 +305,33 @@ const ZONDetalles = resolve => {
     "krycnf"
   );
 };
+const MPLRegistros = resolve => {
+  require.ensure(
+    ["./mpl/Registros.vue"],
+    () => {
+      resolve(require("./mpl/Registros.vue"));
+    },
+    "krycnf"
+  );
+};
+const MPLFormulario = resolve => {
+  require.ensure(
+    ["./mpl/Formulario.vue"],
+    () => {
+      resolve(require("./mpl/Formulario.vue"));
+    },
+    "krycnf"
+  );
+};
+const MPLDetalles = resolve => {
+  require.ensure(
+    ["./mpl/Detalles.vue"],
+    () => {
+      resolve(require("./mpl/Detalles.vue"));
+    },
+    "krycnf"
+  );
+};
 export default {
-  MEDRegistros, MEDFormulario, MEDDetalles, TERRegistros, TERDetalles, TERFormulario, Marco, AECRegistros, AECDetalles, AECFormulario, TGENDetalles, TGENFormulario, TGENRegistros, OCURegistros, OCUFormulario, OCUDetalles, CATRegistros, CATDetalles, CATFormulario, PAISDetalles, PAISFormulario, PAISRegistros, DEPDetalles, DEPFormulario, DEPRegistros, CIUDetalles, CIUFormulario, CIURegistros, CIUBDetalles, CIUBFormulario, CIUBRegistros, ZONDetalles, ZONFormulario, ZONRegistros
+  MEDRegistros, MEDFormulario, MEDDetalles, TERRegistros, TERDetalles, TERFormulario, Marco, AECRegistros, AECDetalles, AECFormulario, TGENDetalles, TGENFormulario, TGENRegistros, OCURegistros, OCUFormulario, OCUDetalles, CATRegistros, CATDetalles, CATFormulario, PAISDetalles, PAISFormulario, PAISRegistros, DEPDetalles, DEPFormulario, DEPRegistros, CIUDetalles, CIUFormulario, CIURegistros, CIUBDetalles, CIUBFormulario, CIUBRegistros, ZONDetalles, ZONFormulario, ZONRegistros, MPLDetalles, MPLFormulario, MPLRegistros
 };

@@ -35,6 +35,7 @@ export const routes = [
       { path: "ciu", component: components.CIURegistros, name: "ciu" },
       { path: "ciub", component: components.CIUBRegistros, name: "ciub" },
       { path: "zon", component: components.ZONRegistros, name: "zon" },
+      { path: "mpl", component: components.MPLRegistros, name: "mpl" },
     ]
   },
   // { path: "**", redirect: { name: "cartelera" } }

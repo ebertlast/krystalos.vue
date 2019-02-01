@@ -65,7 +65,7 @@
                 <v-flex xs2>
                   <FormTER idcategoria="IPS" @refrescar_registros="actualizarIpss"></FormTER>
                 </v-flex>
-                <v-flex xs10>
+                <v-flex xs10 v-show="false">
                   <v-autocomplete
                     label="Entidad Promotora de Salud (EPS)"
                     :items="epss"
@@ -75,7 +75,7 @@
                     no-data-text="Registro no encontrado"
                   ></v-autocomplete>
                 </v-flex>
-                <v-flex xs2>
+                <v-flex xs2 v-show="false">
                   <FormTER idcategoria="EPS" @refrescar_registros="actualizarEpss"></FormTER>
                 </v-flex>
                 <v-flex xs4>

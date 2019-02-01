@@ -17,6 +17,7 @@ export default {
     this.aut.IDIPS = this.ips.IDTERCERO;
   },
   "aut.IDCONTRATANTE"() {
+    this.aut.IDTERCEROCA = this.aut.IDCONTRATANTE;
     this.actualizarPLNs();
   },
   eps() {

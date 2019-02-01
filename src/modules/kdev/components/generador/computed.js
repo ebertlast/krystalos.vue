@@ -621,10 +621,10 @@ export default {
         .then(res => {
           this.model = res.result.recordset[0];
         })
-        .then(() => {
-          this.cargando = false;
-        })
         .catch(err => {
+          console.log(err);
+        })
+        .then(() => {
           this.cargando = false;
         });
     },

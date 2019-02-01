@@ -300,6 +300,25 @@ export default {
         ]
       },
       {
+        icono: "accessible",
+        texto: "Asistencial",
+        desplegado: false,
+        submenus: [
+          {
+            texto: "Historias Clínicas",
+            icono: "",
+            divisor: true,
+            items: [
+              {
+                texto: "Plantillas de HC",
+                ruta: { name: "mpl" },
+                icono: ""
+              },
+            ]
+          },
+        ]
+      },
+      {
         icono: "headset_mic",
         texto: "Sistemas",
         desplegado: false,
