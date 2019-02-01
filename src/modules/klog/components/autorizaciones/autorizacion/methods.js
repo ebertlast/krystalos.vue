@@ -8,7 +8,7 @@ export default {
   ]),
   submit() {
     this.$validator.validateAll();
-    console.log(this.$validator.validateAll());
+    // console.log(this.$validator.validateAll());
   },
   clear() {
     this.name = "";
@@ -175,7 +175,7 @@ export default {
       aut.FECHAGEN = this.fechayhora(this.fechagen);
 
       var model = JSON.stringify({ aut });
-      console.log("Model: ", model)
+      // console.log("Model: ", model)
       formData.append("json", model);
 
       this.$http.put('aut', formData).then(res => {
@@ -210,10 +210,37 @@ export default {
           // this.servicios = [];
           // this.archivos = [];
           // this.urgencia = false;
-          this.$router.push({ name: "autorizaciones" })
+          // this.$router.push({ name: "autorizaciones" })
+          this.confirmar_autorizacion(aut.IDAUT);
         }
-      }).catch(err => { console.log(err) }).then(() => { this.cargando = false; })
+      }).catch(err => { console.log(err) });//.then(() => { this.cargando = false; })
     }).catch(err => { console.log(err); this.cargando = false; })
+  },
+  confirmar_autorizacion(_idaut) {
+    this.cargando = true;
+    this.$http
+      .get(`aut/confirmar/${_idaut}`)
+      .then(res => {
+        if (res.success) {
+          this.aut.ESTADO = "Autorizada";
+          this.notificacion({
+            message: "Autorización autorizada para ser Despachada",
+            type: "success"
+          });
+          this.$router.push({ name: "autorizaciones" })
+        } else {
+          this.notificacion({
+            message: "Problemas al confirmar la autorización",
+            type: "error"
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .then(() => {
+        this.cargando = false;
+      });
   },
   descartarPalabra(item) {
     this.palabras.splice(this.palabras.indexOf(item), 1);

@@ -601,7 +601,13 @@
             </v-container>
           </template>
 
-          <v-btn color="teal lighten-1" class="white--text" @click="guardar">Finalizar</v-btn>
+          <v-btn
+            color="teal lighten-1"
+            class="white--text"
+            @click="guardar"
+            :loading="cargando"
+            :disabled="cargando"
+          >Finalizar</v-btn>
 
           <v-btn flat @click="e1--">Regresar</v-btn>
         </v-stepper-content>
@@ -809,7 +815,7 @@ export default {
     items_palabras: [],
     dialogComentarios: false,
     servicio_comentario: {},
-    servicios_del_plan:[]
+    servicios_del_plan: []
   }),
   mounted() {
     // this.$validator.localize("es");
