@@ -434,7 +434,7 @@
                   ></v-autocomplete>
                 </v-flex>
 
-                <v-flex xs12 v-show="servicios_del_plan.length>0">
+                <v-flex xs12 v-show="servicios_del_plan.length>0" v-if="false">
                   <v-tooltip top>
                     <div class="text-xs-center" slot="activator">
                       <v-combobox

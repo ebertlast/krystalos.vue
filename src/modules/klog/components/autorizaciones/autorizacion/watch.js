@@ -7,6 +7,7 @@ export default {
   },
   afi() {
     this.aut.IDAFILIADO = this.afi.IDAFILIADO;
+    // this.aut.IDPLAN = this.afi.IDPLAN;
     this.panelAfi = undefined;
   },
   med() {
@@ -31,6 +32,7 @@ export default {
     this.servicios_del_plan = [];
     this.$http.get(`ser/articulos/${this.aut.IDPLAN}`).then(res => {
       this.servicios_del_plan = res.result.recordset;
+      console.log(this.servicios_del_plan.filter(function (el) { return el.CODIGO == 'ART0002635' })[0])
     }).catch(err => { console.log(err); }).then(() => { this.cargando = false; })
   },
   // eps(){
@@ -68,5 +70,8 @@ export default {
   },
   fechagen() {
     // this.aut.FECHAGEN = this.fechayhora(this.fechagen);
-  }
+  },
+  // "aut.IDAFILIADO"() {
+  //   console.log(this.aut.IDAFILIADO);
+  // }
 }

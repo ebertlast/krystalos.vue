@@ -288,11 +288,10 @@ export default {
   methods: {
     guardar() {
       if (this.$refs.form.validate()) {
-        confirmarGuardado();
+        this.confirmarGuardado();
       }
     },
     confirmarGuardado() {
-      return alert("guardar");
       this.$emit("guardar", this.model);
       this.model = this.model_limpio;
     }

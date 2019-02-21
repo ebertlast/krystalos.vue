@@ -1,12 +1,7 @@
 <template>
   <v-app id="inspire">
     <div>
-      <v-progress-linear
-      color="primary"
-      height="2"
-      :indeterminate="true"
-      v-show="cargando"
-    ></v-progress-linear>
+      <v-progress-linear color="primary" height="2" :indeterminate="true" v-show="cargando"></v-progress-linear>
     </div>
     <v-content>
       <v-container fluid fill-height>
@@ -19,7 +14,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                   <v-combobox
+                  <v-combobox
                     v-model="cli"
                     :items="clis"
                     label="Servidor"
@@ -38,13 +33,36 @@
                     ref="compania"
                   ></v-combobox>
                   <v-text-field
-                   prepend-icon="person" name="usuario" label="Usuario" type="text" v-show="cia.COMPANIA!==''" ref="usuario" v-model="usuario" v-on:keypress.enter="ingresar"></v-text-field>
-                  <v-text-field id="clave" prepend-icon="lock" name="clave" label="Contraseña" type="password" v-show="cia.COMPANIA!==''" ref="clave" v-on:keypress.enter="ingresar" v-model="clave"></v-text-field>
+                    prepend-icon="person"
+                    name="usuario"
+                    label="Usuario"
+                    type="text"
+                    v-show="cia.COMPANIA!==''"
+                    ref="usuario"
+                    v-model="usuario"
+                    v-on:keypress.enter="ingresar"
+                  ></v-text-field>
+                  <v-text-field
+                    id="clave"
+                    prepend-icon="lock"
+                    name="clave"
+                    label="Contraseña"
+                    type="password"
+                    v-show="cia.COMPANIA!==''"
+                    ref="clave"
+                    v-on:keypress.enter="ingresar"
+                    v-model="clave"
+                  ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" v-on:click.prevent="ingresar" :loading="cargando" :disabled="cargando || cia.COMPANIA==='' || usuario==='' || clave==='' ">Ingresar</v-btn>
+                <v-btn
+                  color="primary"
+                  v-on:click.prevent="ingresar"
+                  :loading="cargando"
+                  :disabled="cargando || cia.COMPANIA==='' || usuario==='' || clave==='' "
+                >Ingresar</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

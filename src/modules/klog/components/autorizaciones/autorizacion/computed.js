@@ -33,6 +33,21 @@ export default {
   // }
   articulos() {
     var servicios = [];
+    this.servicios_del_plan.forEach(ser => {
+      servicios.push(ser);
+    });
+    for (let i = 0; i < servicios.length; i++) {
+      const servicio = servicios[i];
+      this.servicios.forEach(ser => {
+        if (ser.IDSERVICIO == servicio.CODIGO) {
+          servicios.splice(i, 1);
+        }
+      });
+    }
+    return servicios;
+  },
+  articulos_DEPRECATED() {
+    var servicios = [];
     for (let i = 0; i < this.servicios_del_plan.length; i++) {
       const servicio = this.sers[i];
       var agregar = true;
@@ -42,7 +57,7 @@ export default {
           agregar = false;
         }
       });
-      if (agregar)
+      if (agregar && this.palabras.length > 0 && false) {
         for (let j = 0; j < this.palabras.length; j++) {
           const palabra = this.palabras[j];
           if (agregar) {
@@ -51,6 +66,7 @@ export default {
             }
           }
         }
+      }
       if (agregar) {
         servicios.push(servicio)
       }
