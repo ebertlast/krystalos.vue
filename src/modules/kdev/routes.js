@@ -8,7 +8,9 @@ export const routes = [
     children: [
       { path: "generador", component: components.GeneradorCodigo, name: "generador" },
       { path: "documentacion", component: components.Documentacion, name: "documentacion" },
-      { path: "desarrollo", redirect: { name: "generador" } },
+      { path: "versiones", component: components.VERSIONESRegistros, name: "versiones" },
+      { path: "sqlix", component: components.SQLIXRegistros, name: "sqlix" },
+      { path: "versiones", redirect: { name: "generador" } },
       { path: "", redirect: { name: "generador" } },
       { path: "**", redirect: { name: "generador" } }
     ]

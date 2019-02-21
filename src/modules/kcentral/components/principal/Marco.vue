@@ -214,7 +214,7 @@ export default {
       {
         icon: "beenhere",
         text: "Autorizaciones",
-        route: { name: "klog" },
+        route: { name: "autorizaciones" },
         color: "#0AA8AA",
         class: "white--text",
         description:

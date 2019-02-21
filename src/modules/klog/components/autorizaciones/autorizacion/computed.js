@@ -65,5 +65,10 @@ export default {
     var self = this;
     var DPTO = this.cius.filter(function (el) { return el.CIUDAD == self.ciudad })[0].DPTO;
     return this.deps.filter(function (el) { return el.DPTO == DPTO; })[0].NOMBRE || "";
+  },
+  nombre_ciudad() {
+    if (!this.aut || !this.aut.CIUDAD) return "";
+    const _ciudad = this.ciudad;
+    return this.cius.filter(function (el) { return el.CIUDAD == _ciudad })[0].NOMBRE;
   }
 }

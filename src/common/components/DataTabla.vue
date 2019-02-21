@@ -12,38 +12,58 @@
             single-line
             hide-details
           ></v-text-field>
-        </v-card-title>  
+        </v-card-title>
         <v-data-table
           :headers="columnas"
           :items="filas"
           :search="search"
           :loading="loading"
-          :rows-per-page-items=rows_per_page_items
+          :rows-per-page-items="rows_per_page_items"
           no-data-text="La consulta no ha generado resultados"
           rows-per-page-text="Filas por página:"
-          >
+        >
           <!-- class="elevation-1" -->
           <v-progress-linear slot="progress" color="grey darken-2" indeterminate></v-progress-linear>
+          <template slot="no-data">
+            <v-alert
+              :value="true"
+              color="error"
+              icon="warning"
+            >Lo sentimos, no hay nada que mostrar aquí :(</v-alert>
+          </template>
           <template slot="items" slot-scope="props">
-            <td :class="(props.item && props.item.class) ? props.item.class:'text-xs-left'" v-for="(item, index) in props.item" :key="index" v-fecha @click="detalles(props.item)" :style="{ cursor: 'pointer'}" v-show="index!=='class'">
-              {{item}}
-            </td>
+            <td
+              :class="(props.item && props.item.class) ? props.item.class:'text-xs-left'"
+              v-for="(item, index) in props.item"
+              :key="index"
+              v-fecha
+              @click="detalles(props.item)"
+              :style="{ cursor: 'pointer'}"
+              v-show="index!=='class'"
+            >{{item}}</td>
             <!-- <td>
               <v-btn fab dark small color="grey darken-2" @click="detalles(props.item)">
                 <v-icon dark>details</v-icon>
               </v-btn>
               
-            </td> -->
+            </td>-->
           </template>
-          <v-alert slot="no-results" :value="true" color="error" icon="warning">
-            Su búsqueda de "{{ search }}" no encontró resultados.
-          </v-alert>
-          <template slot="pageText" slot-scope="props">
-            Línea{{(props.itemsLength>1)?"s":""}} {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
-          </template>
+          <v-alert
+            slot="no-results"
+            :value="true"
+            color="error"
+            icon="warning"
+          >Su búsqueda de "{{ search }}" no encontró resultados.</v-alert>
+          <template
+            slot="pageText"
+            slot-scope="props"
+          >Línea{{(props.itemsLength>1)?"s":""}} {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}</template>
           <template slot="footer">
             <td colspan="100%">
-              <v-btn color="success"  @click="dialogFormulario=true; $emit('agregar')">Agregar Registro</v-btn>
+              <v-btn
+                color="success"
+                @click="dialogFormulario=true; $emit('agregar')"
+              >Agregar Registro</v-btn>
             </td>
           </template>
         </v-data-table>
@@ -60,7 +80,12 @@
               <v-toolbar-title>{{titulo}}</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-toolbar-items>
-                <v-btn dark flat @click.native="dialog = false; $emit('cancelar')" v-show="false">Listo</v-btn>
+                <v-btn
+                  dark
+                  flat
+                  @click.native="dialog = false; $emit('cancelar')"
+                  v-show="false"
+                >Listo</v-btn>
               </v-toolbar-items>
             </v-toolbar>
             <slot name="detalles">
@@ -72,16 +97,31 @@
     </v-scroll-y-transition>
     <v-scroll-y-transition mode="out-in">
       <v-layout row justify-center>
-        <v-dialog v-model="dialogFormulario" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-dialog
+          v-model="dialogFormulario"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
           <v-card>
             <v-toolbar dark :color="(color)?color:'grey darken-2'">
-              <v-btn icon dark @click.native="dialogFormulario = false; $emit('cancelar')" v-show="false">
+              <v-btn
+                icon
+                dark
+                @click.native="dialogFormulario = false; $emit('cancelar')"
+                v-show="false"
+              >
                 <v-icon>close</v-icon>
               </v-btn>
               <v-toolbar-title>{{titulo}}</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-toolbar-items>
-                <v-btn dark flat @click.native="dialogFormulario = false; $emit('cancelar')" v-show="false">Listo</v-btn>
+                <v-btn
+                  dark
+                  flat
+                  @click.native="dialogFormulario = false; $emit('cancelar')"
+                  v-show="false"
+                >Listo</v-btn>
               </v-toolbar-items>
             </v-toolbar>
             <slot name="formulario"></slot>
@@ -102,7 +142,7 @@ export default {
     notifications: false,
     sound: true,
     widgets: false,
-    nuevoRegistro: false,
+    nuevoRegistro: false
   }),
   methods: {
     detalles(fila) {

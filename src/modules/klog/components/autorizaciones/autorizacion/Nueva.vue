@@ -325,13 +325,13 @@
                     <v-flex xs4>
                       <v-autocomplete
                         label="Tipo de Atención"
-                        :items="['Ambulatoria', 'Hospitalaria']"
+                        :items="['Control', 'Urgencias']"
                         v-model="aut.ATENCION"
                       ></v-autocomplete>
                     </v-flex>
-                    <v-flex xs2>
+                    <!-- <v-flex xs2>
                       <v-checkbox label="Urgencia" v-model="urgencia"></v-checkbox>
-                    </v-flex>
+                    </v-flex>-->
                     <v-flex xs4 v-if="false">
                       <v-autocomplete
                         label="Departamento Donde Atendieron al Paciente"
@@ -343,7 +343,7 @@
                       ></v-autocomplete>
                     </v-flex>
 
-                    <v-flex xs6>
+                    <v-flex xs8>
                       <v-text-field
                         name="FUNCIONARIO_AUT"
                         label="Nombre del Funcionario que dió la autorización"
@@ -368,6 +368,10 @@
                         :hint="nombre_departamento"
                         persistent-hint
                       ></v-autocomplete>
+                    </v-flex>
+
+                    <v-flex xs6>
+                      <h1 v-text="nombre_departamento"></h1>
                     </v-flex>
                     <v-flex xs12>
                       <v-scroll-y-transition
@@ -604,7 +608,7 @@
           <v-btn
             color="teal lighten-1"
             class="white--text"
-            @click="guardar"
+            @click="dialogConfirmacion = true"
             :loading="cargando"
             :disabled="cargando"
           >Finalizar</v-btn>
@@ -643,6 +647,66 @@
         </v-card>
       </v-dialog>
     </v-layout>
+
+    <template>
+      <v-layout row justify-center>
+        <v-dialog v-model="dialogConfirmacion" persistent max-width="90%">
+          <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
+          <v-card>
+            <v-card-title>
+              <span
+                class="headline"
+              >{{nombre_afi}} ({{afi.TIPO_DOC}}{{afi.DOCIDAFILIADO}}) >> {{aut.DIRECCION}} - {{nombre_ciudad}} - {{nombre_departamento}}</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12>
+                    <v-container grid-list-md text-xs-center>
+                      <v-layout row wrap v-for="(item, index) in servicios" :key="index">
+                        <v-flex xs12>
+                          <v-hover>
+                            <v-card
+                              slot-scope="{ hover }"
+                              :class="`elevation-${hover ? 12 : 2}`"
+                              class="mx-auto"
+                            >
+                              <v-card-title>
+                                <v-badge left>
+                                  <span slot="badge">{{item.CANTIDAD}}</span>
+                                  {{item.DESCSERVICIO}} ({{item.IDSERVICIO}})
+                                </v-badge>
+                              </v-card-title>
+                              <p
+                                class="text-sm-left red--text text--darken-2"
+                                v-text="item.COMENTARIOS"
+                              ></p>
+                            </v-card>
+                          </v-hover>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+              <!-- <small>*{{aut.DIRECCION}} - {{nombre_ciudad}} - {{nombre_departamento}}</small> -->
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click="dialogConfirmacion = false">Cancelar</v-btn>
+              <v-btn
+                color="blue darken-1"
+                flat
+                @click="dialogConfirmacion = false; guardar()"
+              >Confirmar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+    </template>
+  </div>
+</template>
+
   </div>
 </template>
 
@@ -815,7 +879,8 @@ export default {
     items_palabras: [],
     dialogComentarios: false,
     servicio_comentario: {},
-    servicios_del_plan: []
+    servicios_del_plan: [],
+    dialogConfirmacion: false
   }),
   mounted() {
     // this.$validator.localize("es");
