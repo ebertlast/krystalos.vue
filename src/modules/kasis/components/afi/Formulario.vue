@@ -1,138 +1,148 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs1>
-        <v-autocomplete
-          v-model="model.TIPO_DOC"
-          :items="tipoDocumentos"
-          label="Tipo de Documento de Identidad"
-          persistent-hint
-          prepend-icon="mdi-city"
-          item-value="CODIGO"
-          item-text="CODIGO"
-        ></v-autocomplete>
-      </v-flex>
-      <v-flex xs3>
-        <v-autocomplete
-          v-model="model.TIPO_DOC"
-          :items="tipoDocumentos"
-          label="Tipo de Documento de Identidad"
-          persistent-hint
-          prepend-icon="mdi-city"
-          item-value="CODIGO"
-          item-text="DESCRIPCION"
-        ></v-autocomplete>
-      </v-flex>
+  <v-form ref="form" v-model="valid" lazy-validation>
+    <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-flex xs1>
+          <v-autocomplete
+            v-model="model.TIPO_DOC"
+            :items="tipoDocumentos"
+            label="Tipo de Documento de Identidad"
+            persistent-hint
+            prepend-icon="mdi-city"
+            item-value="CODIGO"
+            item-text="CODIGO"
+          ></v-autocomplete>
+        </v-flex>
+        <v-flex xs3>
+          <v-autocomplete
+            v-model="model.TIPO_DOC"
+            :items="tipoDocumentos"
+            label="Tipo de Documento de Identidad"
+            persistent-hint
+            prepend-icon="mdi-city"
+            item-value="CODIGO"
+            item-text="DESCRIPCION"
+            :rules="TIPO_DOCRules"
+            required
+          ></v-autocomplete>
+        </v-flex>
 
-      <v-flex xs2>
-        <v-text-field
-          label="Documento de Identidad"
-          name="DOCIDAFILIADO"
-          id="DOCIDAFILIADO"
-          ref="DOCIDAFILIADO"
-          v-model="model.DOCIDAFILIADO"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs2>
+          <v-text-field
+            label="Documento de Identidad"
+            name="DOCIDAFILIADO"
+            id="DOCIDAFILIADO"
+            ref="DOCIDAFILIADO"
+            v-model="model.DOCIDAFILIADO"
+            :rules="DOCIDAFILIADORules"
+            required
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-radio-group v-model="model.SEXO" row ref="SEXO">
-          <v-radio value="Femenino">
-            <div slot="label">
-              <strong class="pink--text">Femenino</strong>
-            </div>
-          </v-radio>
-          <v-radio value="Masculino">
-            <div slot="label">
-              <strong class="primary--text">Masculino</strong>
-            </div>
-          </v-radio>
-        </v-radio-group>
-      </v-flex>
+        <v-flex xs3>
+          <v-radio-group v-model="model.SEXO" row ref="SEXO">
+            <v-radio value="Femenino">
+              <div slot="label">
+                <strong class="pink--text">Femenino</strong>
+              </div>
+            </v-radio>
+            <v-radio value="Masculino">
+              <div slot="label">
+                <strong class="primary--text">Masculino</strong>
+              </div>
+            </v-radio>
+          </v-radio-group>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="IDAFILIADO"
-          label="Carnet"
-          id="IDAFILIADO"
-          ref="IDAFILIADO"
-          v-model="model.IDAFILIADO"
-          readonly
-          :disabled="!editar"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field
+            name="IDAFILIADO"
+            label="Carnet"
+            id="IDAFILIADO"
+            ref="IDAFILIADO"
+            v-model="model.IDAFILIADO"
+            readonly
+            :disabled="!editar"
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="PNOMBRE"
-          label="Primer Nombre"
-          id="PNOMBRE"
-          ref="PNOMBRE"
-          v-model="model.PNOMBRE"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field
+            name="PNOMBRE"
+            label="Primer Nombre"
+            id="PNOMBRE"
+            ref="PNOMBRE"
+            v-model="model.PNOMBRE"
+            :rules="PNOMBRERules"
+            required
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="SNOMBRE"
-          label="Segundo Nombre"
-          id="SNOMBRE"
-          ref="SNOMBRE"
-          v-model="model.SNOMBRE"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field
+            name="SNOMBRE"
+            label="Segundo Nombre"
+            id="SNOMBRE"
+            ref="SNOMBRE"
+            v-model="model.SNOMBRE"
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="PAPELLIDO"
-          label="Primer Apellido"
-          id="PAPELLIDO"
-          ref="PAPELLIDO"
-          v-model="model.PAPELLIDO"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field
+            name="PAPELLIDO"
+            label="Primer Apellido"
+            id="PAPELLIDO"
+            ref="PAPELLIDO"
+            v-model="model.PAPELLIDO"
+            :rules="PNOMBRERules"
+            required
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="SAPELLIDO"
-          label="Segundo Apellido"
-          id="SAPELLIDO"
-          ref="SAPELLIDO"
-          v-model="model.SAPELLIDO"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field
+            name="SAPELLIDO"
+            label="Segundo Apellido"
+            id="SAPELLIDO"
+            ref="SAPELLIDO"
+            v-model="model.SAPELLIDO"
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field v-model="model.CELULAR" ref="CELULAR" label="Teléfono Celular" mask="phone"></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field v-model="model.CELULAR" ref="CELULAR" label="Teléfono Celular" mask="phone"></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="TELEFONORES"
-          label="Teléfono Domicilio"
-          id="TELEFONORES"
-          ref="TELEFONORES"
-          v-model="model.TELEFONORES"
-          mask="phone"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field
+            name="TELEFONORES"
+            label="Teléfono Domicilio"
+            id="TELEFONORES"
+            ref="TELEFONORES"
+            v-model="model.TELEFONORES"
+            mask="phone"
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs3>
-        <v-text-field
-          name="EMAIL"
-          label="Email"
-          id="EMAIL"
-          ref="EMAIL"
-          v-model="model.EMAIL"
-          type="email"
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs3>
+          <v-text-field
+            name="EMAIL"
+            label="Email"
+            id="EMAIL"
+            ref="EMAIL"
+            v-model="model.EMAIL"
+            type="email"
+          ></v-text-field>
+        </v-flex>
 
-      <v-flex xs12>
-        <v-btn color="success" @click="guardar">Guardar</v-btn>
-        <v-btn @click="$emit('cancelar')">Cancelar</v-btn>
-      </v-flex>
-    </v-layout>
-  </v-container>
+        <v-flex xs12>
+          <v-btn color="success" @click="guardar">Guardar</v-btn>
+          <v-btn @click="$emit('cancelar')">Cancelar</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -246,7 +256,27 @@ export default {
       RAIUSU: undefined,
       USUARIOATIENDE: undefined,
       OBSERVACION: undefined
-    }
+    },
+    PNOMBRERules: [
+      v => !!v || "El primer nombre es Obligatorio",
+      v =>
+        (v && v.length <= 30) || "El nombre debe tener menos de 30 caracteres"
+    ],
+    PAPELLIDORules: [
+      v => !!v || "El primer apellido es Obligatorio",
+      v =>
+        (v && v.length <= 30) || "El apellido debe tener menos de 30 caracteres"
+    ],
+    TIPO_DOCRules: [v => !!v || "El Tipo de Documento es Obligatorio"],
+    DOCIDAFILIADORules: [
+      v => !!v || "Documento de Identificación es Obligatorio",
+      v =>
+        (v && v.length <= 30) ||
+        "El documento de identidad debe tener menos de 20 caracteres",
+      v =>
+        (v && v.length > 4) || "El documento de identidad al menos 4 caracteres"
+    ],
+    valid: true
   }),
   mounted() {
     if (this.fila) {
@@ -257,6 +287,12 @@ export default {
   },
   methods: {
     guardar() {
+      if (this.$refs.form.validate()) {
+        confirmarGuardado();
+      }
+    },
+    confirmarGuardado() {
+      return alert("guardar");
       this.$emit("guardar", this.model);
       this.model = this.model_limpio;
     }
