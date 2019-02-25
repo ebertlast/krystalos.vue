@@ -11,7 +11,8 @@ export default {
     this.panelAfi = undefined;
   },
   med() {
-    this.aut.IDSOLICITANTE = this.med.IDMEDICO;
+    // this.aut.IDSOLICITANTE = this.med.IDMEDICO;
+    this.aut.IDMEDICOSOLICITA = this.med.IDMEDICO;
     this.panelMed = undefined;
   },
   ips() {
@@ -22,7 +23,8 @@ export default {
     this.actualizarPLNs();
   },
   eps() {
-    this.aut.IDTERCEROCA = this.eps;
+    // this.aut.IDTERCEROCA = this.eps;
+    this.aut.IDSOLICITANTE = this.eps;
   },
   // pln() {
   //   this.aut.IDPLAN = this.pln;

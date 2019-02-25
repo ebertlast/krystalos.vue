@@ -16,7 +16,7 @@
         class="white--text"
         color="purple darken-2"
         @click="dialog = true"
-        v-text="`Agregar ${idcategoria}`"
+        v-text="`Agregar ${texto_boton || idcategoria}`"
       ></v-btn>
       <v-card>
         <v-card-title>
@@ -70,7 +70,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  props: ["idcategoria"],
+  props: ["idcategoria", "texto_boton"],
   data: () => ({
     dialog: false,
     cargando: false,

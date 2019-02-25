@@ -265,6 +265,7 @@ export default {
       case 1:
         if (!this.aut.IDAFILIADO || this.aut.IDAFILIADO === '') valido = false;
         if (valido && (!this.aut.IDIPS || this.aut.IDIPS === '')) valido = false;
+        if (valido && (!this.aut.IDSOLICITANTE || this.aut.IDSOLICITANTE === '')) valido = false;
         if (valido && (!this.aut.ORIGEN || this.aut.ORIGEN === '')) valido = false;
         if (valido && (!this.aut.NOAUT || this.aut.NOAUT === '')) valido = false;
         if (valido && (!this.aut.NUMAUTORIZA || this.aut.NUMAUTORIZA === '')) valido = false;
