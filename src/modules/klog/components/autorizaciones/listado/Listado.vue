@@ -252,7 +252,7 @@
                 >
                   <div v-if="inprocess===6">Por Recibir</div>
                   <div v-else-if="inprocess>6">Recibido</div>
-                  <div v-else>Por Entregar</div>
+                  <div v-else>Por Recibir</div>
                 </v-stepper-step>
               </v-stepper-header>
             </v-stepper>
@@ -572,13 +572,13 @@ export default {
         .get("aut")
         .then(res => {
           this.filas = res.result.recordset;
-          this.filas.forEach(fila=>{
-            var _class="";
-            switch(fila.ESTADO.toLowerCase()){
+          this.filas.forEach(fila => {
+            var _class = "";
+            switch (fila.ESTADO.toLowerCase()) {
               case "solicitada":
-                _class="red lighten-4";
+                _class = "red lighten-4";
                 break;
-              case "autorizada": 
+              case "autorizada":
                 _class = "lime lighten-3";
                 break;
               case "alistada": {
@@ -598,14 +598,13 @@ export default {
                 break;
               }
               default:
-                _class="";
-              
+                _class = "";
             }
-            fila.class=`text-xs-left ${_class}`;
-          })
+            fila.class = `text-xs-left ${_class}`;
+          });
           this.columnas = [];
           Object.keys(this.filas[0]).forEach(col => {
-            if(col!=='class')
+            if (col !== "class")
               this.columnas.push({ text: col.replace("_", " "), value: col });
           });
         })

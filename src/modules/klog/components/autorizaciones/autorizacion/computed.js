@@ -86,5 +86,6 @@ export default {
     if (!this.aut || !this.aut.CIUDAD) return "";
     const _ciudad = this.ciudad;
     return this.cius.filter(function (el) { return el.CIUDAD == _ciudad })[0].NOMBRE;
-  }
+  },
+
 }

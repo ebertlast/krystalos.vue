@@ -91,17 +91,17 @@
                 </v-flex>
                 <v-flex xs4>
                   <v-text-field
-                    v-model="aut.NUMAUTORIZA"
-                    ref="NUMAUTORIZA"
                     label="Número de Autorización"
+                    name="NOAUT"
+                    id="NOAUT"
+                    v-model="aut.NOAUT"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs4>
                   <v-text-field
-                    name="NOAUT"
+                    v-model="aut.NUMAUTORIZA"
+                    ref="NUMAUTORIZA"
                     label="Número de Siniestro"
-                    id="NOAUT"
-                    v-model="aut.NOAUT"
                   ></v-text-field>
                 </v-flex>
 
@@ -210,7 +210,12 @@
             </v-container>
           </template>
 
-          <v-btn color="teal lighten-1" @click="e1 = 2" class="white--text">Siguiente</v-btn>
+          <v-btn
+            color="teal lighten-1"
+            @click="e1 = 2"
+            class="white--text"
+            :disabled="!valido(1)"
+          >Datos Específicos</v-btn>
 
           <v-btn flat :to="{name:'autorizaciones'}">Cancelar</v-btn>
         </v-stepper-content>
@@ -374,6 +379,14 @@
                       <h1 v-text="nombre_departamento"></h1>
                     </v-flex>
                     <v-flex xs12>
+                      <v-text-field
+                        name="DIRECCION"
+                        label="Dirección Específica"
+                        id="DIRECCION"
+                        v-model="aut.DIRECCION"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 v-if="false">
                       <v-scroll-y-transition
                         mode="out-in"
                         v-if="aut.DIRECCION && aut.DIRECCION!==''"
@@ -402,7 +415,12 @@
             </v-layout>
           </template>
 
-          <v-btn color="teal lighten-1" @click="e1 = 3" class="white--text">Siguiente</v-btn>
+          <v-btn
+            color="teal lighten-1"
+            @click="e1 = 3"
+            class="white--text"
+            :disabled="!valido(2)"
+          >Solicitud</v-btn>
 
           <v-btn flat @click="e1--">Regresar</v-btn>
         </v-stepper-content>
@@ -576,7 +594,12 @@
             </v-container>
           </template>
 
-          <v-btn color="teal lighten-1" @click="e1 = 4" class="white--text">Siguiente</v-btn>
+          <v-btn
+            color="teal lighten-1"
+            @click="e1 = 4"
+            class="white--text"
+            :disabled="!valido(3)"
+          >Observaciones</v-btn>
 
           <v-btn flat @click="e1--">Regresar</v-btn>
         </v-stepper-content>
