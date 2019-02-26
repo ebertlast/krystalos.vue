@@ -10,6 +10,7 @@ axios.interceptors.request.use(function (config) {
   if (!isAbsoluteURLRegex.test(config.url)) {
     config.url = join(store.getters.api_url, config.url);
   }
+  // console.log("URL en el Store: " + store.getters.api_url)
   console.log(config.url);
   // console.log(store.getters["kseg/ususu"].TOKEN)
   var token = store.getters["kseg/ususu"].TOKEN || null;

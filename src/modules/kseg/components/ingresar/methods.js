@@ -35,7 +35,7 @@ export default {
       RAZONSOCIAL: ""
     };
     this.cargando = true;
-    this.setApiUrl(this.cli.URL_API);
+    // console.log(this.cli.URL_API)
     this.$http(`/cia/`).then(res => {
       this.cias = res.result.recordset;
       this.cargando = false;

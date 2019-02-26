@@ -87,5 +87,12 @@ export default {
     const _ciudad = this.ciudad;
     return this.cius.filter(function (el) { return el.CIUDAD == _ciudad })[0].NOMBRE;
   },
-
+  servicios_organizados() {
+    let servicios = [];
+    for (let i = this.servicios.length; i > 0; i--) {
+      const el = this.servicios[i - 1];
+      servicios.push(el);
+    }
+    return servicios;
+  }
 }

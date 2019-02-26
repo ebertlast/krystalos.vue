@@ -38,7 +38,7 @@
               :key="index"
               v-fecha
               @click="detalles(props.item)"
-              :style="{ cursor: 'pointer'}"
+              :style="{ cursor: 'pointer' }"
               v-show="index!=='class'"
             >{{item}}</td>
             <!-- <td>

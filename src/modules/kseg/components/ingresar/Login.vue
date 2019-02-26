@@ -22,6 +22,7 @@
                     item-text="RAZONSOCIAL"
                     item-value="CLIENTEID"
                     ref="cliente"
+                    class="danger"
                   ></v-combobox>
                   <v-combobox
                     v-model="cia"
@@ -111,6 +112,7 @@ export default {
   },
   watch: {
     cli() {
+      this.setApiUrl(this.cli.URL_API);
       this.consultarCompanias();
       // console.log(this.cias.length);
     }

@@ -230,13 +230,13 @@
               <v-expansion-panel popout v-model="panelMed">
                 <v-expansion-panel-content
                   hide-actions
-                  :class="((aut.IDSOLICITANTE&&aut.IDSOLICITANTE!=='')?'grey':'error') +' lighten-3'"
+                  :class="((aut.IDMEDICOSOLICITA&&aut.IDMEDICOSOLICITA!=='')?'grey':'error') +' lighten-3'"
                 >
                   <v-layout slot="header" align-center row spacer>
                     <v-flex xs4 sm2 md1>
                       <v-avatar slot="activator" size="36px" :tile="true">
                         <img
-                          :src="(!aut.IDSOLICITANTE || aut.IDSOLICITANTE==='')?'/src/assets/images/medical/Chief of Staff 2 Warning.ico':'/src/assets/images/medical/Chief of Staff 2 Check.ico'"
+                          :src="(!aut.IDMEDICOSOLICITA || aut.IDMEDICOSOLICITA==='')?'/src/assets/images/medical/Chief of Staff 2 Warning.ico':'/src/assets/images/medical/Chief of Staff 2 Check.ico'"
                           alt="Avatar"
                         >
                       </v-avatar>
@@ -244,12 +244,12 @@
 
                     <v-flex sm5 md7 hidden-xs-only>
                       <strong
-                        v-html="(aut.IDSOLICITANTE && aut.IDSOLICITANTE!=='')?med.NOMBRE:'Seleccione Médico que Atiende al Paciente'"
+                        v-html="(aut.IDMEDICOSOLICITA && aut.IDMEDICOSOLICITA!=='')?med.NOMBRE:'Seleccione Médico que Atiende al Paciente'"
                       ></strong>
                       <span
-                        v-if="aut.IDSOLICITANTE && aut.IDSOLICITANTE!==''"
+                        v-if="aut.IDMEDICOSOLICITA && aut.IDMEDICOSOLICITA!==''"
                         class="grey--text"
-                      >&nbsp;({{ aut.IDSOLICITANTE }})</span>
+                      >&nbsp;({{ aut.IDMEDICOSOLICITA }})</span>
                     </v-flex>
 
                     <v-flex no-wrap xs5 sm3>
@@ -522,7 +522,7 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-container grid-list-md text-xs-center>
-                    <v-layout row wrap v-for="(item, index) in servicios" :key="index">
+                    <v-layout row wrap v-for="(item, index) in servicios_organizados" :key="index">
                       <v-flex xs11>
                         <v-hover style="cursor:pointer">
                           <v-card

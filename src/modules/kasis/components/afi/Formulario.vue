@@ -11,6 +11,7 @@
             prepend-icon="mdi-city"
             item-value="CODIGO"
             item-text="CODIGO"
+            :loading="consultando_documento"
           ></v-autocomplete>
         </v-flex>
         <v-flex xs3>
@@ -24,6 +25,7 @@
             item-text="DESCRIPCION"
             :rules="TIPO_DOCRules"
             required
+            :loading="consultando_documento"
           ></v-autocomplete>
         </v-flex>
 
@@ -36,6 +38,7 @@
             v-model="model.DOCIDAFILIADO"
             :rules="DOCIDAFILIADORules"
             required
+            :loading="consultando_documento"
           ></v-text-field>
         </v-flex>
 
@@ -276,7 +279,9 @@ export default {
       v =>
         (v && v.length > 4) || "El documento de identidad al menos 4 caracteres"
     ],
-    valid: true
+    valid: true,
+    time_out: undefined,
+    consultando_documento: false
   }),
   mounted() {
     if (this.fila) {
@@ -294,6 +299,55 @@ export default {
     confirmarGuardado() {
       this.$emit("guardar", this.model);
       this.model = this.model_limpio;
+    },
+    validar_existencia_registro() {
+      if (!this.editar) {
+        if (
+          this.model.TIPO_DOC &&
+          this.model.TIPO_DOC !== "" &&
+          this.model.DOCIDAFILIADO &&
+          this.model.DOCIDAFILIADO !== ""
+        ) {
+          clearTimeout(this.time_out);
+          this.time_out = setTimeout(() => {
+            this.consultando_documento = true;
+            this.$http
+              .get(`afi/${this.model.TIPO_DOC}/${this.model.DOCIDAFILIADO}`)
+              .then(res => {
+                console.log(res);
+                if (res.result.recordset.length > 0) {
+                  var DOCIDAFILIADO = this.model.DOCIDAFILIADO;
+                  this.DOCIDAFILIADORules = [
+                    v => !!v || "Documento de Identificación es Obligatorio",
+                    v =>
+                      (v && v.length <= 30) ||
+                      "El documento de identidad debe tener menos de 20 caracteres",
+                    v =>
+                      (v && v.length > 4) ||
+                      "El documento de identidad al menos 4 caracteres",
+                    v => v !== DOCIDAFILIADO || "Documento de Identidad existe"
+                  ];
+                } else {
+                  this.DOCIDAFILIADORules = [
+                    v => !!v || "Documento de Identificación es Obligatorio",
+                    v =>
+                      (v && v.length <= 30) ||
+                      "El documento de identidad debe tener menos de 20 caracteres",
+                    v =>
+                      (v && v.length > 4) ||
+                      "El documento de identidad al menos 4 caracteres"
+                  ];
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              })
+              .then(() => {
+                this.consultando_documento = false;
+              });
+          }, 1000);
+        }
+      }
     }
   },
   computed: {
@@ -407,6 +461,14 @@ export default {
         OBSERVACION: undefined
       };
       return model;
+    }
+  },
+  watch: {
+    "model.TIPO_DOC"() {
+      this.validar_existencia_registro();
+    },
+    "model.DOCIDAFILIADO"() {
+      this.validar_existencia_registro();
     }
   }
 };
