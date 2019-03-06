@@ -37,10 +37,12 @@
               v-for="(item, index) in props.item"
               :key="index"
               v-fecha
-              @click="detalles(props.item)"
+              v-on:dblclick="detalles(props.item)"
               :style="{ cursor: 'pointer' }"
               v-show="index!=='class'"
+              @click="($listeners.seleccionar)?seleccionar(props.item):detalles(props.item)"
             >{{item}}</td>
+            <!-- @click="detalles(props.item)" -->
             <!-- <td>
               <v-btn fab dark small color="grey darken-2" @click="detalles(props.item)">
                 <v-icon dark>details</v-icon>
@@ -74,7 +76,7 @@
         <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card>
             <v-toolbar dark :color="(color)?color:'grey darken-2'">
-              <v-btn icon dark @click.native="dialog = false; $emit('cancelar')" v-show="false">
+              <v-btn icon dark @click.native="dialog = false; $emit('cancelar')">
                 <v-icon>close</v-icon>
               </v-btn>
               <v-toolbar-title>{{titulo}}</v-toolbar-title>
@@ -109,7 +111,6 @@
                 icon
                 dark
                 @click.native="dialogFormulario = false; $emit('cancelar')"
-                v-show="false"
               >
                 <v-icon>close</v-icon>
               </v-btn>
@@ -144,6 +145,11 @@ export default {
     widgets: false,
     nuevoRegistro: false
   }),
+  mounted() {
+    // if (this.$listeners.ebert) {
+    //   alert("");
+    // }
+  },
   methods: {
     detalles(fila) {
       this.$emit("fila", fila);
@@ -152,7 +158,12 @@ export default {
     cerrarDialog() {
       this.dialogFormulario = false;
       this.dialog = false;
-    }
+    },
+    seleccionar(fila) {
+      console.log(fila);
+      this.$emit("seleccionar", fila);
+    },
+    dobleClick() {}
   },
   watch: {
     nuevoRegistro() {

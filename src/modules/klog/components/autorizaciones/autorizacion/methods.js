@@ -131,7 +131,7 @@ export default {
   agregarServicio() {
     if (!this.servicios) { this.servicios = [] }
     var ser = this.ser;
-    console.log(ser)
+    // console.log(ser)
     if (!ser || ser.IDSERVICIO == "" || ser.DESCSERVICIO == "") {
       return this.$refs.IDSERVICIO.focus();
     }
@@ -156,6 +156,10 @@ export default {
   },
   guardar() {
     this.cargando = true;
+    // this.aut.FECHAREALIZACION = this.fechayhora(this.fecharealizacion);
+    // this.aut.FECHASOL = this.fechayhora(this.fechasol);
+    // this.aut.FECHAGEN = this.fechayhora(this.fechagen);
+    // return console.log(this.aut);
     this.$http.get('aut/generarid/').then(res => {
       const aut = this.aut;
       const formData = new FormData();
@@ -173,6 +177,10 @@ export default {
       aut.FECHAREALIZACION = this.fechayhora(this.fecharealizacion);
       aut.FECHASOL = this.fechayhora(this.fechasol);
       aut.FECHAGEN = this.fechayhora(this.fechagen);
+
+      console.log(`aut.FECHAREALIZACION: ${aut.FECHAREALIZACION}`)
+      console.log(`aut.FECHASOL: ${aut.FECHASOL}`)
+      console.log(`aut.FECHAGEN: ${aut.FECHAGEN}`)
 
       var model = JSON.stringify({ aut });
       // console.log("Model: ", model)
@@ -213,7 +221,7 @@ export default {
           // this.$router.push({ name: "autorizaciones" })
           this.confirmar_autorizacion(aut.IDAUT);
         }
-      }).catch(err => { console.log(err) });//.then(() => { this.cargando = false; })
+      }).catch(err => { console.log(err); this.cargando = false; });//.then(() => { this.cargando = false; })
     }).catch(err => { console.log(err); this.cargando = false; })
   },
   confirmar_autorizacion(_idaut) {
@@ -247,7 +255,7 @@ export default {
     this.palabras = [...this.palabras];
   },
   editarComentarios(item) {
-    console.log(item)
+    // console.log(item)
     this.servicio_comentario = item;
     this.dialogComentarios = true;
     var self = this;
@@ -265,15 +273,15 @@ export default {
       case 1:
         if (!this.aut.IDAFILIADO || this.aut.IDAFILIADO === '') valido = false;
         if (valido && (!this.aut.IDIPS || this.aut.IDIPS === '')) valido = false;
-        if (valido && (!this.aut.IDSOLICITANTE || this.aut.IDSOLICITANTE === '')) valido = false;
+        // if (valido && (!this.aut.IDSOLICITANTE || this.aut.IDSOLICITANTE === '')) valido = false;
         if (valido && (!this.aut.ORIGEN || this.aut.ORIGEN === '')) valido = false;
         if (valido && (!this.aut.NOAUT || this.aut.NOAUT === '')) valido = false;
-        if (valido && (!this.aut.NUMAUTORIZA || this.aut.NUMAUTORIZA === '')) valido = false;
+        // if (valido && (!this.aut.NUMAUTORIZA || this.aut.NUMAUTORIZA === '')) valido = false;
         if (valido && this.archivos.length <= 0) valido = false;
         break;
       case 2:
         //   !' || !aut.DIRECCION || aut.DIRECCION === ''
-        if (!this.aut.IDSOLICITANTE || this.aut.IDSOLICITANTE == '') valido = false;
+        // if (!this.aut.IDSOLICITANTE || this.aut.IDSOLICITANTE == '') valido = false;
         if (valido && (!this.aut.IDIPS || this.aut.IDIPS === '')) valido = false;
         if (valido && (!this.fecharealizacion || this.fecharealizacion == '')) valido = false;
         if (valido && (!this.fechasol || this.fechasol == '')) valido = false;

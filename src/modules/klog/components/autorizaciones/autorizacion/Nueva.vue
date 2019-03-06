@@ -34,7 +34,9 @@
 
                   <div class="title" v-else>
                     <v-icon color="success">check</v-icon>
-                    <font color="success">{{nombre_afi}} ({{afi.TIPO_DOC}} {{afi.DOCIDAFILIADO}})</font>
+                    <font
+                      color="success"
+                    >{{nombre_afi}} ({{afi.TIPO_DOC}} {{afi.DOCIDAFILIADO||afi.DOCUMENTO}})</font>
                   </div>
                 </div>
                 <v-card>
@@ -683,7 +685,7 @@
             <v-card-title>
               <span
                 class="headline"
-              >{{nombre_afi}} ({{afi.TIPO_DOC}}{{afi.DOCIDAFILIADO}}) >> {{aut.DIRECCION}} - {{nombre_ciudad}} - {{nombre_departamento}}</span>
+              >{{nombre_afi}} ({{afi.TIPO_DOC}}{{afi.DOCIDAFILIADO||afi.DOCUMENTO}}) >> {{aut.DIRECCION}} - {{nombre_ciudad}} - {{nombre_departamento}}</span>
             </v-card-title>
             <v-card-text>
               <v-container grid-list-md>

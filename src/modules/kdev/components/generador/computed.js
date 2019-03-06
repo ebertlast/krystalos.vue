@@ -364,6 +364,7 @@ export default {
     @fila="fila=$event;"
     titulo="${this.Tabla}"
     ref="tabla"
+    @seleccionar="seleccionar($event)"
   >
     <template slot="detalles">
       <v-scroll-y-transition mode="out-in">

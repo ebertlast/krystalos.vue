@@ -14,6 +14,27 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
+                  <v-text-field
+                    prepend-icon="person"
+                    name="usuario"
+                    label="Usuario"
+                    type="text"
+                    ref="usuario"
+                    v-model="usuario"
+                    v-on:keypress.enter="ingresar"
+                  ></v-text-field>
+                  <!-- v-show="cia.COMPANIA!==''" -->
+                  <!-- v-show="cia.COMPANIA!==''" -->
+                  <v-text-field
+                    id="clave"
+                    prepend-icon="lock"
+                    name="clave"
+                    label="Contraseña"
+                    type="password"
+                    ref="clave"
+                    v-on:keypress.enter="ingresar"
+                    v-model="clave"
+                  ></v-text-field>
                   <v-combobox
                     v-model="cli"
                     :items="clis"
@@ -33,27 +54,7 @@
                     item-VALUE="COMPANIA"
                     ref="compania"
                   ></v-combobox>
-                  <v-text-field
-                    prepend-icon="person"
-                    name="usuario"
-                    label="Usuario"
-                    type="text"
-                    v-show="cia.COMPANIA!==''"
-                    ref="usuario"
-                    v-model="usuario"
-                    v-on:keypress.enter="ingresar"
-                  ></v-text-field>
-                  <v-text-field
-                    id="clave"
-                    prepend-icon="lock"
-                    name="clave"
-                    label="Contraseña"
-                    type="password"
-                    v-show="cia.COMPANIA!==''"
-                    ref="clave"
-                    v-on:keypress.enter="ingresar"
-                    v-model="clave"
-                  ></v-text-field>
+                  
                 </v-form>
               </v-card-text>
               <v-card-actions>

@@ -25,7 +25,7 @@ export default {
   fechayhora: state => _fecha => {
     _fecha = _fecha.replace("/", "").replace(" ", "").replace(":", "");
     _fecha = _fecha.replace("/", "").replace(" ", "").replace(":", "");
-    console.log("Fecha: ", _fecha)
+    // console.log("Fecha: ", _fecha)
     // var [fecha, hora] = _fecha.split(" ")
     // var [dia, mes, anio] = fecha.split("/");
     // var [horas, minutos] = hora.split(":");
@@ -35,8 +35,14 @@ export default {
     var horas = _fecha.substr(8, 2);
     var minutos = _fecha.substr(10, 2);
 
-    console.log(anio, mes, dia, horas, minutos)
-    return new Date(anio, mes, dia, horas, minutos, 0, 0);
+    // console.log(`Día: ${dia}`)
+    // console.log(`Mes: ${mes}`)
+    // console.log(`Año: ${anio}`)
+    // console.log(`Horas: ${horas}`)
+    // console.log(`Minutos: ${minutos}`)
+
+    // console.log(anio, mes, dia, horas, minutos)
+    return new Date(anio * 1, mes * 1 - 1, dia * 1, horas * 1, minutos * 1, 0, 0);
   },
 
   edad: state => _fecha => {

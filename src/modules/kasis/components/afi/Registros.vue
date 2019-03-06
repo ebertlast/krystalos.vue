@@ -6,6 +6,7 @@
     @fila="fila=$event;"
     titulo="Afiliados"
     ref="tabla"
+    @seleccionar="seleccionar($event)"
   >
     <template slot="detalles">
       <v-scroll-y-transition mode="out-in">

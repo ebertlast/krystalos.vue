@@ -16,6 +16,15 @@ const Autorizaciones = resolve => {
     "klog"
   );
 };
+const Timeline = resolve => {
+  require.ensure(
+    ["./autorizaciones/listado/Timeline.vue"],
+    () => {
+      resolve(require("./autorizaciones/listado/Timeline.vue"));
+    },
+    "klog"
+  );
+};
 const Nueva = resolve => {
   require.ensure(
     ["./autorizaciones/autorizacion/Nueva.vue"],
@@ -54,5 +63,5 @@ const AUTA_BOTDetalles = resolve => {
 };
 
 export default {
-  Marco, Autorizaciones, Nueva, AUTA_BOTRegistros, AUTA_BOTFormulario, AUTA_BOTDetalles
+  Marco, Autorizaciones, Nueva, AUTA_BOTRegistros, AUTA_BOTFormulario, AUTA_BOTDetalles, Timeline
 };
