@@ -1,1 +1,5 @@
-export default {}
+export default {
+  setAutEditar: ({ commit }, payload) => {
+    commit("setAutEditar", payload);
+  },
+}

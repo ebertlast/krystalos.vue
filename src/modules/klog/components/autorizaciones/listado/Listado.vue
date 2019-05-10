@@ -23,6 +23,29 @@
                   <v-flex xs12 v-if="aut_completa">
                     <timeline :autorizacion="aut_completa"></timeline>
                   </v-flex>
+                  <v-flex xs12>
+                    <v-btn
+                      dark
+                      large
+                      color="red"
+                      v-if="aut && aut.ESTADO==='Solicitada'"
+                      @click="dialogNoProcesar=true"
+                    >
+                      <!-- <v-icon dark>edit</v-icon> -->
+                      No Procesar
+                    </v-btn>
+                    <!-- fab -->
+                    <v-btn
+                      dark
+                      large
+                      color="cyan"
+                      v-if="aut && aut.ESTADO==='Solicitada'"
+                      @click="editarSolicitud"
+                    >
+                      EDITAR
+                      <!-- <v-icon dark>edit</v-icon> -->
+                    </v-btn>
+                  </v-flex>
                 </v-layout>
               </v-container>
             </template>
@@ -30,6 +53,21 @@
         </tabla>
       </v-flex>
     </v-layout>
+    <template>
+      <v-layout row justify-center>
+        <v-dialog v-model="dialogNoProcesar" persistent max-width="500">
+          <v-card>
+            <v-card-title class="headline">¿Confirma que desea anular ésta autorización?</v-card-title>
+            <v-card-text>Se actualizará el estado de ésta autorización a Negada.</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" flat @click="dialogNoProcesar = false">Cancelar</v-btn>
+              <v-btn color="green darken-1" flat @click="noProcesar">Aceptar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+    </template>
   </v-container>
 </template>
 
@@ -203,14 +241,16 @@ export default {
     ciu: {},
     dep: {},
     ciub: {},
-    confirmar: false
+    confirmar: false,
+    dialogNoProcesar: false
   }),
   mounted() {
     this.actualizarListado();
   },
   methods: {
-    ...mapActions(["setAlert", "notificacion"]),
+    ...mapActions(["setAlert", "notificacion", "setAutEditar"]),
     ...mapActions("kasis", ["setAfi"]),
+    // ...mapActions("klog", ["setAutEditar"]),
     actualizarListado() {
       this.cargando_tabla = true;
       this.filas = [];
@@ -233,7 +273,7 @@ export default {
                 break;
               }
               case "despachada": {
-                _class = "blue-grey lighten-3";
+                _class = "blue-grey lighten-5";
                 break;
               }
               case "entregada": {
@@ -279,7 +319,7 @@ export default {
       //   .replace("/", "\\")
       // url=`${this.ususu.URL_API}public/JOGERAV2/ComprobantePSE20180731065515.pdf`
 
-      console.log(url);
+      // console.log(url);
       window.open(url);
       return;
       alert("");
@@ -333,6 +373,30 @@ export default {
         .then(() => {
           this.cargando = false;
         });
+    },
+    editarSolicitud() {
+      this.$refs.tabla.cerrarDialog();
+      this.setAutEditar(this.aut_completa);
+      this.$router.push({ name: "autorizacion_add" });
+    },
+    noProcesar() {
+      this.dialogNoProcesar = false;
+      this.cargando = true;
+      this.$http
+        .post(`aut/no_procesar/${this.aut.IDAUT}`)
+        .then(res => {
+          if (res.success) {
+            // console.log(res);
+            this.actualizarListado();
+            this.$refs.tabla.cerrarDialog();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .then(() => {
+          this.cargando = false;
+        });
     }
   },
   components: {
@@ -343,14 +407,27 @@ export default {
     fila() {
       // console.log(this.fila);
       this.cargando = true;
-      this.afi.PNOMBRE = "";
+      if (this.afi) {
+        this.afi.PNOMBRE = "";
+      }
       this.aut = undefined;
       this.aut_completa = undefined;
+      this.auta = undefined;
+      this.autd = undefined;
+      this.ips = undefined;
+      this.eps = undefined;
+      this.ciu = undefined;
+      this.dep = undefined;
+      this.afi = undefined;
+      this.ciub = undefined;
+      this.setAutEditar(undefined);
       this.$http
         .get(`aut/completa/${this.fila.IDAUT}`)
         .then(res => {
           var aut = res.result;
           // console.log(aut);
+          // this.$refs.tabla.cerrarDialog();
+          // return;
           this.aut_completa = aut;
           this.aut = aut.AUT;
           this.auta = aut.AUTA;
@@ -430,6 +507,10 @@ export default {
         }
         case "RECIBIDO": {
           inprocess = 7; // Por Devolver
+          break;
+        }
+        case "NOPROCESADA": {
+          inprocess = 0; // Por Devolver
           break;
         }
         default: {

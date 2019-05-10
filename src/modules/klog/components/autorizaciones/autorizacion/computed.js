@@ -2,7 +2,7 @@ import { mapGetters } from "vuex";
 export default {
   ...mapGetters("kasis", ["edad_afi"]),
   ...mapGetters("krycnf", ["docXTpo", "mes", "deps", "cius", "mdxs", "sers", "ipss", "epss"]),
-  ...mapGetters(["extensionArchivo", "fechayhora"]),
+  ...mapGetters(["extensionArchivo", "fechayhora", "aut_editar"]),
   nombre_afi() {
     return this.afi.AFILIADO || `${this.afi.PNOMBRE} ${this.afi.SNOMBRE || ""} ${this.afi.PAPELLIDO} ${
       this.afi.SAPELLIDO || ""
@@ -33,6 +33,7 @@ export default {
   // }
   articulos() {
     var servicios = [];
+    // console.log("servicios_del_plan: ", this.servicios_del_plan)
     this.servicios_del_plan.forEach(ser => {
       servicios.push(ser);
     });
@@ -89,6 +90,7 @@ export default {
   },
   servicios_organizados() {
     let servicios = [];
+    // console.log("Servicios: ", this.servicios)
     for (let i = this.servicios.length; i > 0; i--) {
       const el = this.servicios[i - 1];
       servicios.push(el);

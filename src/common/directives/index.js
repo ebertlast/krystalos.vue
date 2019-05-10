@@ -27,7 +27,10 @@ Vue.directive("fecha", {
   bind(el, binding, vnode) {
     var dato = el.innerText.toString().trim();
     if (isNaN(dato) && !isNaN(Date.parse(dato))) {
-      dato = formatDate(new Date(dato), "dd/MM/yyyy HH:mm:ss");
+      const moment = require('moment')
+      // dato = formatDate(new Date(dato), "dd/MM/yyyy HH:mm:ss");
+
+      dato = moment(dato).format("DD/MM/YYYY")
     }
     el.innerText = dato
   }

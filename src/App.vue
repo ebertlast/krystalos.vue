@@ -18,10 +18,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions("kseg", ["initUsusu"])
+    ...mapActions("kseg", ["initUsusu"]),
+    ...mapActions(["setAutEditar"])
   },
   mounted() {
     this.initUsusu();
+    this.setAutEditar(undefined);
   },
   components: {
     Snackbar: components.Snackbar

@@ -51,7 +51,7 @@
           <th colspan="2" align="right">Paciente:</th>
           <td
             colspan="10"
-          >{{afi.TIPO_DOC+afi.DOCIDAFILIADO}} {{afi.PNOMBRE}} {{afi.SNOMBRE}} {{afi.PAPELLIDO}} {{afi.SAPELLIDO}}</td>
+          >{{afi.TIPO_DOC+afi.DOCIDAFILIADO}} {{(afi)?afi.PNOMBRE:""}} {{afi.SNOMBRE}} {{afi.PAPELLIDO}} {{afi.SAPELLIDO}}</td>
         </tr>
         <tr>
           <th colspan="2" align="right">Contactos:</th>

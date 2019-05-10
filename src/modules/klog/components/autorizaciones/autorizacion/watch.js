@@ -3,7 +3,7 @@ export default {
     console.log("IPS's: ", this.ipss);
   },
   epss() {
-    console.log("EPS's: ", this.epss);
+    console.log("Empleadores: ", this.epss);
   },
   afi() {
     this.aut.IDAFILIADO = this.afi.IDAFILIADO;
@@ -34,7 +34,7 @@ export default {
     this.servicios_del_plan = [];
     this.$http.get(`ser/articulos/${this.aut.IDPLAN}`).then(res => {
       this.servicios_del_plan = res.result.recordset;
-      console.log(this.servicios_del_plan.filter(function (el) { return el.CODIGO == 'ART0002635' })[0])
+      // console.log(this.servicios_del_plan.filter(function (el) { return el.CODIGO == 'ART0002635' })[0])
     }).catch(err => { console.log(err); }).then(() => { this.cargando = false; })
   },
   // eps(){
@@ -73,6 +73,13 @@ export default {
   fechagen() {
     // this.aut.FECHAGEN = this.fechayhora(this.fechagen);
   },
+  idcontratante(value) {
+    this.aut.IDCONTRATANTE = value;
+    this.aut.IDTERCEROCA = this.aut.IDCONTRATANTE;
+    this.actualizarPLNs();
+    // alert(value)
+
+  }
   // "aut.IDAFILIADO"() {
   //   console.log(this.aut.IDAFILIADO);
   // }
