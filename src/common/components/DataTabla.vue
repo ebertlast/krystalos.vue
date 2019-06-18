@@ -155,7 +155,7 @@ export default {
   },
   watch: {
     nuevoRegistro() {
-      alert(this.nuevoRegistro);
+      // alert(this.nuevoRegistro);
     }
   }
 };

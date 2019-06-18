@@ -80,13 +80,23 @@ export default {
   nombre_departamento() {
     if (!this.aut || !this.aut.CIUDAD) return "";
     var self = this;
-    var DPTO = this.cius.filter(function (el) { return el.CIUDAD == self.ciudad })[0].DPTO;
-    return this.deps.filter(function (el) { return el.DPTO == DPTO; })[0].NOMBRE || "";
+    var cius = JSON.parse(JSON.stringify(this.cius.filter(function (el) { return el.CIUDAD == self.ciudad })));
+    if (cius.length > 0) {
+      var DPTO = cius[0].DPTO;
+      return this.deps.filter(function (el) { return el.DPTO == DPTO; })[0].NOMBRE || "";
+    } else {
+      return "";
+    }
   },
   nombre_ciudad() {
     if (!this.aut || !this.aut.CIUDAD) return "";
     const _ciudad = this.ciudad;
-    return this.cius.filter(function (el) { return el.CIUDAD == _ciudad })[0].NOMBRE;
+    var cius = this.cius.filter(function (el) { return el.CIUDAD == _ciudad })
+    if (cius.length > 0) {
+      return cius[0].NOMBRE;
+    } else {
+      return "";
+    }
   },
   servicios_organizados() {
     let servicios = [];

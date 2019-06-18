@@ -197,8 +197,20 @@ export default {
     // this.aut.FECHAGEN = this.fechayhora(this.fechagen);
     // return console.log(this.aut);
     if (this.aut_editar === undefined) { // Nueva Autorización
+      const aut = this.aut;
+      if (this.aut.RECORDATORIO !== undefined && this.aut.RECORDATORIO) {
+        if (!this.fechainicio_recordatorio) {
+          this.notificacion({
+            message: "Si marcas el tilde de recordatorio debes rellenar el campo de fecha",
+            type: "error"
+          });
+        } else {
+          aut.FECHAINICIO_RECORDATORIO = this.fechayhora(this.fechainicio_recordatorio);
+        }
+      }
+      // alert(aut.FECHAINICIO_RECORDATORIO)
+
       this.$http.get('aut/generarid/').then(res => {
-        const aut = this.aut;
         const formData = new FormData();
         //#region Agregar Archivos
         aut.ARCHIVOS = [];
@@ -220,7 +232,7 @@ export default {
         // console.log(`aut.FECHAGEN: ${aut.FECHAGEN}`)
 
         var model = JSON.stringify({ aut });
-        // console.log("Model: ", model)
+        // return console.log("Autorización: ", model)
         formData.append("json", model);
 
         this.$http.put('aut', formData).then(res => {
@@ -259,9 +271,12 @@ export default {
             if (_confirmar === true) {
               this.confirmar_autorizacion(aut.IDAUT);
               this.setAutEditar(undefined);
+              // this.limpiar_aut()
             } else {
               this.cargando = false;
               this.setAutEditar(undefined);
+              // this.limpiar_aut()
+              this.e1 = 1;
               this.$router.push({ name: "autorizaciones" })
             }
           }
@@ -316,6 +331,8 @@ export default {
             this.setAutEditar(undefined);
             this.$router.push({ name: "autorizaciones" })
           }
+        } else {
+          this.cargando = false;
         }
       }).catch(err => { console.log(err); this.cargando = false; })
     }
@@ -332,6 +349,7 @@ export default {
             type: "success"
           });
           this.setAutEditar(undefined);
+          this.e1 = 1;
           this.$router.push({ name: "autorizaciones" })
         } else {
           this.notificacion({
@@ -394,7 +412,189 @@ export default {
       default:
         break;
     }
-    // valido = true;
+    valido = true;
     return valido
+  },
+  limpiar_aut() {
+    var self = this;
+    setTimeout(() => {
+
+      self.panelAfi = [false]
+      self.panelMed = [false]
+      self.panelIPS = [false]
+      self.e1 = 1
+      // alert(self.e1)
+      self.cargando = false
+      self.aut = {
+        ORIGEN: "",
+        TIPOAUTORIZACION: "Previa",
+        ALTOCOSTO: "No",
+        ATENCION: "Ambulatoria",
+        URGENCIA: 0,
+        IMPUTABLE_A: "Administradora",
+        ESTADO: "Solicitada",
+        VALORTOTAL: 0,
+        VALORCOPAGO: 0,
+        VALORBENEFICIO: 0,
+        VALOREXEDENTE: 0,
+        VALORTOTALCOSTO: 0,
+        VALORCOPAGOCOSTO: 0,
+        IMPRESO: 0,
+        CLASEORDEN: "Normal",
+        GENEROCAJA: 0,
+        AUTORIZADO: 1,
+        CIUDAD: undefined,
+        FUNCIONARIO_AUT: undefined,
+        FECHAREALIZACION: undefined,
+        FECHASOL: undefined,
+        FECHAGEN: undefined,
+        PEDIDOINV: 0,
+
+        IDAFILIADO: "",
+        AUTORIZADOPOR: "",
+        NUMAUTORIZA: "",
+        DIRECCION: "",
+        RECORDATORIO: false
+      };
+      self.fecharealizacion = undefined;
+      self.fechasol = undefined;
+      self.fechagen = undefined;
+      self.plns = [];
+      self.name = "";
+      self.email = "";
+      self.select = null;
+      // self.items = ["Chat", "Correo", "En Punto", "Llamada", "Otro"];
+      self.checkbox = null;
+      self.urgencia = false;
+      self.dictionary = {
+        attributes: {
+          email: "Correo Electrónico",
+          medio: "Medio de la Solicitud"
+          // custom attributes
+        },
+        custom: {
+          name: {
+            // required: () => "Name can not be empty",
+            max: "The name field may not be greater than 10 characters"
+            // custom messages
+          },
+          select: {
+            required: "Select field is required"
+          }
+        }
+      };
+
+      self.archivos = [];
+      self.nombreArchivo = "";
+      self.archivo = {
+        TIPODOC: ""
+      };
+      self.med = {
+        IDMEDICO: undefined,
+        TIPO_USUARIO: undefined,
+        TIPOVINCULACION: undefined,
+        NOMBRE: undefined,
+        IDEMEDICA: undefined,
+        NO_REGISTRO: undefined,
+        IDMODELO: undefined,
+        DIRECCION: undefined,
+        TELEFONOS: undefined,
+        BEEPER: undefined,
+        CELULAR: undefined,
+        CIUDAD: undefined,
+        AUTORIZACION: undefined,
+        SEL_PROVEED: undefined,
+        MANEJAMSEDES: undefined,
+        NO_CONSULTAS: undefined,
+        IDTERCERO: undefined,
+        EMPLEADO: undefined,
+        TOPEPACIENTES: undefined,
+        PACIENTESASIG: undefined,
+        ESTADO: undefined,
+        IDMODELOPRE: undefined,
+        LUGARATENCION: undefined,
+        IDSEDEATENCION: undefined,
+        DIR_OTRA: undefined,
+        TEL_OTRA: undefined,
+        CIU_OTRA: undefined,
+        TIPO_ID: undefined,
+        PNOMBRE: undefined,
+        SNOMBRE: undefined,
+        PAPELLIDO: undefined,
+        SAPELLIDO: undefined,
+        IDFIRMA: undefined,
+        CLASIFICACION: undefined,
+        NUMACCIONES: undefined,
+        NUMMSDS: undefined,
+        CODCOLEGIO: undefined,
+        TELEFONO: undefined,
+        EMAIL: undefined,
+        ACCIONES: undefined,
+        MINUTOSCAMBIO: undefined
+      };
+      self.afi = {}
+      self.ips = {}
+      self.eps = {}
+      self.pln = {}
+      self.ser = { CANTIDAD: 1 }
+      self.departamento = {}
+      self.ciudad = {};
+      self.messages = [
+        {
+          avatar: "/src/assets/images/medical/Group_Doctors_Check.ico",
+          name: "John Leider",
+          title: "Welcome to Vuetify.js!",
+          excerpt: "Thank you for joining our community..."
+        },
+        {
+          color: "red",
+          icon: "people",
+          name: "Social",
+          new: 1,
+          total: 3,
+          title: "Twitter"
+        },
+        {
+          color: "teal",
+          icon: "local_offer",
+          name: "Promos",
+          new: 2,
+          total: 4,
+          title: "Shop your way",
+          exceprt: "New deals available, Join Today"
+        }
+      ];
+      self.contratantes = [];
+      self.servicios = [];
+      self.dialog_frm_ips = false;
+      self.palabras = [];
+      self.items_palabras = [];
+      self.dialogComentarios = false
+      self.servicio_comentario = {}
+      self.servicios_del_plan = [];
+      self.dialogConfirmacion = false;
+      self.confirmar_autorizacion_al_guardar = true;
+      self.archivos_subidos = [];
+      self.idcontratante = "";
+      self.formvalid = true;
+      self.ruleNOAUT = [];
+      self.validando_autorizacion = false;
+      self.fechainicio_recordatorio = false;
+      self.fechainicio_recordatorio = undefined;
+    }, 300);
+
+  },
+  imprimir(idDiv) {
+    var prtContent = document.getElementById(idDiv);
+    var WinPrint = window.open(
+      "",
+      "",
+      "left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0"
+    );
+    WinPrint.document.write(prtContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
   }
 }

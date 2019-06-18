@@ -62,9 +62,7 @@
       ></v-text-field>
 
       <v-spacer></v-spacer>
-      <h2 @click="$router.push({name:'cambiar_clave'})" style="cursor:pointer;">
-        {{nombreUsuario}}
-      </h2>
+      <h2 @click="$router.push({name:'cambiar_clave'})" style="cursor:pointer;">{{nombreUsuario}}</h2>
       <v-btn icon v-show="false">
         <v-icon>apps</v-icon>
       </v-btn>
@@ -105,6 +103,18 @@
       </v-container>
 
       <v-container grid-list-md text-xs-center>
+        <template>
+          <div v-for="(item, index) in notificaciones" :key="index">
+            <v-alert
+              v-model="item.DISPLAY"
+              dismissible
+              type="error"
+              transition="scale-transition"
+              style="cursor: pointer"
+              @click="descartar_notificacion(item)"
+            >{{item.NOTIFICACION}}</v-alert>
+          </div>
+        </template>
         <v-layout row wrap>
           <v-flex xs4 v-for="(item, index) in menus" :key="index">
             <v-card :color="item.color" :dark="item.dark" :class="item.class">
@@ -174,6 +184,7 @@ import { APPNAME } from "../../../../common/globals";
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
+    alert: true,
     dialog: false,
     drawer: null,
     title: APPNAME,
@@ -323,7 +334,8 @@ export default {
           "Cerrar sesión y salir del Sistema. Acceder a otras instituciones.",
         name: "BSalir"
       }
-    ]
+    ],
+    notificaciones: []
   }),
   mounted() {
     // console.log(this.ususu);
@@ -332,11 +344,38 @@ export default {
     setTimeout(() => {
       self.$refs.texto_filtro.focus();
     }, 1000);
+
+    this.$http
+      .get("ususun/pendientes")
+      .then(res => {
+        var notificaciones = res.result.recordset;
+        notificaciones.forEach(el => {
+          el.DISPLAY = true;
+        });
+        this.notificaciones = notificaciones;
+        console.log("Notificaciones: ", this.notificaciones);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   props: {
     source: String
   },
-  methods: {},
+  methods: {
+    descartar_notificacion(ususun) {
+      this.$http
+        .get(`ususun/leido/${ususun.CNSNOTIFICACION}`)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      ususun.DISPLAY = false;
+    }
+  },
   computed: {
     ...mapGetters("kseg", ["ususu", "nombreUsuario", "nombreGrupo"]),
     menus() {
@@ -375,7 +414,7 @@ export default {
             }
           }
         }
-        
+
         if (menu.name == "BSalir") {
           _push = true;
         }
@@ -385,6 +424,7 @@ export default {
       }
       return _return;
     }
-  }
+  },
+  watch: {}
 };
 </script>

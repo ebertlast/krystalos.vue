@@ -70,6 +70,7 @@
                   <v-icon>cached</v-icon>
                 </v-btn>
                   </v-flex>-->
+                  <!-- TODO Revisar Formulario de Terceros -->
                   <v-flex xs2>
                     <FormTER idcategoria="IPS" @refrescar_registros="actualizarIpss"></FormTER>
                   </v-flex>
@@ -400,13 +401,18 @@
                           item-text="NOMBRE"
                           item-value="CIUDAD"
                           no-data-text="Registro no encontrado"
-                          :hint="nombre_departamento"
+                          :hint="nombre_departamento || ''"
                           persistent-hint
                         ></v-autocomplete>
                       </v-flex>
 
                       <v-flex xs6>
-                        <h1 v-text="nombre_departamento"></h1>
+                        <h1 v-text="nombre_departamento || ''"></h1>
+                      </v-flex>
+                      <v-flex xs2>
+                        <v-btn fab @click="imprimir('datos_impresion')">
+                          <v-icon dark>print</v-icon>
+                        </v-btn>
                       </v-flex>
                       <v-flex xs12>
                         <v-text-field
@@ -416,6 +422,110 @@
                           v-model="aut.DIRECCION"
                         ></v-text-field>
                       </v-flex>
+                      <div id="datos_impresion" v-show="false">
+                        <center>
+                          <table border="0">
+                            <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="left">
+                                <h2><u>REMITE:</u></h2>
+                              </th>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td colspan="20" align="left">
+                                <h2>VIRTUAL FARMA S.A.S</h2>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td colspan="20" align="left">
+                                <h2>NIT: 900789717-3</h2>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td colspan="20" align="left">
+                                <h2>TELEFONO: 7448491</h2>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td colspan="20" align="left">
+                                <h2>DIRECCION: CALLE 62 # 21 – 08</h2>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <td colspan="20" align="left">
+                                <h2>BARRIO: SAN LUIS / BOGOTÁ</h2>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <td colspan="20" align="center">
+                                <h1>FRAGIL Y DELICADO</h1>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <td colspan="20" align="left">
+                                <h2><u>DESTINATARIO:</u></h2>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <th colspan="20" align="left">
+                                <h2>{{afi.AFILIADO}}</h2>
+                              </th>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <th colspan="20" align="left">
+                                <h2>{{afi.TIPO_DOC}} {{afi.DOCUMENTO}}</h2>
+                              </th>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <th colspan="20" align="left">
+                                <h2>TELEFONO(S): {{afi.CELULAR}} {{(!(afi.TELEFONORES==='')&&afi.CELULAR!==afi.TELEFONORES)?` - ${afi.TELEFONORES}`:""}}</h2>
+                              </th>
+                            </tr>
+                            <tr>
+                              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                              <th colspan="20" align="left">
+                                <h2>{{aut.DIRECCION}}</h2>
+                              </th>
+                            </tr>
+                             <tr>
+                              <th colspan="20" align="left">&nbsp;</th>
+                            </tr>
+                            <tr>
+                              <th colspan="20" align="center">
+                                <h1>{{nombre_ciudad}}</h1>
+                              </th>
+                            </tr>
+                          </table>
+                        </center>
+                      </div>
                       <v-flex xs12 v-if="false">
                         <v-scroll-y-transition
                           mode="out-in"
@@ -644,6 +754,37 @@
             <template>
               <v-container grid-list-md text-xs-center>
                 <v-layout row wrap>
+                  <v-flex xs3>
+                    <v-switch color="primary" v-model="aut.RECORDATORIO" :label="`Recordatorio`"></v-switch>
+                  </v-flex>
+                  <v-flex xs3 v-show="aut.RECORDATORIO">
+                    <v-text-field
+                      name="FECHAINICIO_RECORDATORIO"
+                      label="Fecha de Inicio"
+                      id="FECHAINICIO_RECORDATORIO"
+                      v-model="fechainicio_recordatorio"
+                      mask="date"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs3 v-show="aut.RECORDATORIO">
+                    <v-text-field
+                      label="Frecuencia en Días"
+                      name="FRECUENCIA_RECORDATORIO"
+                      id="FRECUENCIA_RECORDATORIO"
+                      v-model="aut.FRECUENCIA_RECORDATORIO"
+                      type="number"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs3 v-show="aut.RECORDATORIO">
+                    <v-text-field
+                      label="Entregas"
+                      name="DURACION_RECORDATORIO"
+                      id="DURACION_RECORDATORIO"
+                      v-model="aut.DURACION_RECORDATORIO"
+                      type="number"
+                    ></v-text-field>
+                  </v-flex>
+
                   <v-flex xs12>
                     <v-textarea
                       name="OBS"
@@ -715,7 +856,7 @@
               <v-card-title>
                 <span
                   class="headline"
-                >{{nombre_afi}} ({{afi.TIPO_DOC}}{{afi.DOCIDAFILIADO||afi.DOCUMENTO}}) >> {{aut.DIRECCION}} - {{nombre_ciudad}} - {{nombre_departamento}}</span>
+                >{{nombre_afi}} ({{afi.TIPO_DOC}}{{afi.DOCIDAFILIADO||afi.DOCUMENTO}}) >> {{aut.DIRECCION}} - {{nombre_ciudad}} - {{nombre_departamento || ''}}</span>
               </v-card-title>
               <v-card-text>
                 <v-container grid-list-md>
@@ -790,179 +931,16 @@ import { default as methods } from "./methods";
 import { default as computed } from "./computed";
 import { default as components } from "./components";
 import { default as watch } from "./watch";
+import { default as data } from "./data";
+
 export default {
   // $_veeValidate: {
   //   validator: "new"
   // },
 
-  data: () => ({
-    panelAfi: [false],
-    panelMed: [false],
-    panelIPS: [false],
-    e1: 1,
-    cargando: false,
-    aut: {
-      ORIGEN: "",
-      // IDSEDE: "01",
-      // IDSEDEORIGEN: "01",
-      TIPOAUTORIZACION: "Previa",
-      ALTOCOSTO: "No",
-      ATENCION: "Ambulatoria",
-      URGENCIA: 0,
-      IMPUTABLE_A: "Administradora",
-      ESTADO: "Solicitada",
-      VALORTOTAL: 0,
-      VALORCOPAGO: 0,
-      VALORBENEFICIO: 0,
-      VALOREXEDENTE: 0,
-      VALORTOTALCOSTO: 0,
-      VALORCOPAGOCOSTO: 0,
-      IMPRESO: 0,
-      CLASEORDEN: "Normal",
-      GENEROCAJA: 0,
-      AUTORIZADO: 1,
-      CIUDAD: undefined,
-      FUNCIONARIO_AUT: undefined,
-      FECHAREALIZACION: undefined,
-      FECHASOL: undefined,
-      FECHAGEN: undefined,
-      PEDIDOINV: 0,
-
-      // -----------------------------
-      IDAFILIADO: "",
-      AUTORIZADOPOR: "",
-      NUMAUTORIZA: "",
-      DIRECCION: ""
-      // USUARIO: ""
-    },
-    fecharealizacion: undefined,
-    fechasol: undefined,
-    fechagen: undefined,
-    // ipss: [],
-    // epss: [],
-    plns: [],
-    name: "",
-    email: "",
-    select: null,
-    items: ["Chat", "Correo", "En Punto", "Llamada", "Otro"],
-    checkbox: null,
-    urgencia: false,
-    dictionary: {
-      attributes: {
-        email: "Correo Electrónico",
-        medio: "Medio de la Solicitud"
-        // custom attributes
-      },
-      custom: {
-        name: {
-          // required: () => "Name can not be empty",
-          max: "The name field may not be greater than 10 characters"
-          // custom messages
-        },
-        select: {
-          required: "Select field is required"
-        }
-      }
-    },
-
-    archivos: [],
-    nombreArchivo: "",
-    archivo: {
-      TIPODOC: ""
-    },
-    med: {
-      IDMEDICO: undefined,
-      TIPO_USUARIO: undefined,
-      TIPOVINCULACION: undefined,
-      NOMBRE: undefined,
-      IDEMEDICA: undefined,
-      NO_REGISTRO: undefined,
-      IDMODELO: undefined,
-      DIRECCION: undefined,
-      TELEFONOS: undefined,
-      BEEPER: undefined,
-      CELULAR: undefined,
-      CIUDAD: undefined,
-      AUTORIZACION: undefined,
-      SEL_PROVEED: undefined,
-      MANEJAMSEDES: undefined,
-      NO_CONSULTAS: undefined,
-      IDTERCERO: undefined,
-      EMPLEADO: undefined,
-      TOPEPACIENTES: undefined,
-      PACIENTESASIG: undefined,
-      ESTADO: undefined,
-      IDMODELOPRE: undefined,
-      LUGARATENCION: undefined,
-      IDSEDEATENCION: undefined,
-      DIR_OTRA: undefined,
-      TEL_OTRA: undefined,
-      CIU_OTRA: undefined,
-      TIPO_ID: undefined,
-      PNOMBRE: undefined,
-      SNOMBRE: undefined,
-      PAPELLIDO: undefined,
-      SAPELLIDO: undefined,
-      IDFIRMA: undefined,
-      CLASIFICACION: undefined,
-      NUMACCIONES: undefined,
-      NUMMSDS: undefined,
-      CODCOLEGIO: undefined,
-      TELEFONO: undefined,
-      EMAIL: undefined,
-      ACCIONES: undefined,
-      MINUTOSCAMBIO: undefined
-    },
-    afi: {},
-    ips: {},
-    eps: {},
-    pln: {},
-    ser: { CANTIDAD: 1 },
-    departamento: {},
-    ciudad: {},
-    messages: [
-      {
-        avatar: "/src/assets/images/medical/Group_Doctors_Check.ico",
-        name: "John Leider",
-        title: "Welcome to Vuetify.js!",
-        excerpt: "Thank you for joining our community..."
-      },
-      {
-        color: "red",
-        icon: "people",
-        name: "Social",
-        new: 1,
-        total: 3,
-        title: "Twitter"
-      },
-      {
-        color: "teal",
-        icon: "local_offer",
-        name: "Promos",
-        new: 2,
-        total: 4,
-        title: "Shop your way",
-        exceprt: "New deals available, Join Today"
-      }
-    ],
-    contratantes: [],
-    lorem:
-      "Lorem ipsum dolor sit amet, at aliquam vivendum vel, everti delicatissimi cu eos. Dico iuvaret debitis mel an, et cum zril menandri. Eum in consul legimus accusam. Ea dico abhorreant duo, quo illum minimum incorrupte no, nostro voluptaria sea eu. Suas eligendi ius at, at nemore equidem est. Sed in error hendrerit, in consul constituam cum.",
-    servicios: [],
-    dialog_frm_ips: false,
-    palabras: [],
-    items_palabras: [],
-    dialogComentarios: false,
-    servicio_comentario: {},
-    servicios_del_plan: [],
-    dialogConfirmacion: false,
-    confirmar_autorizacion_al_guardar: true,
-    archivos_subidos: [],
-    idcontratante: "",
-    formvalid: true,
-    ruleNOAUT: [],
-    validando_autorizacion: false
-  }),
+  data() {
+    return data;
+  },
   mounted() {
     // this.$validator.localize("es");
     // this.$validator.localize("es", this.dictionary);
@@ -1041,6 +1019,8 @@ export default {
       });
       this.aut.OBS = this.aut_editar.AUT.OBS;
       this.aut.OBSDX = this.aut_editar.AUT.OBSDX;
+    } else {
+      this.limpiar_aut();
     }
   },
 

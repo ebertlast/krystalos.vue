@@ -68,6 +68,42 @@
         </v-dialog>
       </v-layout>
     </template>
+    <template>
+      <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs2>
+            <v-card color="red lighten-4">
+              <v-card-text class="px-0 title">Solicitada</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card color="lime lighten-3">
+              <v-card-text class="px-0 title">Autorizada</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card color="light-green lighten-3">
+              <v-card-text class="px-0 title">Alistada</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card color="blue-grey lighten-5">
+              <v-card-text class="px-0 title">Despachada</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card color="green lighten-5">
+              <v-card-text class="px-0 title">Entregada</v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs2>
+            <v-card color="">
+              <v-card-text class="px-0 title">Anulada</v-card-text>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </template>
   </v-container>
 </template>
 
@@ -276,7 +312,7 @@ export default {
                 _class = "blue-grey lighten-5";
                 break;
               }
-              case "entregada": {
+              case "entregado": {
                 _class = "green lighten-5";
                 break;
               }
@@ -439,7 +475,7 @@ export default {
           this.afi = aut.AFI;
           this.ciub = aut.CIUB;
           this.setAfi(this.afi);
-          console.log(this.aut_completa);
+          // console.log(this.aut_completa);
         })
         .catch(err => {
           this.error = true;

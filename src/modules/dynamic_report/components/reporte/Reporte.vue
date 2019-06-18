@@ -1,59 +1,60 @@
 <template>
   <!-- <v-layout justify-center align-center> -->
-    <div>
-      <v-layout justify-center align-center>
-        <h1>{{reporte.Id}}.- {{reporte.Nombre}}</h1>
-      </v-layout>
-      <v-stepper v-model="e6" vertical>
-        <v-stepper-step :complete="e6 > 1" step="1" color="amber">
-          Filtros
-          <small>Elija los filtros de su indicador, si su indicador no posee filtros omita éste paso</small>
-        </v-stepper-step>
+  <div>
+    <v-layout justify-center align-center>
+      <h1>{{reporte.Id}}.- {{reporte.Nombre}}</h1>
+    </v-layout>
+    <v-stepper v-model="e6" vertical>
+      <v-stepper-step :complete="e6 > 1" step="1" color="amber">
+        Filtros
+        <small>Elija los filtros de su indicador, si su indicador no posee filtros omita éste paso</small>
+      </v-stepper-step>
 
-        <v-stepper-content step="1">
-          <v-layout row wrap>
-              <v-flex xs12 sm6 md4 v-for="(par, index) in parametros" :key="index">
-                <alfanumerico v-if="par.UTILIZAQUERY===0 && (par.PARAMETRO_TIPO.trim()==='Alfanumerico' || par.PARAMETRO_TIPO.trim()==='Numerico' )" :parametro="par"></alfanumerico>
-                <!-- <numerico v-if="par.PARAMETRO_TIPO.trim()==='Numerico'"></numerico> -->
-                <fecha :parametro="par" v-if="par.PARAMETRO_TIPO.trim()==='Fecha'"></fecha>
-                <seleccion v-if="par.UTILIZAQUERY===1" :parametro="par"></seleccion>
-              </v-flex>
-              <v-spacer></v-spacer>
-          </v-layout>
+      <v-stepper-content step="1">
+        <v-layout row wrap>
+          <v-flex xs12 sm6 md4 v-for="(par, index) in parametros" :key="index">
+            <alfanumerico
+              v-if="par.UTILIZAQUERY===0 && (par.PARAMETRO_TIPO.trim()==='Alfanumerico' || par.PARAMETRO_TIPO.trim()==='Numerico' )"
+              :parametro="par"
+            ></alfanumerico>
+            <!-- <numerico v-if="par.PARAMETRO_TIPO.trim()==='Numerico'"></numerico> -->
+            <fecha :parametro="par" v-if="par.PARAMETRO_TIPO.trim()==='Fecha'"></fecha>
+            <seleccion v-if="par.UTILIZAQUERY===1" :parametro="par"></seleccion>
+          </v-flex>
+          <v-spacer></v-spacer>
+        </v-layout>
 
-          <v-btn color="amber" @click="e6 = 2;">Siguiente</v-btn>
-          <v-btn flat v-on:click.prevent="$router.go(-1)">Cancelar</v-btn>
-        </v-stepper-content>
+        <v-btn color="amber" @click="e6 = 2;">Siguiente</v-btn>
+        <v-btn flat v-on:click.prevent="$router.go(-1)">Cancelar</v-btn>
+      </v-stepper-content>
 
-        <v-stepper-step :complete="e6 > 2" step="2"  color="amber">Resultados del Indicador</v-stepper-step>
+      <v-stepper-step :complete="e6 > 2" step="2" color="amber">Resultados del Indicador</v-stepper-step>
 
-        <v-stepper-content step="2">
-          
-          <resultados v-if="e6===2"></resultados>
+      <v-stepper-content step="2">
+        <resultados v-if="e6===2"></resultados>
 
-          <v-btn color="amber" @click="e6 = 3">Siguiente</v-btn>
-          <v-btn flat v-on:click.prevent="e6=1">Regresar</v-btn>
-        </v-stepper-content>
+        <v-btn color="amber" @click="e6 = 3">Siguiente</v-btn>
+        <v-btn flat v-on:click.prevent="e6=1">Regresar</v-btn>
+      </v-stepper-content>
 
-        <v-stepper-step :complete="e6 > 3" step="3" color="amber">Exportar Resultados</v-stepper-step>
+      <v-stepper-step :complete="e6 > 3" step="3" color="amber">Exportar Resultados</v-stepper-step>
 
-        <v-stepper-content step="3">
-          <!-- <v-card color="grey lighten-1" class="mb-5 elevation-1" height="80px"> -->
-            <v-btn color="success" @click="exportarExcel">Descargar Excel</v-btn>
+      <v-stepper-content step="3">
+        <!-- <v-card color="grey lighten-1" class="mb-5 elevation-1" height="80px"> -->
+        <v-btn color="success" @click="exportarExcel">Descargar Excel</v-btn>
+        <!-- </v-card> -->
+        <v-btn color="amber" @click="e6 = 1">Volver a Inicio</v-btn>
+        <v-btn flat v-on:click.prevent="e6=2">Regresar</v-btn>
+      </v-stepper-content>
 
-          <!-- </v-card> -->
-          <v-btn color="amber" @click="e6 = 1">Volver a Inicio</v-btn>
-          <v-btn flat v-on:click.prevent="e6=2">Regresar</v-btn>
-        </v-stepper-content>
-
-        <v-stepper-step step="4" v-show="false">View setup instructions</v-stepper-step>
-          <v-stepper-content step="4" v-show="false">
-            <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
-            <v-btn color="amber" @click="e6 = 1">Continue</v-btn>
-            <v-btn flat>Cancel</v-btn>
-          </v-stepper-content>
-        </v-stepper>
-    </div>
+      <v-stepper-step step="4" v-show="false">View setup instructions</v-stepper-step>
+      <v-stepper-content step="4" v-show="false">
+        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <v-btn color="amber" @click="e6 = 1">Continue</v-btn>
+        <v-btn flat>Cancel</v-btn>
+      </v-stepper-content>
+    </v-stepper>
+  </div>
 
   <!-- </v-layout> -->
 </template>
@@ -61,6 +62,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { default as components } from "../";
+
 export default {
   data: () => ({
     e6: 1,
@@ -103,6 +105,30 @@ export default {
     ...mapGetters("dynamic_report", ["reporte", "dataReport"]),
     computedDateFormatted() {
       return this.formatDate(this.date);
+    },
+    json_data() {
+      return [
+        {
+          name: "Tony Peña",
+          city: "New York",
+          country: "United States",
+          birthdate: "1978-03-15",
+          phone: {
+            mobile: "1-541-754-3010",
+            landline: "(541) 754-3010"
+          }
+        },
+        {
+          name: "Thessaloniki",
+          city: "Athens",
+          country: "Greece",
+          birthdate: "1987-11-23",
+          phone: {
+            mobile: "+1 855 275 5071",
+            landline: "(2741) 2621-244"
+          }
+        }
+      ];
     }
   },
   watch: {
@@ -136,7 +162,7 @@ export default {
         })
         .catch(err => {
           console.log(err);
-        })
+        });
     },
     exportarExcel() {
       String.prototype.replaceLatinChar = function() {
@@ -150,68 +176,68 @@ export default {
             str == "á"
               ? "&aacute;"
               : str == "é"
-                ? "&eacute;"
-                : str == "í"
-                  ? "&iacute;"
-                  : str == "ó"
-                    ? "&oacute;"
-                    : str == "ú"
-                      ? "&uacute;"
-                      : str == "ñ"
-                        ? "&ntilde;"
-                        : str;
+              ? "&eacute;"
+              : str == "í"
+              ? "&iacute;"
+              : str == "ó"
+              ? "&oacute;"
+              : str == "ú"
+              ? "&uacute;"
+              : str == "ñ"
+              ? "&ntilde;"
+              : str;
           str =
             str == "Á"
               ? "&Aacute;"
               : str == "É"
-                ? "&Eacute;"
-                : str == "Í"
-                  ? "&Iacute;"
-                  : str == "Ó"
-                    ? "&Oacute;"
-                    : str == "Ú"
-                      ? "&Uacute;"
-                      : str == "Ñ"
-                        ? "&Ntilde;"
-                        : str;
+              ? "&Eacute;"
+              : str == "Í"
+              ? "&Iacute;"
+              : str == "Ó"
+              ? "&Oacute;"
+              : str == "Ú"
+              ? "&Uacute;"
+              : str == "Ñ"
+              ? "&Ntilde;"
+              : str;
           str =
             str == "Á"
               ? "&Aacute;"
               : str == "É"
-                ? "&Eacute;"
-                : str == "Í"
-                  ? "&Iacute;"
-                  : str == "Ó"
-                    ? "&Oacute;"
-                    : str == "Ú"
-                      ? "&Uacute;"
-                      : str == "Ñ"
-                        ? "&Ntilde;"
-                        : str;
+              ? "&Eacute;"
+              : str == "Í"
+              ? "&Iacute;"
+              : str == "Ó"
+              ? "&Oacute;"
+              : str == "Ú"
+              ? "&Uacute;"
+              : str == "Ñ"
+              ? "&Ntilde;"
+              : str;
           str =
             str == "ä"
               ? "&auml;"
               : str == "ë"
-                ? "&euml;"
-                : str == "ï"
-                  ? "&iuml;"
-                  : str == "ö"
-                    ? "&ouml;"
-                    : str == "ü"
-                      ? "&uuml;"
-                      : str;
+              ? "&euml;"
+              : str == "ï"
+              ? "&iuml;"
+              : str == "ö"
+              ? "&ouml;"
+              : str == "ü"
+              ? "&uuml;"
+              : str;
           str =
             str == "Ä"
               ? "&Auml;"
               : str == "Ë"
-                ? "&Euml;"
-                : str == "Ï"
-                  ? "&Iuml;"
-                  : str == "Ö"
-                    ? "&Ouml;"
-                    : str == "Ü"
-                      ? "&Uuml;"
-                      : str;
+              ? "&Euml;"
+              : str == "Ï"
+              ? "&Iuml;"
+              : str == "Ö"
+              ? "&Ouml;"
+              : str == "Ü"
+              ? "&Uuml;"
+              : str;
           return str;
         }));
       };

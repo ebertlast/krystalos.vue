@@ -1,13 +1,17 @@
 export default {
   ipss() {
-    console.log("IPS's: ", this.ipss);
+    // console.log("IPS's: ", this.ipss);
   },
   epss() {
-    console.log("Empleadores: ", this.epss);
+    // console.log("Empleadores: ", this.epss);
   },
   afi() {
     this.aut.IDAFILIADO = this.afi.IDAFILIADO;
     // this.aut.IDPLAN = this.afi.IDPLAN;
+    this.aut.DIRECCION = this.afi.DIRECCION;
+    
+    this.ciudad = this.afi.CIUDAD;
+    // this.aut.CIUDAD = this.afi.CIUDAD;
     this.panelAfi = undefined;
   },
   med() {
@@ -78,7 +82,6 @@ export default {
     this.aut.IDTERCEROCA = this.aut.IDCONTRATANTE;
     this.actualizarPLNs();
     // alert(value)
-
   }
   // "aut.IDAFILIADO"() {
   //   console.log(this.aut.IDAFILIADO);

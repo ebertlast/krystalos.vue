@@ -12,6 +12,23 @@ Vue.directive("focus", {
 //     el.toUpperCase()
 //   }
 // })
+// Vue.directive('uppercase', {
+//   update(el) {
+//     if (el && el.value) {
+//       console.log(el);
+//       el.value = el.value.toUpperCase()
+//     }
+//   },
+// })
+// Vue.directive('uppercase',
+//   {
+//     inserted: function (el, _, vnode) {
+//       el.addEventListener('input', async function (e) {
+//         e.target.value = e.target.value.toUpperCase()
+//         vnode.componentInstance.$emit('input', e.target.value.toUpperCase())
+//       })
+//     }
+//   })
 
 Vue.directive("resaltado", {
   bind(el, binding, vnode) {

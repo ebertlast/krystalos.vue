@@ -1,9 +1,23 @@
-<template>
+  <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on }">
-        <v-btn color="purple darken-2" dark v-on="on" v-text="`${texto_boton || idcategoria}`"></v-btn>
-      </template>
+      <!-- <v-btn
+        slot="activator"
+        color="primary"
+        dark
+        :disabled="dialog"
+        :loading="dialog"
+        v-text="`Agregar ${idcategoria}`"
+      ></v-btn>-->
+        <!-- :disabled="dialog||cargando" -->
+        <!-- :loading="cargando" -->
+      <v-btn
+        slot="activator"
+        class="white--text"
+        color="purple darken-2"
+        @click="dialog = true"
+        v-text="`${texto_boton || idcategoria}`"
+      ></v-btn>
       <v-card>
         <v-card-title>
           <span class="headline" v-text="`Creación de un tercero ${idcategoria}`"></span>
@@ -54,101 +68,99 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   props: ["idcategoria", "texto_boton"],
-  data() {
-    return {
-      dialog: false,
-      cargando: false,
-      model: {
-        IDTERCERO: undefined,
-        RAZONSOCIAL: undefined,
-        NIT: undefined,
-        DV: undefined,
-        TIPO_ID: "NIT",
-        IDALTERNA1: undefined,
-        IDALTERNA2: undefined,
-        DIRECCION: undefined,
-        NATJURIDICA: undefined,
-        CIUDAD: undefined,
-        TELEFONOS: undefined,
-        FAX: undefined,
-        APA: undefined,
-        F_INSCRIPTO: undefined,
-        F_RENOVACION: undefined,
-        F_VENCIMIENT: undefined,
-        R_LEGAL: undefined,
-        TIPO_ID_R: undefined,
-        NIT_R: undefined,
-        ESTADO: undefined,
-        REQAUTORIZA: undefined,
-        CUENTA: undefined,
-        ZONA: undefined,
-        CIA: undefined,
-        ACT_ECONOMICA: undefined,
-        ENVIODICAJA: undefined,
-        MODOCOPAGO: undefined,
-        EMPIDMODELOPC: undefined,
-        DIASVTO: undefined,
-        ESEXTRANJERO: undefined,
-        CLASIFICADOR: undefined,
-        IDGRUPOIMP: undefined,
-        AUTORETENEDOR: undefined,
-        GRANCONTRIBUYENTE: undefined,
-        EMAIL: undefined,
-        URL: undefined,
-        NOMBRES_R_LEGAL: undefined,
-        P_APELLIDO_R_LEGAL: undefined,
-        S_APELLIDO_R_LEGAL: undefined,
-        DE_NIT_R_LEGAL: undefined,
-        IDACTIVIDAD: undefined,
-        TIPOREGIMEN: undefined,
-        MSUCURSALES: undefined,
-        FORMAPRE: undefined,
-        CODIGO_ARP: undefined,
-        NORAD: undefined,
-        TIPOAPORTANTE: undefined,
-        CODOPERADOR: undefined,
-        CODIGO_AFP: undefined,
-        CODIGO_CCF: undefined,
-        ASESOR_AFI: undefined,
-        ASESOR_MTO: undefined,
-        FNAC_RLEGAL: undefined,
-        HOBBIE_RL: undefined,
-        PROF_RL: undefined,
-        EMAIL_RL: undefined,
-        TIPOID_TH: undefined,
-        NID_TH: undefined,
-        DE_NIT_TH: undefined,
-        NOMBRES_TH: undefined,
-        P_APELLIDO_TH: undefined,
-        S_APELLIDO_TH: undefined,
-        FNAC_TH: undefined,
-        HOBBIE_TH: undefined,
-        PROF_TH: undefined,
-        EMAIL_TH: undefined,
-        ITFC: undefined,
-        CNSITFC: undefined,
-        HOMOLOGO: undefined,
-        PNOMBRE: undefined,
-        SNOMBRE: undefined,
-        PAPELLIDO: undefined,
-        SAPELLIDO: undefined,
-        CUE_BANCARIA: undefined,
-        TIPO_CUE: undefined,
-        BANCO: undefined,
-        SUCURSAL: undefined,
-        NIIF_VTAEQUIEFECTIVOS: undefined,
-        MANFACT: undefined,
-        CTAVIGENCIAANTE: undefined,
-        EMAILRECIBOFE: undefined
-      },
-      consultando_idtercero: false,
-      timepoEspera: 0,
-      valido: false
-    };
-  },
+  data: () => ({
+    dialog: false,
+    cargando: false,
+    model: {
+      IDTERCERO: undefined,
+      RAZONSOCIAL: undefined,
+      NIT: undefined,
+      DV: undefined,
+      TIPO_ID: "NIT",
+      IDALTERNA1: undefined,
+      IDALTERNA2: undefined,
+      DIRECCION: undefined,
+      NATJURIDICA: undefined,
+      CIUDAD: undefined,
+      TELEFONOS: undefined,
+      FAX: undefined,
+      APA: undefined,
+      F_INSCRIPTO: undefined,
+      F_RENOVACION: undefined,
+      F_VENCIMIENT: undefined,
+      R_LEGAL: undefined,
+      TIPO_ID_R: undefined,
+      NIT_R: undefined,
+      ESTADO: undefined,
+      REQAUTORIZA: undefined,
+      CUENTA: undefined,
+      ZONA: undefined,
+      CIA: undefined,
+      ACT_ECONOMICA: undefined,
+      ENVIODICAJA: undefined,
+      MODOCOPAGO: undefined,
+      EMPIDMODELOPC: undefined,
+      DIASVTO: undefined,
+      ESEXTRANJERO: undefined,
+      CLASIFICADOR: undefined,
+      IDGRUPOIMP: undefined,
+      AUTORETENEDOR: undefined,
+      GRANCONTRIBUYENTE: undefined,
+      EMAIL: undefined,
+      URL: undefined,
+      NOMBRES_R_LEGAL: undefined,
+      P_APELLIDO_R_LEGAL: undefined,
+      S_APELLIDO_R_LEGAL: undefined,
+      DE_NIT_R_LEGAL: undefined,
+      IDACTIVIDAD: undefined,
+      TIPOREGIMEN: undefined,
+      MSUCURSALES: undefined,
+      FORMAPRE: undefined,
+      CODIGO_ARP: undefined,
+      NORAD: undefined,
+      TIPOAPORTANTE: undefined,
+      CODOPERADOR: undefined,
+      CODIGO_AFP: undefined,
+      CODIGO_CCF: undefined,
+      ASESOR_AFI: undefined,
+      ASESOR_MTO: undefined,
+      FNAC_RLEGAL: undefined,
+      HOBBIE_RL: undefined,
+      PROF_RL: undefined,
+      EMAIL_RL: undefined,
+      TIPOID_TH: undefined,
+      NID_TH: undefined,
+      DE_NIT_TH: undefined,
+      NOMBRES_TH: undefined,
+      P_APELLIDO_TH: undefined,
+      S_APELLIDO_TH: undefined,
+      FNAC_TH: undefined,
+      HOBBIE_TH: undefined,
+      PROF_TH: undefined,
+      EMAIL_TH: undefined,
+      ITFC: undefined,
+      CNSITFC: undefined,
+      HOMOLOGO: undefined,
+      PNOMBRE: undefined,
+      SNOMBRE: undefined,
+      PAPELLIDO: undefined,
+      SAPELLIDO: undefined,
+      CUE_BANCARIA: undefined,
+      TIPO_CUE: undefined,
+      BANCO: undefined,
+      SUCURSAL: undefined,
+      NIIF_VTAEQUIEFECTIVOS: undefined,
+      MANFACT: undefined,
+      CTAVIGENCIAANTE: undefined,
+      EMAILRECIBOFE: undefined
+    },
+    consultando_idtercero: false,
+    timepoEspera: 0,
+    valido: false
+  }),
   computed: {
     model_limpio() {
       return {
@@ -305,7 +317,7 @@ export default {
   },
   watch: {
     dialog(val) {
-      // console.log("Dialog: ", val);
+      console.log("Dialog: ",val)
       if (val) {
         var self = this;
         setTimeout(() => {
@@ -319,3 +331,6 @@ export default {
   }
 };
 </script>
+
+<style>
+</style>
