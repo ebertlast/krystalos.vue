@@ -70,6 +70,15 @@ const EnConstruccion = resolve => {
     "globals"
   );
 };
+const TableServerSide = resolve => {
+  require.ensure(
+    ["./TableServerSide.vue"],
+    () => {
+      resolve(require("./TableServerSide.vue"));
+    },
+    "globals"
+  );
+};
 export default {
-  Snackbar, DataTabla, Alert, Direccionador, Fecha, Pdf, Markdown, EnConstruccion
+  Snackbar, DataTabla, Alert, Direccionador, Fecha, Pdf, Markdown, EnConstruccion, TableServerSide
 };

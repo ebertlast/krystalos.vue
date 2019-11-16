@@ -412,7 +412,7 @@ export default {
       default:
         break;
     }
-    valido = true;
+    // valido = true;
     return valido
   },
   limpiar_aut() {

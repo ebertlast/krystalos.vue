@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
-      <v-flex xs12>
+      <v-flex xs12 v-if="false">
         <tabla
           :columnas="columnas"
           :filas="filas"
@@ -51,6 +51,55 @@
             </template>
           </template>
         </tabla>
+      </v-flex>
+      <v-flex xs12>
+        <TableServerSide :columnas="columnas"
+          :filas="filas"
+          :loading="cargando_tabla"
+          @fila="fila=$event;"
+          titulo="Autorizaciones"
+          ref="tabla"
+          @agregar="$router.push({name:'autorizacion_add'})">
+            <template slot="detalles">
+            <template>
+              <v-container grid-list-md text-xs-center>
+                <v-layout row wrap>
+                  <v-flex xs12 v-show="cargando">
+                    <template>
+                      <v-progress-linear :indeterminate="true" height="2"></v-progress-linear>
+                    </template>
+                  </v-flex>
+                  <v-flex xs12 v-if="aut_completa">
+                    <timeline :autorizacion="aut_completa"></timeline>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-btn
+                      dark
+                      large
+                      color="red"
+                      v-if="aut && aut.ESTADO==='Solicitada'"
+                      @click="dialogNoProcesar=true"
+                    >
+                      <!-- <v-icon dark>edit</v-icon> -->
+                      No Procesar
+                    </v-btn>
+                    <!-- fab -->
+                    <v-btn
+                      dark
+                      large
+                      color="cyan"
+                      v-if="aut && aut.ESTADO==='Solicitada'"
+                      @click="editarSolicitud"
+                    >
+                      EDITAR
+                      <!-- <v-icon dark>edit</v-icon> -->
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </template>
+          </template>
+          </TableServerSide>
       </v-flex>
     </v-layout>
     <template>
@@ -278,7 +327,8 @@ export default {
     dep: {},
     ciub: {},
     confirmar: false,
-    dialogNoProcesar: false
+    dialogNoProcesar: false,
+    // -----------------------------------------------------------------
   }),
   mounted() {
     this.actualizarListado();
@@ -288,6 +338,7 @@ export default {
     ...mapActions("kasis", ["setAfi"]),
     // ...mapActions("klog", ["setAutEditar"]),
     actualizarListado() {
+      return;
       this.cargando_tabla = true;
       this.filas = [];
       this.columnas = [];
@@ -437,7 +488,8 @@ export default {
   },
   components: {
     Tabla: global_components.DataTabla,
-    Timeline: local_components.Timeline
+    Timeline: local_components.Timeline,
+    TableServerSide: global_components.TableServerSide
   },
   watch: {
     fila() {
@@ -475,7 +527,7 @@ export default {
           this.afi = aut.AFI;
           this.ciub = aut.CIUB;
           this.setAfi(this.afi);
-          // console.log(this.aut_completa);
+          console.log(this.aut_completa);
         })
         .catch(err => {
           this.error = true;

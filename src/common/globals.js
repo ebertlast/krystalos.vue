@@ -4,6 +4,7 @@ export const USUARIO_STORAGE = "kR75t4l05";
 // export const URL_API = 'http://192.168.0.100:3000/' // IX Colombia
 // export const URL_API = 'http://192.168.10.212:3000/'
 // export const URL_API = "http://76.74.150.31:3050/";
+// export const URL_API = "http://krystalos.com:9999/";
 export const URL_API = "http://krystalos.com:3050/";
 export const APPNAME = "Krystalos";
 export const COMPANYNAME = "IX Colombia SAS";
