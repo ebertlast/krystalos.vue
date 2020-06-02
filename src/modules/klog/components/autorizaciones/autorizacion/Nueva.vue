@@ -338,6 +338,9 @@
                           id="FECHAREALIZACION"
                           v-model="fecharealizacion"
                           mask="date"
+                          ref="fechaRealizacion"
+                          :loading="validando_fecha_realizacion"
+                          v-on:change="validarFecha('fechaRealizacion')"
                         ></v-text-field>
                       </v-flex>
                       <v-flex xs4>
@@ -347,6 +350,9 @@
                           id="FECHASOL"
                           v-model="fechasol"
                           mask="date"
+                          ref="fechaSol"
+                          :loading="validando_fechasol"
+                          v-on:change="validarFecha('fechaSol')"
                         ></v-text-field>
                       </v-flex>
                       <v-flex xs4>
@@ -356,6 +362,9 @@
                           id="FECHAGEN"
                           v-model="fechagen"
                           mask="date-with-time"
+                          ref="fechagen"
+                          :loading="validando_fechagen"
+                          v-on:change="validarFecha('fechagen')"
                         ></v-text-field>
                       </v-flex>
                       <v-flex xs4>

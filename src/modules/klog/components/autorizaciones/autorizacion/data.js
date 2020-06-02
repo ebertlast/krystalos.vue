@@ -166,6 +166,9 @@ export default {
   formvalid: true,
   ruleNOAUT: [],
   validando_autorizacion: false,
-  fechainicio_recordatorio: undefined
+  fechainicio_recordatorio: undefined,
+  validando_fecha_realizacion: false,
+  validando_fechasol: false,
+  validando_fechagen: false
 
 }

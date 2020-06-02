@@ -187,6 +187,90 @@ export default {
       }
     }
   },
+  validarFecha(componente) {
+    switch (componente) {
+      case "fechaRealizacion":
+        if (this.fecharealizacion.length < 8) {
+          alert("Fecha de Atención es Incorrecta")
+          this.$refs.fechaRealizacion.focus();
+          return;
+        } else {
+          this.validando_fecha_realizacion = true;
+          let d = this.fecharealizacion.substr(0, 2);
+          let m = this.fecharealizacion.substr(2, 2);
+          let a = this.fecharealizacion.substr(4, 4);
+          // console.log(d,m,a)
+          this.$http.get(`aut/validafecha/${a}${m}${d}`).then(res => {
+            if (res.result.recordset.length > 0) {
+              let mayor = res.result.recordset[0].MAYOR;
+              if (mayor > 0) {
+                alert("Fecha de Atención es Incorrecta")
+                this.$refs.fechaRealizacion.focus();
+              }
+              //   const NOAUT = this.aut.NOAUT
+              //   this.ruleNOAUT = [v => v !== NOAUT || "Número de autorización ya diligenciado"];
+            }
+          }).catch(err => { console.log(err) }).then(() => {
+            this.validando_fecha_realizacion = false;
+          }).then(() => {
+            this.validando_fecha_realizacion = false;
+          })
+        }
+        break;
+      case "fechaSol":
+        if (this.fechasol.length < 8) {
+          alert("Fecha de Atención es Incorrecta")
+          this.$refs.fechaSol.focus();
+          return;
+        } else {
+          this.validando_fechasol = true;
+          let d = this.fechasol.substr(0, 2);
+          let m = this.fechasol.substr(2, 2);
+          let a = this.fechasol.substr(4, 4);
+          this.$http.get(`aut/validafecha/${a}${m}${d}`).then(res => {
+            if (res.result.recordset.length > 0) {
+              let mayor = res.result.recordset[0].MAYOR;
+              if (mayor > 0) {
+                alert("Fecha de Autorización es Incorrecta")
+                this.$refs.fechaSol.focus();
+              }
+            }
+          }).catch(err => { console.log(err) }).then(() => {
+            this.validando_fechasol = false;
+          }).then(() => {
+            this.validando_fechasol = false;
+          })
+        }
+        console.log(this.fechasol)
+        break;
+      case "fechagen":
+        if (this.fechagen.length < 8) {
+          alert("Fecha de Recepción es Incorrecta")
+          this.$refs.fechagen.focus();
+          return;
+        } else {
+          this.validando_fechagen = true;
+          let d = this.fechagen.substr(0, 2);
+          let m = this.fechagen.substr(2, 2);
+          let a = this.fechagen.substr(4, 4);
+          this.$http.get(`aut/validafecha/${a}${m}${d}`).then(res => {
+            if (res.result.recordset.length > 0) {
+              let mayor = res.result.recordset[0].MAYOR;
+              if (mayor > 0) {
+                alert("Fecha de Recepción es Incorrecta")
+                this.$refs.fechagen.focus();
+              }
+            }
+          }).catch(err => { console.log(err) }).then(() => {
+            this.validando_fechagen = false;
+          }).then(() => {
+            this.validando_fechagen = false;
+          })
+        }
+        console.log(this.fechagen)
+        break;
+    }
+  },
   guardar(_confirmar) {
     if (!this.$refs.form.validate()) {
       return;

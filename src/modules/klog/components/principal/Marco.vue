@@ -164,11 +164,11 @@ export default {
       //   model: false,
       //   children: [{ icon: "add", text: "Create label" }]
       // },
-      {
-        icon: "attach_file",
-        text: "Archivos",
-        route: { name: "autorizacion_archivos" }
-      },
+      // {
+      //   icon: "attach_file",
+      //   text: "Archivos",
+      //   route: { name: "autorizacion_archivos" }
+      // },
       // {
       //   icon: "keyboard_arrow_up",
       //   "icon-alt": "keyboard_arrow_down",

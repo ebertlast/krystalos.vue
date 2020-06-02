@@ -82,7 +82,7 @@ export default {
     this.aut.IDTERCEROCA = this.aut.IDCONTRATANTE;
     this.actualizarPLNs();
     // alert(value)
-  }
+  },
   // "aut.IDAFILIADO"() {
   //   console.log(this.aut.IDAFILIADO);
   // }
